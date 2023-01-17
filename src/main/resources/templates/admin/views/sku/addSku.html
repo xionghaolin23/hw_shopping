@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>后台添加SkU</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" th:href="@{/static/js/layuiadmin/layui/css/layui.css}" media="all">
+</head>
+<body>
+<div style="padding: 20px">
+    <div>
+        <div>
+            <form class="layui-form" style="text-align: center" lay-filter="test">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">spu</label>
+                    <div class="layui-input-block">
+                        <select name="spuName" lay-filter="spu" id="spu">
+                            <option value="0">选择类型</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- <div class="layui-form-item" style="margin-bottom: 10px;margin-top: 10px">
+                     <label class="layui-form-label">商品名称</label>
+                     <div class="layui-input-block">
+                         <input type="text" name="spuName" lay-verify="required" placeholder="请输入商品名称"
+                                class="layui-input"
+                                 required>
+                     </div>
+                 </div>-->
+                <div class="layui-form-item" style="margin-bottom: 10px;margin-top: 10px">
+                    <label class="layui-form-label">颜色</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="skuColor" lay-verify="skuColor" placeholder="颜色"
+                               class="layui-input"
+                        >
+                    </div>
+                </div>
+                <div class="layui-form-item" style="margin-bottom: 10px;margin-top: 10px">
+                    <label class="layui-form-label">内存</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="skuVersion" lay-verify="skuVersion" placeholder="内存"
+                               class="layui-input"
+                        >
+                    </div>
+                </div>
+                <div class="layui-form-item" style="margin-bottom: 10px;margin-top: 10px">
+                    <label class="layui-form-label">售后服务</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="skuService" lay-verify="skuService" placeholder="售后服务"
+                               class="layui-input"
+                        >
+                    </div>
+                </div>
+                <div class="layui-form-item" style="margin-bottom: 10px;margin-top: 10px">
+                    <label class="layui-form-label">价格</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="skuPrice" lay-verify="required" placeholder="价格"
+                               class="layui-input"
+                               required>
+                    </div>
+                </div>
+                <div class="layui-form-item" style="margin-bottom: 10px;margin-top: 10px">
+                    <label class="layui-form-label">排序</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="skuSort" lay-verify="required" placeholder="排序"
+                               class="layui-input"
+                               required>
+                    </div>
+                </div>
+
+                <div class="layui-form-item" style="margin-bottom: 10px;margin-top: 10px">
+                    <label class="layui-form-label">库存</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="skuStock" lay-verify="required" placeholder="库存"
+                               class="layui-input"
+                               required>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">上架</label>
+                    <div class="layui-input-block" style="width: 10px">
+                        <input type="checkbox" name="skuFlag" lay-skin="switch" lay-text="ON|OFF">
+                    </div>
+                </div>
+                <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+                    <legend>上传多张图片</legend>
+                </fieldset>
+
+                <div class="layui-upload">
+                    <button type="button" class="layui-btn" id="test2">多图片上传</button>
+                    <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                        预览图：
+                        <div class="layui-upload-list" id="demo2"></div>
+                    </blockquote>
+                </div>
+                <div>
+                    <button type="button" class="layui-btn layui-btn-normal" style="width: 250px;
+                        margin-left: 90px" lay-submit lay-filter="spuForm">提交
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script th:src="@{/static/js/layui/layui.js}"></script>
+<script th:src="@{/static/js/jquery-3.4.1.min.js}"></script>
+</body>
+<script>
+    layui.use(['form', 'upload'], function () {
+        var form = layui.form
+            , upload = layui.upload;
+
+        //多图片上传
+        upload.render({
+            elem: '#test2'
+            , url: 'https://httpbin.org/post' //改成您自己的上传接口
+            , multiple: true
+            , before: function (obj) {
+                //预读本地文件示例，不支持ie8
+                obj.preview(function (index, file, result) {
+                    $('#demo2').append('<img src="' + result + '" alt="' + file.name + '" class="layui-upload-img">')
+                });
+            }
+            , done: function (res) {
+                //上传完毕
+            }
+        });
+
+
+        form.on('select(spu)', function (data) {
+            console.log(1)
+            //$('#spu').empty();
+            $.post('spu/selectAllSpu', null, function (data) {
+                var allSpuList = data.allSpu;
+                for (var i = 0; i < allSpuList.length; i++) {
+                    var spuName = allSpuList[i].spuName;
+                    var option = '<option value="' + spuName + '">' + spuName + '</option>'
+                    $('#spu').append(option)
+                    form.render('select', 'test');//需要渲染一下
+                }
+
+            })
+
+        });
+
+        $(function () {
+            form.on('submit(spuForm)', function (data) {
+                console.log(data.elem); //得到checkbox原始DOM对象
+                console.log(data.elem.checked); //是否被选中，true或者false
+                console.log(data.value); //复选框value值，也可以通过data.elem.value得到
+                console.log(data.othis); //得到美化后的DOM对象
+                console.log(data.field); //得到当前表单全部字段
+                console.log(data.form); //得到当前表单全部字段
+                let formData = new FormData(data.form);
+                $.ajax({
+                    url: "/spu/addSpu",
+                    contentType: false,//传递的东西有很多种数据格式的时候 写false
+                    data: formData,
+                    processData: false,
+                    success: function (data) {
+                        if (data.success) {
+                            layer.msg("添加成功！", {
+                                icon: 1,
+                                time: 1000 //显示时间
+                            }, function () {
+                                //先得到当前ifame层得索引
+                                var index = parent.layer.getFrameIndex(window.name);
+                                //关闭弹出层
+                                parent.layer.close(index);
+                                //更新父级页面
+                                parent.location.reload();
+                                //跳转  目前问题 加上这个日期空间选择不了
+                                // parent.location.hre=/login.html；
+                            });
+                        } else {
+                            layer.msg("添加失败")
+                        }
+                    },
+                    type: 'post',
+                })
+            })
+
+        })
+
+    })
+
+</script>
+</html>

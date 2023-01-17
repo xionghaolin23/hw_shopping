@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/static/js/layuiadmin/layui/css/layui.css" media="all">
+</head>
+<body>
+<div th:each="cp:${productAll}">
+    <div th:each="cpp:${cp.productList}">
+        <img class="ver_mid" th:src="${cpp.pimage}">
+    </div>
+</div>
+<script src="/static/js/layui/layui.js"></script>
+<script src="/static/js/layui/layui.all.js"></script>
+<script src="/static/js/jquery-3.4.1.min.js"></script>
+<!--<div class="item_innerBox" th:each="t:${productTypes}">
+    <div class="item_title">
+        <div th:text="${t.typeName}"></div>
+        <a href="product-list.html" th:text="${t.typeName}"></a>
+    </div>
+    <div class="item_tab" th:each="ct:${t.childrenTypes}">
+        <a href="product-list.html"  th:text="${ct.typeName}">荣耀</a>
+    </div>
+</div>
+
+
+<dd class="innerBox1 clearfix" th:each="p:${productTypes}">
+    <div class="shop_item" th:each="cp:${p.childrenTypes}">
+        <a href="product-list.html">
+            <img class="ver_mid" src="/static/img/index/ia_200000012.png">
+            <span class="ver_mid" th:text="${cp.typeName}">荣耀</span>
+        </a>
+    </div>
+</dd>-->
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="/static/css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="/static/css/account-center.css" />
+
+	</head>
+	<body>
+		<div class="topbar">
+			<div class="topbar-content">
+				<div class="right fl">
+					<div class="childLogo">
+						<a href="index.html"><img class="fl" src="/static/img/index/logo.png" style="width: 200px;height: 40px"></a>
+						<span class="short fl">|</span>
+						<span class="text-1 fl">账户中心</span>
+						<div class="clear"></div>
+					</div>
+				</div>
+			
+				<div class="right fr" th:if="${session.loginUser ne null}">
+					<div class="head fl">
+						<img src="/static/img/account-center/ia_100000001.jpg">
+					</div>
+					<a href="account-user-info.html"><span class="name fl" th:text="${session.loginUser.name}">向日葵大班</span></a>
+					<span class="short fl">|</span>
+					<a class="exit fl" th:href="@{/user/loginOut}">退出</a>
+				</div>
+			
+				<div class="clear"></div>
+			</div>
+		</div>
+
+		<div class="account-container">
+			<div class="menu">
+				<ul class="nav fr">
+					<li class="data-menu1 fl">
+						<a href="account-center.html">账户与安全</a>
+					</li>
+			
+					<li class="data-menu1 fl">
+						<a href="account-user-info.html" style="color: rgb(0, 125, 255);" >个人信息</a>
+					</li>
+
+					<div class="clear"></div>
+			
+				</ul>
+				<div class="clear"></div>
+			</div>
+
+
+			<div class="infos-content">
+				<div class="upic">
+					<a href="#" id="uploadImg"><img id="headPic" src="/static/img/account-center/ia_100000001.jpg"></a>
+					<p id="uploadImgDiv">编辑头像</p>
+				</div>
+
+				<div class="umsg" th:if="${session.loginUser ne null}">
+					<p class="title">公开信息</p>
+					<p class="line">
+						<a id="nickNameLink" href="#" class="more">编辑</a>
+						昵称：
+						<span class="uinfo"><label id="nickname" class="space-pre" th:text="${session.loginUser.name}">向日葵大班</label></span>
+					</p>
+
+
+
+					<p class="line">
+						<a id="genderLink" href="#" class="more">选择</a>
+						性别：
+						<span class="uinfo"><label id="gender" th:text="${session.loginUser.gender}">男</label></span>
+					</p>
+
+
+					<p class="line">
+						手机：
+						<span class="uinfo"><label id="cityarea" th:text="${session.loginUser.mobile}">15676374033</label></span>
+					</p>
+
+					<p class="title">非公开信息</p>
+
+
+					<div class="line member_name" th:if="${session.loginUser ne null}">
+						姓名：
+						<span><label id="memberName" th:text="${session.loginUser.name}">xhl</label></span>
+						<a id="memberNameLink" href="#" class="more">编辑</a>
+					</div>
+
+
+
+					<div class="line birthday_set_guide" th:if="${session.loginUser ne null}">
+						生日：
+						<span><label id="birthday" th:text="${session.loginUser.birthday}">未设置</label></span>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+
+
+
+	</body>
+
+	<script type="text/javascript" src="/static/js/jquery-3.4.1.min.js">
+
+	</script>
+	<script src="/static/js/layer/layer.js"></script>
+	<script>
+		$(".data-menu1 a").click(function() {
+			$(this).css("color", "#007dff")
+			$(this).parent().siblings().children().css("color", "#333")
+		})
+		// 昵称
+		$("#nickNameLink").click(function() {
+			layer.open({
+				type: 1,
+				title: ['昵称', 'text-align: center;font-size: 18px;color: #333;padding: 20px 40px;'],
+				skin: 'borderclass', //加上边框
+				area: ['440px', '220px'], //宽高
+				btn: ['确定', '取消'], //按钮
+
+				content: `
+					<div class="test" >
+						<div style="height: 15px;"></div>
+						<div class="message" style="padding: 0 16px;border-radius: 22px;min-height: 30px;background-color: #efefef;">
+							<input placeholder="向日葵大班" style="margin-right: 6px;height: 40px;overflow: hidden;width: 80%;border: 0;background-color: transparent;outline: 0;padding: 0;" type="tel" placeholder="" />
+						</div>
+						<div style="text-align: center; margin:0px auto;" ><div style="height: 15px; width: 100%;"></div>
+						</div>
+					</div>
+				`
+			});
+		})
+
+
+		// 性别
+		$("#genderLink").click(function() {
+			layer.open({
+				type: 1,
+				title: ['性别', 'text-align: center;font-size: 18px;color: #333;padding: 20px 40px;'],
+				skin: 'borderclass', //加上边框
+				area: ['440px', '280px'], //宽高
+				btn: ['确定', '取消'], //按钮
+				content: `
+					<div class="gender">
+						<p class="sex">
+							<span>男</span>
+							 <input type="radio" name="sex" value="1" />
+						</p>
+						<p class="sex">
+							<span>女</span>
+							<input type="radio" name="sex" value="0" checked />
+						</p>	
+					</div>
+				`
+			});
+		})
+
+
+		//姓名
+		$("#memberNameLink").click(function() {
+			layer.open({
+				type: 1,
+				title: ['姓名', 'text-align: center;font-size: 18px;color: #333;padding: 20px 40px;'],
+				skin: 'borderclass', //加上边框
+				area: ['440px', '250px'], //宽高
+				btn: ['确定', '取消'], //按钮
+				content: `
+					<div class="test" >
+						<div style="height: 15px;"></div>
+						<p>设置姓名后，家人和朋友更容易记住您。</p>
+						<div class="message" style="padding: 0 16px;border-radius: 22px;min-height: 40px;background-color: #efefef;">
+							<input class="" style="margin-right: 6px;height: 40px;overflow: hidden;width: 80%;border: 0;background-color: transparent;outline: 0;padding: 0;" type="tel" placeholder="xhl" />
+						</div>
+						<div style="text-align: center; margin:0px auto;" ><div style="height: 15px; width: 100%;"></div>
+						</div>
+						
+					</div>
+				`
+			});
+		})
+	</script>
+	</body>
+</html>

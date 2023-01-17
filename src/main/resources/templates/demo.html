@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>文件上传</title>
+    <link href="/static/js/layui/css/layui.css" rel="stylesheet" type="text/css">
+    <script src="/static/js/layui/layui.js"></script>
+    <script src="/static/js/layui/layui.all.js"></script>
+    <script src="/static/js/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+<form action="product/add" method="post" enctype="multipart/form-data">
+    <div class="layui-upload-drag" id="uploadDemo">
+        <i class="layui-icon"></i>
+        <p>点击上传，或将文件拖拽到此处</p>
+        <div class="layui-hide" id="uploadDemoView">
+            <hr>
+            <img src="" alt="上传成功后渲染" style="max-width: 100%">
+            <input type="file" name="pim" id="pim"  lay-filter="pim" style="display: none">
+        </div>
+    </div>
+</form>
+<!--
+<form action="/upload" method="post" enctype="multipart/form-data">
+<input type="file" name="uploadFile" value="请选择文件">
+<input type="submit" value="上传">
+</form>
+-->
+
+<script>
+
+    layui.use(['form','layer','upload', 'element'], function(){
+        form = layui.form //弹层
+        layer = layui.layer //弹层
+            , upload = layui.upload //上传
+            , element = layui.element //元素操作
+
+        form.on('input(pim)', function(data){
+            console.log(data);
+        });
+
+        //上传
+        upload.render({
+            elem: '#uploadDemo'
+            , multiple: true
+            //,url: 'https://httpbin.org/post' //改成您自己的上传接口
+            ,url: 'product/add'//改成您自己的上传接口
+            ,data:pim
+            ,done: function(res){
+                layer.msg('上传成功');
+                layui.$('#uploadDemoView').removeClass('layui-hide').find('img').attr('src', res.files.file);
+                console.log(res)
+            }
+        });
+
+    })
+
+</script>
+</body>
+</html>

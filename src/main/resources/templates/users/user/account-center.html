@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/reset.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/account-center.css}"/>
+    <link rel="stylesheet"  th:href="@{/static/js/sweetalert/sweetalert.css}" type="text/css"/>
+</head>
+<body>
+<div class="topbar">
+    <div class="topbar-content">
+        <div class="right fl">
+            <div class="childLogo">
+                <a href="index.html"><img class="fl" src="/static/img/index/logo.png" style="width: 200px;height: 40px"></a>
+                <span class="short fl">|</span>
+                <span class="text-1 fl">账户中心</span>
+                <div class="clear"></div>
+            </div>
+        </div>
+
+        <div class="right fr" th:if="${session.loginUser ne null}">
+            <div class="head fl">
+                <img src="/static/img/account-center/ia_100000001.jpg">
+            </div>
+            <a href="account-user-info.html"><span class="name fl" th:text="${session.loginUser.name}">向日葵大班</span></a>
+            <span class="short fl">|</span>
+            <a class="exit fl" href="login.html">退出</a>
+        </div>
+
+        <div class="clear"></div>
+    </div>
+
+</div>
+<div class="account-container">
+    <div class="menu">
+        <ul class="nav fr">
+            <li class="data-menu1 fl">
+                <a href="account-center.html" style="color: rgb(0, 125, 255);">账户与安全</a>
+            </li>
+
+            <li class="data-menu1 fl">
+                <a href="/account-user-info.html">个人信息</a>
+            </li>
+
+            <div class="clear"></div>
+
+        </ul>
+        <div class="clear"></div>
+    </div>
+    <!-- 账号 -->
+    <div class="center-content">
+        <div class="ptitle2 account_column">帐号</div>
+        <div class="uc-account-des">用于登录和验证身份，同时也是您个人信息的一部分。如有更换，请及时更新。</div>
+        <div class="line">
+            <div class="uctb mkcl" th:if="${session.loginUser ne null}">
+                <div class="r fr">
+                    <span class="btn completeInfo">更换</span>
+                </div>
+                <img class="fl" src="/static/img/account-center/ia_100000002.png">
+                <!-- <div class="clear"></div> -->
+                <div class="detail">
+                    <p class="dtop">手机号
+                        <span class="userAcctColor" id="phoneExp_0"
+                              th:text="${session.loginUser.mobile}">15676374033</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="line">
+            <div class="uctb mkcl">
+                <div class="r fr">
+                    <span class="btn completeInfo">更换</span>
+                </div>
+                <img class="fl" src="/static/img/account-center/ia_100000003.png">
+                <!-- <div class="clear"></div> -->
+                <div class="detail" th:if="${session.loginUser ne null}">
+                    <p class="dtop">邮件地址
+                        <!-- <span class="userAcctColor" id="phoneExp_0">15689933381</span> -->
+                        <span th:text="${session.loginUser.email}"></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <!-- 绑定 -->
+    <div class="center-content">
+        <div class="ptitle2 account_column">绑定</div>
+        <div class="line">
+            <div class="uctb mkcl">
+                <div class="r fr">
+                    <span class="btn completeInfo">绑定</span>
+                </div>
+                <img class="fl" src="/static/img/account-center/ia_100000004.png">
+
+                <div class="detail">
+                    <p class="dtop">微信</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="line">
+            <div class="uctb mkcl">
+                <div class="r fr">
+                    <span class="btn completeInfo">绑定</span>
+                </div>
+                <img class="fl" src="/static/img/account-center/ia_100000005.png">
+                <!-- <div class="clear"></div> -->
+                <div class="detail">
+                    <p class="dtop">QQ</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="line">
+            <div class="uctb mkcl">
+                <div class="r fr">
+                    <span class="btn completeInfo">绑定</span>
+                </div>
+                <img class="fl" src="/static/img/account-center/ia_100000006.png">
+                <!-- <div class="clear"></div> -->
+                <div class="detail">
+                    <p class="dtop">微博</p>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <!-- 安全 -->
+    <div class="center-content">
+        <div class="ptitle2 account_column">安全</div>
+        <div class="line">
+            <div class="uctb mkcl">
+                <div class="r fr">
+                    <span class="btn completeInfo">开启</span>
+                </div>
+                <img class="fl" src="/static/img/account-center/ia_100000007.png">
+
+                <div class="detail-security">
+                    <p class="dtop">账号保护</p>
+                    <p>开启后，在非受信任设备或网站上登录，需通过验证码验证身份。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="line">
+            <div class="uctb mkcl">
+                <div class="r fr">
+                    <span class="btn completeInfo">修改</span>
+                </div>
+                <img class="fl" src="/static/img/account-center/ia_100000010.png">
+                <!-- <div class="clear"></div> -->
+                <div class="detail">
+                    <p class="dtop">修改密码</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="line">
+            <div class="uctb mkcl">
+                <div class="r fr">
+                    <span class="btn completeInfo">退出</span>
+                </div>
+                <img class="fl" src="/static/img/account-center/ia_100000011.png">
+
+                <div class="detail-security">
+                    <span class="dtop">从所有浏览器退出</span>
+                    <p>立即退出当前帐号在所有浏览器的登录</p>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+
+
+</div>
+<script type="text/javascript" th:src="@{/static/js/jquery-3.4.1.min.js}"></script>
+<script th:src="@{/static/js/layer/layer.js}"></script>
+<script th:src="@{/static/js/sweetalert/sweetalert.min.js}"></script>
+
+<script>
+    $(".data-menu1 a").click(function () {
+        $(this).css("color", "#007dff")
+        $(this).parent().siblings().children().css("color", "#333")
+    })
+    $(".completeInfo").click(function () {
+        layer.open({
+            skin: 'borderclass', //加上边框
+            type: 1,
+            title: ['身份验证', 'text-align: center;font-size: 18px;color: #333;padding: 20px 40px;'],
+            area: ['450px', '360px'], //宽高
+            btn: ['确认', '取消'], //设置底部按钮
+            content: '<div class="test" style="width: 430px;">' +
+                '<p style="font-size: 14px;color: #666;line-height: 18px; margin:10px 10px 0 10px;">为确认是您本人操作，请进行身份验证。</p>' +
+                '<p style="font-size: 14px;color: #666;margin:10px 10px 8px 10px;">[[${session.loginUser.mobile}]]</p>' +
+                '<div class="message" style="margin:0 6px;padding: 0 16px;border-radius: 22px;min-height: 40px;background-color: #efefef;">' +
+                '<div id="sendMsg"  class="fr" style="line-height: 38px;cursor: pointer;color: #007dff;text-decoration: none;">获取验证码</div>' +
+                '<input class="" id="verifyCode" style="margin-right: 6px;height: 40px;overflow: hidden;width: 82%;border: 0;background-color: transparent;outline: 0;padding: 0;" type="tel" placeholder="短信验证码" /></div>' +
+                '<div class="message"  style="margin:15px 6px;padding: 0 16px;border-radius: 22px;min-height: 40px;background-color: #efefef;">' +
+                '<input type="password" class="" id="password" style="margin-right: 6px;height: 40px;overflow: hidden;width: 82%;border: 0;background-color: transparent;outline: 0;padding: 0;" type="tel" placeholder="新密码" /></div>' +
+                '<div style="text-align: center; margin:0px auto;" ><span style="margin:10px 0 0 0; display: inline-block;">手机号无法使用？</span>' +
+                '<a style="color: #007dff;text-decoration: none;">账户申诉</a></div>' +
+                '</div>',
+            // <div class="fl" style="margin-left: 5px; width:40%;padding: 11.5px;font-size: 15px;display: block;text-align: center;border: 1px solid rgba(0,0,0,0.1);color: #007dff;background-color: #f7f7f7;border-radius: 50px;line-height: 1;cursor: pointer;" class="layer-cancel">取消</div>
+            // <div class="fr" style="margin-right: 5px; width: 40%;padding: 11.5px;font-size: 15px;display: block;text-align: center;border: 1px solid rgba(0,0,0,0.1);color: #007dff;background-color: #f7f7f7;border-radius: 50px;line-height: 1;cursor: pointer;" class="layer-cancel">确定</div>
+            yes: function (index, layero) {
+                //获取验证码
+                var verifyCode = $("#verifyCode").val();
+                var mobile = [[${session.loginUser.mobile}]];
+                var password = $("#password").val();
+                $.ajax({
+                    url: '/user/updatePwd',
+                    data: {
+                        verifyCode: verifyCode,
+                        mobile: mobile,
+                        password: password
+                    },
+                    type: 'post',
+                    dataType:'json',
+                    success: function (res) {
+                        if(res.success){
+                            swal({
+                                icon: 'success',
+                                text: res.msg,
+
+                            })
+
+                        }else if (res.fail==false) {
+                            swal({
+                                icon: 'error',
+                                text: res.msg,
+
+                            })
+                        }
+                    },error: function (data) {
+                        swal({
+                            icon: 'error',
+                            text: "网络错误",
+
+                        })
+                    }
+                });
+                layer.closeAll();
+                return false;
+            }
+        });
+
+        $("#sendMsg").click(function () {
+            $.ajax({
+                url: '/user/sendSms/' + [[${session.loginUser.mobile}]],
+                type: 'get',
+                dataType: 'json',
+                success: function (res) {
+                    if (res.success) {
+                        layer.msg("短信发送成功", {
+                            icon: 1,
+                            time: 3000
+                        });
+                    } else {
+                        layer.msg("短信发送失败", {
+                            icon: 5,
+                            time: 3000
+                        });
+                    }
+                }
+            })
+        })
+
+    })
+
+
+</script>
+</body>
+</html>

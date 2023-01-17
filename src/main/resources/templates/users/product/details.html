@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" th:href="@{/static/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/static/css/details.css}">
+    <link rel="stylesheet"  th:href="@{/static/js/layui/css/layui.css}" type="text/css"/>
+    <link rel="stylesheet"  th:href="@{/static/js/sweetalert/sweetalert.css}" type="text/css"/>
+</head>
+
+<body>
+
+<!-- Header -->
+<div th:replace="users/common/header::top_nav-fragment"></div>
+<div th:replace="users/common/header::header-fragment"></div>
+<div class="container">
+    <!-- 导航栏 -->
+    <div class="nav">
+        <li class="fl"><a href="index.html">首页></a></li>
+        <li class="fl" th:text="${byId.typeName}+'>'">
+            <a href="product-list.html">手机></a>
+        </li>
+        <li class="fl" th:text="${products.pdesc}">HUAWEI Mate 20 RS 保时捷设计 8GB+512GB 全网通版（玄黑）</li>
+        <div class="clear"></div>
+    </div>
+    <!-- 图片放大 -->
+    <div>
+        <div class="right-extra fl">
+            <!--产品参数开始-->
+            <div class="box relative">
+
+                <div id="preview" class="spec-preview"> <span class="jqzoom">
+							<img class="test" jqimg="/static/img-details/800_800_1539244238246mp.png"
+                                 th:src="${products.pimage}"/></span>
+                </div>
+                <!--缩图开始-->
+                <div class="spec-scroll">
+                    <div class="items">
+                        <ul>
+                            <li><img alt="华为" th:bimg="${products.pimage}"
+                                     th:src="${products.pimage}"
+                                     onmousemove="preview(this);"></li>
+                            <li><img alt="华为" th:bimg="${products.pimage}"
+                                     th:src="${products.pimage}"
+                                     onmousemove="preview(this);"></li>
+                            <li><img alt="华为" th:bimg="${products.pimage}"
+                                     th:src="${products.pimage}"
+                                     onmousemove="preview(this);"></li>
+                            <li><img alt="华为" th:bimg="${products.pimage}"
+                                     th:src="${products.pimage}"
+                                     onmousemove="preview(this);"></li>
+                            <li><img alt="华为"
+                                     th:bimg="${products.pimage}"
+                                     th:src="${products.pimage}"
+                                     onmousemove="preview(this);"></li>
+                            <li><img alt="华为" bimg="/static/img-details/800_800_1539243956535.png"
+                                     src="/static/img-details/800_800_1539243956535.png"
+                                     onmousemove="preview(this);"></li>
+                            <li><img alt="华为" bimg="/static/img-details/800_800_1539243959093.png"
+                                     src="/static/img-details/800_800_1539243959093.png"
+                                     onmousemove="preview(this);"></li>
+                            <li><img alt="华为" bimg="/static/img-details/800_800_1539243961283.png"
+                                     src="/static/img-details/800_800_1539243961283.png"
+                                     onmousemove="preview(this);"></li>
+                        </ul>
+                    </div>
+                </div>
+                <!--缩图结束-->
+            </div>
+        </div>
+        <div class="right fr">
+            <div class="title" th:text="${products.pdesc}">HUAWEI Mate 20 RS 保时捷设计 8GB+512GB 全网通版（玄黑）</div>
+            <div>
+                <span class="red-des" th:text="${products.pSolgan}">①赠FreeBuds 2 Pro无线耳机 ②尊享6期分期免息</span>
+            </div>
+            <div class="price">
+                <div>
+                    <label class="matter fl">价&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;格</label>
+                    <span class="price-num"><span>￥</span>[[${products.shopPrice}]]</span>
+                </div>
+                <div>
+                    <label class="matter fl">促&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;销</label>
+                    <div class="">
+                        <span class="pane fl">赠品</span>
+                        <a class="fl" href="#">
+                            <img class="headset" src="/static/img-details/ia_100000018.png" alt="">
+                        </a>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="">
+                        <span class="pane fl" style="margin-left: 85px;margin-bottom: 5px;">分期免息</span>
+                        <span class="fl" style="line-height: 34px;">掌上生活、花呗、工行分期支付可享免息</span>
+                        <div class="clear"></div>
+                    </div>
+                    <div>
+                        <span class="pane fl" style="margin-left: 85px;">赠送积分</span>
+                        <span class="fl" style="line-height: 34px;">购买即赠商城积分、积分可抵现~</span>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <label class="matter">服务说明</label>
+                <!--<input class="address" type="text" placeholder="山东>青岛>市南区">-->
+                <span class="red-now">现货</span>
+                <span>，今天19：00前付款，预计8月25日（周日）送达</span></br>
+                <a href="#"><i class="que-icon"></i></a>
+                <span style="padding-left: 85px;"><img src="" alt="">已满48元已免运费 <img src=""
+                                                                                    alt="">由华为商城负责发货，并提供售后服务</span>
+            </div>
+            <div>
+                <label class="matter">商品编码</label>
+                <span id="pid">[[${products.pid}]]</span>
+            </div>
+            <hr>
+            <div>
+                <label class="matter">选择版本</label>
+                <span class="pane" th:text="${products.pVersion}">全网通8GB+512GB</span>
+            </div>
+            <div>
+                <label class="matter">选择颜色</label>
+                <!--<span id="select_black" class="pane" th:text="${#strings.substring(products.pdesc,products.pdesc.length()-3)}">玄黑</span>-->
+                <span  class="pane" th:text="${products.pColor}" >玄黑</span>
+              <!--  <span id="select_red" class="gray"><img src="" alt="">瑞红</span>-->
+            </div>
+            <div>
+                <label class="matter">选择套餐</label>
+                <span class="pane">官方标配</span>
+            </div>
+            <div>
+                <label class="matter">保障服务</label>
+                <span id="2199" class="pane">华为无忧服务￥2199<img src="" alt=""></span>
+                <span id="599" class="gray">碎屏服务宝1年￥599<img src="" alt=""></span>
+                <span id="568" class="gray">延长服务宝1年￥568<img src="" alt=""></span>
+            </div>
+            <div>
+                <label class="matter">分期免息</label>
+                <span id="Handheldlife" class="gray">掌上生活分期<img src="" alt=""></span>
+                <span id="huabei" class="gray">花呗分期<img src="" alt=""></span>
+            </div>
+
+            <div>
+                <label class="matter">库存</label>
+                <span>当前库存[[${products.pstock}]]件</span>
+            </div>
+
+            <div>
+                <label class="matter">已选择商品</label>
+                <span class="red-sec" th:text="${products.pVersion}+'/'+${products.pColor}">/全网通 8GB+512GB/玄黑/</span>
+            </div>
+            <div>
+                <div class="count fl">
+                    <input class="fl" type="" name="" id="number" value="1"/>
+                    <p class="icon-box fl">
+                        <a class="icon-add" href="javascript:void(0)">+</a>
+                        <a class="icon-subtract" href="javascript:void(0)">-</a>
+                    </p>
+                    <div class="clear"></div>
+                </div>
+
+                <button class="add" type="button" onclick="addCart()">加入购物车</button>
+                <button class="buynow" type="button" th:onclick="goOrder([[${products.pid}]])">立即下单</button>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+
+    </div>
+</div>
+<div class="line"></div>
+<div class="container">
+    <div class="red-sec"
+         style="font-size: 16px;border-bottom: 1px solid #ca141d;padding-bottom: 5px;padding-left: 9px;padding-right: 9px;width: 64px; padding-top: 10px;">
+        推荐搭配
+    </div>
+    <div class="match fl">
+        <ul style="text-align: center;">
+            <li><img class="img" src="/static/img-details/ia_100000009.png" alt=""></li>
+            <li class="name">HUAWEI Mate 20 RS保时捷设计...</li>
+            <li class="match-price">￥12999</li>
+        </ul>
+    </div>
+    <div class=" match-right fl">
+        <div class="match-box fl">
+            <li style="text-align: center;"><img class="img" src="/static/img-details/ia_100000039.png" alt=""></li>
+            <li style="text-align: center;" class="name">HUAWEI WATCH GT 雅致款（黑色...</li>
+            <li style="text-align: center;">
+                <img class="mini-img" src="/static/img-details/ia_100000039.png" alt="">
+                <img class="mini-img" src="/static/img-details/ia_100000040.png" alt="">
+
+            </li>
+            <li style="text-align: center;" class="match-price"><input type="checkbox">￥1288
+                <del>￥1388</del>
+            </li>
+        </div>
+        <div class="match-box fl">
+            <li style="text-align: center;"><img class="img" src="/static/img-details/ia_100000042.png" alt=""></li>
+            <li style="text-align: center;" class="name">华为40W超级快充移动电源（宝石...</li>
+            <li style="text-align: center;">
+                <img class="mini-img" src="/static/img-details/ia_100000042.png" alt="">
+                <img class="mini-img" src="/static/img-details/ia_100000043.png" alt="">
+
+            </li>
+            <li style="text-align: center;" class="match-price"><input type="checkbox">￥299
+                <del>￥369</del>
+            </li>
+        </div>
+        <div class="match-box fl">
+            <li style="text-align: center;"><img class="img" src="/static/img-details/ia_100000045.png" alt=""></li>
+            <li style="text-align: center;" class="name">华为（HUAWEI）移动路由5G CP...</li>
+            <li style="text-align: center;">
+                <img class="mini-img" src="/static/img-details/ia_100000045.png" alt="">
+
+            </li>
+            <li style="text-align: center;" class="match-price"><input type="checkbox">￥2499</li>
+        </div>
+        <div class="match-box fl">
+            <li style="text-align: center;"><img class="img" src="/static/img-details/ia_100000047.png" alt=""></li>
+            <li class="name">HUAWEI Mate 20 RS 保时捷设计...</li>
+            <li style="text-align: center;">
+                <img class="mini-img" src="/static/img-details/ia_100000047.png" alt="">
+                <img class="mini-img" src="/static/img-details/ia_100000048.png" alt="">
+
+            </li>
+            <li style="text-align: center;" class="match-price"><input type="checkbox">￥1288
+                <del>￥1999</del>
+            </li>
+        </div>
+        <div class="match-box fl">
+            <li style="text-align: center;"><img class="img" src="/static/img-details/ia_100000050.png" alt=""></li>
+            <li style="text-align: center;" class="name">HUAWEI VR 2</li>
+            <li style="text-align: center;">
+                <img class="mini-img" src="/static/img-details/ia_100000050.png" alt="">
+
+            </li>
+            <li style="text-align: center;" class="match-price"><input type="checkbox">￥1699
+                <del>￥1999</del>
+            </li>
+        </div>
+    </div>
+    <div class="match-maxright">
+        <p>每个套餐搭配5件</p>
+        <p>组合价：<span>￥20783</span></p>
+        <p><a href="shopping-trolley.html">
+            <button class="miniadd" type="button">加入购物车</button>
+        </a></p>
+        <p><a href="shopping-trolley.html">
+            <button class="minibuynow" type="button">立即下单</button>
+        </a></p>
+    </div>
+</div>
+
+
+<!-- 页面中心导航 -->
+
+<ul class="nav-center">
+    <a href="#fixed1">
+        <li class="fl">商品详情</li>
+    </a>
+    <a href="#fixed2">
+        <li class="fl">规格参数</li>
+    </a>
+    <a href="#fixed3">
+        <li class="fl">包装与售后</li>
+    </a>
+    <a href="#fixed4">
+        <li class="fl">用户评价(<span class="com-count">1</span>)</li>
+    </a></ul>
+<div class="fixed_nav">
+    <ul class="nav_fixed">
+        <a href="#fixed1">
+            <li class="fl">商品详情</li>
+        </a>
+        <a href="#fixed2">
+            <li class="fl">规格参数</li>
+        </a>
+        <a href="#fixed3">
+            <li class="fl">包装与售后</li>
+        </a>
+        <a href="#fixed4">
+            <li class="fl">用户评价(<span class="com-count">1</span>)</li>
+        </a>
+    </ul>
+</div>
+<!-- 图片 -->
+<div class="photo">
+    <div id="fixed1" th:utext="${products.pdetails}"></div>
+</div>
+<div class="container">
+    <div class="services">
+        <div id="fixed2" class="services-spec">
+            <!-- 规格参数 -->
+            <div class=" services-title-before"></div>
+            <div class=" services-title">规格参数</div>
+            <div class="services-item" style="background-color: white;">
+                <h2 class="fl">主要参数</h2>
+                <ul class="fr">
+                    <li>
+                        <label>传播名</label>
+                        <span>HUAWEI Mate 20 RS 保时捷设计</span>
+                    </li>
+                    <li>
+                        <label>后置摄像头</label>
+                        <span>后置徕卡三摄： 4000万像素（广角，f/1.8光圈）+2000万像素（超广角，f/2.2光圈）+800万像素（长焦，f/2.4光圈），支持自动对焦（激光对焦/相位对焦/反差对焦），支持AIS防抖。
+									备注：不同拍照模式的照片像素可能有差异，请以实际为准。</span>
+                    </li>
+                    <li>
+                        <label>前置摄像头</label>
+                        <span>前置单摄： 支持3D 深度感知相机 2400万像素，f/2.0光圈，支持固定焦距。 备注： *不同拍照模式的照片像素可能有差异，请以实际为准。
+									*前置摄像头采用2480万像素CMOS传感器（理论值），有效像素2400万（理论值）。</span>
+                    </li>
+                    <li>
+                        <label>电池容量</label>
+                        <span>4200mAh（典型值）</span>
+                    </li>
+                    <li>
+                        <label>屏幕尺寸</label>
+                        <span>6.39 英寸</span>
+                    </li>
+                    <li>
+                        <label>上市时间</label>
+                        <span>2018年10月</span>
+                    </li>
+                    <li>
+                        <label>运行内存(RAM)</label>
+                        <span>8GB （备注：可使用的内存容量小于 此值，因为手机软件占用部分空间）</span>
+                    </li>
+                    <li>
+                        <label>屏幕色彩</label>
+                        <span>1670万色，DCI-P3</span>
+                    </li>
+                    <li>
+                        <label>机身内存(ROM)</label>
+                        <span>512GB（备注：可使用的内存容量小于此值，因为手机软件占用部分空间）</span>
+                    </li>
+                    <li>
+                        <label>最大支持扩展</label>
+                        <span>256GB NM存储卡（非标配，需另行购买）</span>
+                    </li>
+                    <li>
+                        <label>分辨率</label>
+                        <span>2k+ 3120 x 1440 像素</span>
+                    </li>
+                    <li>
+                        <label>CPU型号</label>
+                        <span>HUAWEI Kirin 980 （麒麟980）</span>
+                    </li>
+                    <li>
+                        <label>CPU核数</label>
+                        <span>八核</span>
+                    </li>
+                    <li>
+                        <label>双卡</label>
+                        <span>双卡双待</span>
+                    </li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+            <!-- 主体 -->
+            <div class="services-item">
+                <h2 class="fl">主体</h2>
+                <ul class="fr">
+                    <li>
+                        <label>品牌</label>
+                        <span>华为 HUAWEI</span>
+                    </li>
+                    <li>
+                        <label>传播名</label>
+                        <span>HUAWEI Mate 20 RS 保时捷设计</span>
+                    </li>
+                    <li>
+                        <label>上市时间</label>
+                        <span>2018年10月</span>
+                    </li>
+                    <li>
+                        <label>外壳材质</label>
+                        <span>卡托：金属+塑胶 后盖：皮+玻璃 边框：铝合金</span>
+                    </li>
+                    <li>
+                        <label>操作系统</label>
+                        <span>华为EMUI9.0.0(兼容Android 9)</span>
+                    </li>
+                    <li>
+                        <label>用户界面</label>
+                        <span>EMUI 9.0.0</span>
+                    </li>
+                    <li>
+                        <label>CPU型号</label>
+                        <span>8GB （备注：可使用的内存容量小于 此值，因为手机软件占用部分空间）</span>
+                    </li>
+                    <li>
+                        <label>CPU核数</label>
+                        <span>八核</span>
+                    </li>
+                    <li>
+                        <label>CPU主频</label>
+                        <span>2 x Cortex A76 2.6GHz+ 2 x Cortex A76 1.92GHz + 4 x Cortex A55 1.8GHz</span>
+                    </li>
+                    <li>
+                        <label>GPU</label>
+                        <span>Mali G76 720MHz</span>
+                    </li>
+                    <li>
+                        <label>双卡</label>
+                        <span>双卡双待</span>
+                    </li>
+                    <li>
+                        <label>输入方式</label>
+                        <span>百度输入法华为版</span>
+                    </li>
+                    <li>
+                        <label>系统导航方式</label>
+                        <span>手势导航、屏幕内三键导航、悬浮导航</span>
+                    </li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+
+
+            <!-- 网络 -->
+            <div class="services-item">
+                <h2 class="fl">网络</h2>
+                <ul class="fr">
+                    <li>
+                        <label>网络制式</label>
+                        <span>支持移动/联通/电信 4G+/4G/3G/2G 备注： *卡槽1、2可以任意切换为默认移动数据卡。 *如果两张都是电信卡，只有一张主卡的电信卡可以使用2G/3G/4G,另一张电信卡只能使用4G LTE。
+									*4G网络使用，需要根据运营商网络和相关业务部署情况确定是否支持。详情见官网。</span>
+                    </li>
+                    <li>
+                        <label>4G网络制式</label>
+                        <span>主卡/副卡： 4G网络制式 移动4G（TD-LTE）/联通4G（TD-LTE/LTE FDD）/电信 4G（TD-LTE/LTE FDD）</span>
+                    </li>
+                    <li>
+                        <label>3G网络制式</label>
+                        <span>主卡：3G网络制式 移动3G（TD-SCDMA）/联通3G（WCDMA）/电信3G（CDMA 2000）；副卡：3G网络制式 联通3G（WCDMA）</span>
+                    </li>
+                    <li>
+                        <label>2G网络制式</label>
+                        <span>主卡/副卡： 2G网络制式 移动2G（GSM）/联通2G（GSM）/电信2G（CDMA 1X）</span>
+                    </li>
+                    <li>
+                        <label>数据业务</label>
+                        <span>TDD-LTE/FDD-LTE/TD-SCDMA/WCDMA/HSPA+/DC-HSDPA/EVDO/CDMA1X/EDGE/GPRS
+									备注：*各个地区的网络和频段可能有所不同，具体取决于当地运营商以及您所在的位置。*CDMA仅限中国电信（中国大陆+澳门）。*如果两张都是电信卡，只有设为默认移动数据的电信卡可以使用2G/3G/4G，另一张电信卡只能用4G。</span>
+                    </li>
+                    <li>
+                        <label>浏览器</label>
+                        <span>支持（华为EMUI 浏览器）</span>
+                    </li>
+                    <li>
+                        <label>副卡是否可以上网</label>
+                        <span>是 备注： *支持盲插，数据账户与4G账户设置绑定； *用户需打开“通话时可上网”开关，可以在副卡通话时上网； *副卡VOLTE通话，依赖运营商网络是否开通相关业务； *副卡不支持移动TD-SCDMA。</span>
+                    </li>
+                    <li>
+                        <label>SIM卡热插拔</label>
+                        <span>不支持</span>
+                    </li>
+                    <li>
+                        <label>VoWIFI</label>
+                        <span>不支持</span>
+                    </li>
+                    <li>
+                        <label>移动VoLTE</label>
+                        <span>支持</span>
+                    </li>
+                    <li>
+                        <label>电信VoLTE</label>
+                        <span>支持</span>
+                    </li>
+                    <li>
+                        <label>联通VoLTE</label>
+                        <span>不支持</span>
+                    </li>
+                    <li>
+                        <label>移动ViLTE</label>
+                        <span>支持</span>
+                    </li>
+                    <li>
+                        <label>电信ViLTE</label>
+                        <span>支持</span>
+                    </li>
+                    <li>
+                        <label>联通ViLTE</label>
+                        <span>不支持</span>
+                    </li>
+
+                    <li>
+                        <label>NM卡热插拔</label>
+                        <span>支持</span>
+                    </li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+
+            <!-- 屏幕 -->
+            <div class="services-item">
+                <h2 class="fl">屏幕</h2>
+                <ul class="fr">
+                    <li>
+                        <label>屏幕尺寸</label>
+                        <span>6.39英寸</span>
+                    </li>
+                    <li>
+                        <label>屏幕类型</label>
+                        <span>OLED</span>
+                    </li>
+                    <li>
+                        <label>屏幕贴合技术</label>
+                        <span>全贴合</span>
+                    </li>
+                    <li>
+                        <label>分辨率</label>
+                        <span>2k+ 3120 x 1440 像素</span>
+                    </li>
+                    <li>
+                        <label>触摸屏</label>
+                        <span>多点触控触摸屏，最多支持10点触控</span>
+                    </li>
+                    <li>
+                        <label>屏幕像素密度PPI</label>
+                        <span>538 PPI</span>
+                    </li>
+                    <li>
+                        <label>玻璃材质</label>
+                        <span>铝硅玻璃</span>
+                    </li>
+                    <li>
+                        <label>按键背景灯</label>
+                        <span>不支持</span>
+                    </li>
+                    <li>
+                        <label>屏占比</label>
+                        <span>86.9% 备注：计算方法为“显示区域面积/整机尺寸”。</span>
+                    </li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+
+            <!-- 传感器 -->
+            <div class="services-item">
+                <h2 class="fl">传感器</h2>
+                <ul class="fr">
+                    <li>
+                        <label>环境光传感器</label>
+                        <span>支持</span>
+                    </li>
+                    <li>
+                        <label>陀螺仪</label>
+                        <span>支持</span>
+                    </li>
+                    <li>
+                        <label>指南针</label>
+                        <span>支持</span>
+                    </li>
+                    <li>
+                        <label>NFC</label>
+                        <span>支持读卡器模式、点对点模式、卡模拟模式（华为钱包支付，SIM卡支付*，HCE支付） * SIM卡支付所使用的SIM卡只能放在SIM1卡槽。</span>
+                    </li>
+                    <li>
+                        <label>接近光传感器</label>
+                        <span>支持</span>
+                    </li>
+                    <li>
+                        <label>重力传感器</label>
+                        <span>支持</span>
+                    </li>
+                    <li>
+                        <label>其他传感器</label>
+                        <span>屏内指纹传感器、霍尔传感器、Camera激光对焦传感器、气压计、红外传感器、NFC</span>
+                    </li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+
+            <!-- 存储 -->
+            <div class="services-item">
+                <h2 class="fl">存储</h2>
+                <ul class="fr">
+                    <li>
+                        <label>运行内存（RAM）</label>
+                        <span>8GB （备注：可使用的内存容量小于 此值，因为手机软件占用部分空间）</span>
+                    </li>
+                    <li>
+                        <label>机身内存（ROM）</label>
+                        <span>512GB（备注：可使用的内存容量小于此值，因为手机软件占用部分空间）</span>
+                    </li>
+                    <li>
+                        <label>存储卡类型</label>
+                        <span>超微型存储卡（NM存储卡或NM Card），支持exFAT和FAT32格式</span>
+                    </li>
+                    <li>
+                        <label>最大支持扩展</label>
+                        <span>256GB NM存储卡（非标配，需另行购买）</span>
+                    </li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+
+            <!-- 拍摄功能 -->
+            <div class="services-item">
+                <h2 class="fl">拍摄功能</h2>
+                <ul class="fr">
+                    <li>
+                        <label>后置摄像头</label>
+                        <span>后置徕卡三摄： 4000万像素（广角，f/1.8光圈）+2000万像素（超广角，f/2.2光圈）+800万像素（长焦，f/2.4光圈），支持自动对焦（激光对焦/相位对焦/反差对焦），支持AIS防抖。
+									备注：不同拍照模式的照片像素可能有差异，请以实际为准。</span>
+                    </li>
+                    <li>
+                        <label>前置摄像头</label>
+                        <span>前置单摄： 支持3D 深度感知相机 2400万像素，f/2.0光圈，支持固定焦距。 备注： *不同拍照模式的照片像素可能有差异，请以实际为准。
+									*前置摄像头采用2480万像素CMOS传感器（理论值），有效像素2400万（理论值）。</span>
+                    </li>
+                    <li>
+                        <label>传感器类型</label>
+                        <span>背照式</span>
+                    </li>
+                    <li>
+                        <label>闪光灯</label>
+                        <span>后置单LED闪光灯</span>
+                    </li>
+                    <li>
+                        <label>视频拍摄</label>
+                        <span>后置摄像头：最大支持4K（3840×2160）视频录制，支持AIS防抖。 前置摄像头：最大支持1080P视频录制，不支持光学防抖。</span>
+                    </li>
+                    <li>
+                        <label>连拍功能</label>
+                        <span>支持</span>
+                    </li>
+                    <li>
+                        <label>变焦模式</label>
+                        <span>后置摄像头：3倍光学变焦（3倍变焦为近似值，实际等效焦距为27mm-80mm（80/27≈2.96倍））、5倍混合变焦（三个摄像头通过不同组合实现各种环境下出色的5倍变焦效果）、10倍数字变焦
+									前置摄像头：不支持</span>
+                    </li>
+                    <li>
+                        <label>照片分辨率</label>
+                        <span>后置摄像头：最大可支持 7296 × 5472像素 前置摄像头：最大可支持 5632 × 4224像素 备注：不同拍照模式的照片像素可能有差异，请以实际为准。</span>
+                    </li>
+                    <li>
+                        <label>摄像分辨率</label>
+                        <span>后置摄像头：最大可支持 3840 x 2160像素 前置摄像头：最大可支持 2160 × 1080像素 备注：不同拍摄模式的视频像素可能有差异，请以实际为准。</span>
+                    </li>
+                    <li>
+                        <label>拍摄功能</label>
+                        <span>超大广角、超微距、大光圈虚化、超级夜景、人像模式、专业模式、慢动作、全景模式、黑白艺术、趣AR、流光快门、HDR、延时摄影、智能滤镜、3D动态全景、水印、文档矫正、AI摄影大师、4D预测追焦、熄屏快拍、笑脸抓拍、声控拍照、定时拍照</span>
+                    </li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+
+            <!-- 传输 -->
+            <div class="services-item">
+                <h2 class="fl">传输功能</h2>
+                <ul class="fr">
+                    <li>
+                        <label>WLAN</label>
+                        <span>支持</span>
+                    </li>
+                    <li>
+                        <label>WLAN 协议</label>
+                        <span>802.11 a/b/g/n/ac (wave2)</span>
+                    </li>
+                    <li>
+                        <label>WLAN 频率</label>
+                        <span>2.4G和5G</span>
+                    </li>
+                    <li>
+                        <label>多屏互动</label>
+                        <span>支持</span>
+                    </li>
+                    <li>
+                        <label>蓝牙</label>
+                        <span>Bluetooth 5.0，支持低功耗蓝牙、SBC、AAC，支持aptX，支持aptX HD、LDAC 和HWA高清音频</span>
+                    </li>
+                    <li>
+                        <label>蓝牙文件传输</label>
+                        <span>支持</span>
+                    </li>
+                    <li>
+                        <label>PC数据同步</label>
+                        <span>支持</span>
+                    </li>
+                    <li>
+                        <label>OTG</label>
+                        <span>支持（反向供电时最大输出电流1A/5V）</span>
+                    </li>
+                    <li>
+                        <label>红外遥控</label>
+                        <span>支持</span>
+                    </li>
+                    <li>
+                        <label>GPS</label>
+                        <span>支持 GPS（L1+L5双频）/AGPS/Glonass/北斗/ 伽利略（E1+E5a双频）/QZSS（L1+L5双频）</span>
+                    </li>
+                    <li>
+                        <label>Glonass</label>
+                        <span>支持</span>
+                    </li>
+                    <li>
+                        <label>北斗</label>
+                        <span>支持</span>
+                    </li>
+                    <li>
+                        <label>AGPS</label>
+                        <span>支持</span>
+                    </li>
+                    <li>
+                        <label>导航软件</label>
+                        <span>有（预置百度地图，可卸载），支持第三方地图导航</span>
+                    </li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+
+            <!-- 通话和信息功能 -->
+            <div class="services-item">
+                <h2 class="fl">通话和信息功能</h2>
+                <ul class="fr">
+                    <li>
+                        <label>3G视频通话</label>
+                        <span>支持（运营商和第三方软件） 备注：该功能因不同国家或地区运营商的支持情况而异，详情请咨询网络运营商。</span>
+                    </li>
+                    <li>
+                        <label>4G语音方案</label>
+                        <span>国内：VOLTE/CSFB/SRLTE语音方案 漫游：VOLTE/CSFB语音方案</span>
+                    </li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+
+            <!-- 个人助理 -->
+            <div class="services-item">
+                <h2 class="fl">个人助理</h2>
+                <ul class="fr">
+                    <li>
+                        <label>Office</label>
+                        <span>支持（内置WPS Office，支持OFFICE文档查看和编辑，支持pdf文档查看，支持zip解压等）</span>
+                    </li>
+                    <li>
+                        <label>电子邮件</label>
+                        <span>支持（POP3/IMAP/Exchange）</span>
+                    </li>
+                    <li>
+                        <label>闹钟</label>
+                        <span>支持（支持关机闹钟）</span>
+                    </li>
+                    <li>
+                        <label>录音</label>
+                        <span>支持</span>
+                    </li>
+                    <li>
+                        <label>通话录音</label>
+                        <span>支持</span>
+                    </li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+
+            <!-- 防护级别 -->
+            <div class="services-item">
+                <h2 class="fl">防护级别</h2>
+                <ul class="fr">
+                    <li>
+                        <label>防尘防鼠</label>
+                        <span>不支持</span>
+                    </li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+
+            <!-- 其他 -->
+            <div class="services-item">
+                <h2 class="fl">其他</h2>
+                <ul class="fr">
+                    <li>
+                        <label>电池类型</label>
+                        <span>锂聚合物电池</span>
+                    </li>
+                    <li>
+                        <label>电池容量</label>
+                        <span>4200mAh（典型值）</span>
+                    </li>
+                    <li>
+                        <label>电池更换</label>
+                        <span>不支持（内置不可拆卸）</span>
+                    </li>
+                    <li>
+                        <label>充电器</label>
+                        <span>10V/4A充电器 备注： 支持无线充电，最大15W（私有协议）兼容Qi标5W，无线充电底座需另行购买，您可以在华为专卖店和华为商城购买。</span>
+                    </li>
+                    <li>
+                        <label>理论充电时间</label>
+                        <span>约1.25小时 备注：上述数据为使用标配充电器灭屏充电的实验室数据，实际充电时间，视使用情况而有所不同。</span>
+                    </li>
+                    <li>
+                        <label>理论待机时间</label>
+                        <span>最长可达15.8天 备注：上述数据为实验室数据，实际待机时间，视当地的实际网络情况和使用习惯而有所不同。</span>
+                    </li>
+                    <li>
+                        <label>理论通话时间</label>
+                        <span>理论3G通话时间：最长可达30小时 备注：上述数据为实验室数据，实际通话时间，视当地的实际网络情况和使用习惯而有所不同。</span>
+                    </li>
+                    <li>
+                        <label>快充</label>
+                        <span>支持（超级快充40W）</span>
+                    </li>
+                    <li>
+                        <label>数据线接口</label>
+                        <span>Type-C，USB 3.1 GEN1 备注： *USB 3.1 GEN1功能需搭配支持USB 3.1 GEN1的数据线（非标配，需另行购买）使用。 *标配数据线支持USB 2.0。</span>
+                    </li>
+                    <li>
+                        <label>耳机接口</label>
+                        <span>Type-C 备注： 支持Type-C模拟和数字耳机。 CTIA标准（Type-C耳机无线序）</span>
+                    </li>
+                    <li>
+                        <label>SIM卡类型</label>
+                        <span>卡槽1：nano卡 卡槽2：nano卡或超微型存储卡（NM存储卡或NM Card） 备注： 请将超微型存储卡（NM存储卡或NM Card）插入卡槽 2 使用。如果需要，您可以在华为专卖店和华为商城购买。</span>
+                    </li>
+                    <li>
+                        <label>扬声器</label>
+                        <span>支持（2个）立体声扬声器</span>
+                    </li>
+                    <li>
+                        <label>抗指纹</label>
+                        <span>支持防指纹膜（疏油层）</span>
+                    </li>
+                    <li>
+                        <label>软件名称</label>
+                        <span>华为终端智能设备人机交互通信软件V5.0</span>
+                    </li>
+                    <li>
+                        <label>机身尺寸</label>
+                        <span>157.8mm（长）× 72.3mm（宽）× 9.7mm（厚） （备注：实际尺寸依配置、制造工艺、测量方法的不同可能有所差异。）</span>
+                    </li>
+                    <li>
+                        <label>机身重量</label>
+                        <span>约187克（含电池）（备注：实际重量依配置、制造工艺、测量方法的不同可能有所差异。）</span>
+                    </li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+
+            <!-- 商品编码 -->
+            <div class="services-item">
+                <h2 class="fl">商品编码</h2>
+                <ul class="fr">
+                    <li>
+                        <label>2601010068401</label>
+                    </li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+
+            <div id="fixed3" class=" services-title-before"></div>
+            <div class=" services-title">包装</div>
+            <div>
+                <div class="after-sale">
+                    <div class="after-sale-item fl">
+                        <div class="point fl"></div>
+                        <div class="after-sale-cn fl">手机 X 1</div>
+                        <div class="clear"></div>
+                    </div>
+
+                    <div class="after-sale-item fl">
+                        <div class="point fl"></div>
+                        <div class="after-sale-cn fl">电池（内置） X 1</div>
+                        <div class="clear"></div>
+                    </div>
+
+                    <div class="after-sale-item fl">
+                        <div class="point fl"></div>
+                        <div class="after-sale-cn fl">华为SuperCharge充电器 X 1</div>
+                        <div class="clear"></div>
+                    </div>
+
+
+                    <div class="after-sale-item fl">
+                        <div class="point fl"></div>
+                        <div class="after-sale-cn fl">华为SuperCharge车载快速充电器 X 1</div>
+                        <div class="clear"></div>
+                    </div>
+
+                    <div class="after-sale-item fl">
+                        <div class="point fl"></div>
+                        <div class="after-sale-cn fl">Type-C 数据线 X 2</div>
+                        <div class="clear"></div>
+                    </div>
+
+                    <div class="after-sale-item fl">
+                        <div class="point fl"></div>
+                        <div class="after-sale-cn fl">Type-C 数字耳机 X 1</div>
+                        <div class="clear"></div>
+                    </div>
+
+                    <div class="after-sale-item fl">
+                        <div class="point fl"></div>
+                        <div class="after-sale-cn fl">Type-C转3.5mm耳机转接线 X 1</div>
+                        <div class="clear"></div>
+                    </div>
+
+                    <div class="after-sale-item fl">
+                        <div class="point fl"></div>
+                        <div class="after-sale-cn fl">皮套 X 1</div>
+                        <div class="clear"></div>
+                    </div>
+
+                    <div class="after-sale-item fl">
+                        <div class="point fl"></div>
+                        <div class="after-sale-cn fl">真皮后盖保养卡 X 1</div>
+                        <div class="clear"></div>
+                    </div>
+
+                    <div class="after-sale-item fl">
+                        <div class="point fl"></div>
+                        <div class="after-sale-cn fl">快速指南 X 1</div>
+                        <div class="clear"></div>
+                    </div>
+
+                    <div class="after-sale-item fl">
+                        <div class="point fl"></div>
+                        <div class="after-sale-cn fl">三包凭证 X 1</div>
+                        <div class="clear"></div>
+                    </div>
+
+                    <div class="after-sale-item fl">
+                        <div class="point fl"></div>
+                        <div class="after-sale-cn fl">取卡针 X 1</div>
+                        <div class="clear"></div>
+                    </div>
+
+                    <div class="after-sale-item fl">
+                        <div class="point fl"></div>
+                        <div class="after-sale-cn fl">VIP 卡 X 1</div>
+                        <div class="clear"></div>
+                    </div>
+
+                    <div class="after-sale-item fl">
+                        <div class="point fl"></div>
+                        <div class="after-sale-cn fl">（备注：最终以实物为准）</div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="clear"></div>
+        </div>
+        <div class="services-title-before"></div>
+        <div class=" services-title">售后服务</div>
+        <div style="padding-top: 30px;">
+            <div class="after-sale" style="margin: 0 30px 0 130px;">
+                <div class="point fl"></div>
+                <div class="after-sale-cn2 fl">本产品全国联保，享受三包服务，质保期为：一年质保</div>
+                <div class="clear"></div>
+            </div>
+
+            <div class="after-sale" style="margin: 0 30px 0 130px;">
+                <div class="point fl"></div>
+                <div class="after-sale-cn2 fl">如因质量问题或故障，凭厂商维修中心或特约维修点的质量检测证明，享受7天内退货，15日内换货，15日以上在质保期内享受免费保修等三包服务！
+                </div>
+                <div class="clear"></div>
+            </div>
+
+            <div class="after-sale" style="margin: 0 30px 0 130px;">
+                <div class="point fl"></div>
+                <div class="after-sale-cn2 fl">售后服务电话：4009309300</div>
+                <div class="clear"></div>
+            </div>
+
+            <div class="after-sale" style="margin: 0 30px 0 130px;">
+                <div class="point fl"></div>
+                <div class="after-sale-cn2 fl">华为消费者BG官网： https://consumer.huawei.com/cn/</div>
+                <div class="clear"></div>
+            </div>
+            <div class="space"></div>
+            <div class="after-sale-cn2">
+						<span>*因可能存在系统缓存，页面更新导致价格变动异常等不确定性情况出现，如您发现活动商品标价或促销信息有异常，请您立即联系我们，以便我们及时补正。</br>
+                            *以上页面中的产品图片及屏幕内容仅作示意，实物产品效果（包括但不限于外观、颜色、尺寸）和屏幕显示内容（包括但不限于背景、UI、配图）可能略有差异，请以实物为准。</br>
+                            *以上页面中的数据为理论值，均来自华为内部实验室，于特定测试环境下所得（请见各项具体说明），实际使用中可能因产品个体差异、软件版本、使用条件和环境因素不同略有不同，请以实际使用的情况为准。</br>
+                            *为提供尽可能准确的产品信息、规格参数、产品特性，华为或荣耀可能实时调整和修订以上页面中的文字表述、图片效果等内容，以求与实际产品性能、规格、指数、零部件等信息相匹配，由于产品批次和生产供应因素实时变化，如遇确有进行上述修改和调整必要的情形，恕不专门通知。</br></span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="bg-gray" id="fixed4">
+    <div class="comment-title">
+        <label>好评度</label>
+        <span class="big100">
+					<span>100</span>
+					<span style="font-size: 20px;">%</span>
+				</span>
+        <label>买家印象</label>
+    </div>
+
+</div>
+<div class="comment-content container">
+    <img class="fl" src="/static/img-details/ia_100000004.png" alt="">
+    <p class="fl">
+        <span class="star">★★★★★</span></br>
+        <span>支持华为手机的路上，一往无前。</span>
+    </p>
+</div>
+<!-- 返回顶部 -->
+<div class="returnTop">
+    <div class="shopLink" title="购物车"><a href="shopping-trolley.html"><i class="layui-icon layui-icon-cart-simple"
+                                                                         style="font-size: 20px"></i></a></div>
+    <div class="serveLink" title="客服"><i class="layui-icon layui-icon-headset" style="font-size: 20px"></i></div>
+    <div class="idea" title="意见反馈"><i class="layui-icon layui-icon-tabs" style="font-size: 20px"></i></div>
+    <div class="return" title="返回顶部"><i class="layui-icon layui-icon-up" style="font-size: 20px"></i></div>
+</div>
+
+<!-- 以下为footer -->
+<div th:replace="users/common/footer::footer-fragment"></div>
+
+<script th:src="@{/static/js/jquery-3.4.1.min.js}" type="text/javascript"></script>
+<script th:src="@{/static/js/jquery.jqzoom.js}"  type="text/javascript"></script>
+<script th:src="@{/static/js/base.js}" type="text/javascript"></script>
+<script th:src="@{/static/js/layer/layer.js}"></script>
+<script th:src="@{/static/js/sweetalert/sweetalert.min.js}"></script>
+
+<script>
+    // 返回顶部
+    $(window).scroll(function () {
+        var top = $(this).scrollTop();
+        // console.log(top)
+        if (top > 400) {
+            $(".return").stop(true).animate({
+                opacity: 1
+            });
+
+        } else {
+            $(".return").stop(true).animate({
+                opacity: 0
+            });
+        }
+        if (top > 2100) {
+            $(".floorBox").stop(true).animate({
+                right: "20px"
+            });
+        } else {
+            $(".floorBox").stop(true).animate({
+                right: "-200px"
+            });
+        }
+        if (top > 969) {
+            $(".fixed_nav").css("display", "block")
+        } else {
+            $(".fixed_nav").css("display", "none")
+        }
+    })
+    // console.log($(".nav_fixed li").eq(1)[0])
+    $(".return").click(function () {
+        $("html,body").animate({
+            scrollTop: 0
+        });
+    });
+    $("#select_black").click(function () {
+        //选择到得边框变红
+        $(this).css("border-color", "red")
+        //没选到得则变黑
+        $("#select_red").css("border-color", "black")
+
+        $(".spec-scroll .items ul li").eq(0).html(
+            "<img alt='华为' bimg='/static/img-details/black1.png' src='/static/img-details/black1.png' onmousemove='preview(this);'>")
+        $(".spec-scroll .items ul li").eq(1).html(
+            "<img alt='华为' bimg='/static/img-details/black2.png' src='/static/img-details/black2.png' onmousemove='preview(this);'>")
+        $(".spec-scroll .items ul li").eq(2).html(
+            "<img alt='华为' bimg='/static/img-details/black3.png' src='/static/img-details/black3.png' onmousemove='preview(this);'>")
+        $(".spec-scroll .items ul li").eq(3).html(
+            "<img alt='华为' bimg='/static/img-details/black4.png' src='/static/img-details/black4.png' onmousemove='preview(this);'>")
+        $(".spec-scroll .items ul li").eq(4).html(
+            "<img alt='华为' bimg='/static/img-details/black5.png' src='/static/img-details/black5.png' onmousemove='preview(this);'>")
+
+    })
+    $("#select_red").click(function () {
+        $(this).css("border-color", "red")
+        $("#select_black").css("border-color", "black")
+        $(".spec-scroll .items ul li").eq(0).html(
+            "<img alt='华为' bimg='/static/img-details/red1.png' src='/static/img-details/red1.png' onmousemove='preview(this);'>")
+        $(".spec-scroll .items ul li").eq(1).html(
+            "<img alt='华为' bimg='/static/img-details/red2.png' src='/static/img-details/red2.png' onmousemove='preview(this);'>")
+        $(".spec-scroll .items ul li").eq(2).html(
+            "<img alt='华为' bimg='/static/img-details/red3.png' src='/static/img-details/red3.png' onmousemove='preview(this);'>")
+        $(".spec-scroll .items ul li").eq(3).html(
+            "<img alt='华为' bimg='/static/img-details/red4.png' src='/static/img-details/red4.png' onmousemove='preview(this);'>")
+        $(".spec-scroll .items ul li").eq(4).html(
+            "<img alt='华为' bimg='/static/img-details/red5.png' src='/static/img-details/red5.png' onmousemove='preview(this);'>")
+
+    })
+
+    $("#2199").click(function () {
+
+        $(this).css("border-color", "red")
+        $(this).siblings().css("border-color", "black")
+
+
+    })
+    $("#599").click(function () {
+        $(this).css("border-color", "red")
+        $(this).siblings().css("border-color", "black")
+    })
+    $("#568").click(function () {
+        $(this).css("border-color", "red")
+        $(this).siblings().css("border-color", "black")
+    })
+    $("#huabei").click(function () {
+        $(this).css("border-color", "red")
+        $(this).siblings().css("border-color", "black")
+    })
+    $("#Handheldlife").click(function () {
+        $(this).css("border-color", "red")
+        $(this).siblings().css("border-color", "black")
+    })
+    $(".icon-add").click(function () {
+        var sum = parseInt($("#number").val())
+        sum++;
+        // console.log(sum)
+        $("#number").val(sum)
+    })
+    $(".icon-subtract").click(function () {
+        var sum = parseInt($("#number").val())
+        sum--;
+        if (sum <= 0) {
+            return;
+        }
+        // console.log(sum)
+        $("#number").val(sum)
+    })
+
+    function addCart() {
+        var pid = $("#pid").text();
+        var shopCount = $("#number").val();
+        console.log(shopCount);
+        $.post('/shopCar/add', {pid: pid, shopCount: shopCount}, function (data) {
+            if (data.success) {
+                //layer.msg("加入购物车成功！",{icon:1});
+                swal({
+                    icon: 'success',
+                    text: '加入购物车成功',
+                    buttons: {
+                        cancel: "留在当前页",
+                        confirm: "去购物车"
+                    },
+                }).then((flag =>{
+                    if (flag) {
+                        window.location.href = '../shopCar/goShoppingCar';
+                    }
+                })
+                );
+
+            } else {
+                swal({
+                    icon: 'error',
+                    text: data.errorInfo,
+
+                }).then((flag =>{
+                    if (flag) {
+                        window.location.href = '/login.html';
+                    }
+                }));
+            }
+
+
+        })
+    }
+
+    /*立即下单*/
+    function goOrder(pid) {
+        shopCount = $("#number").val();
+        window.location.href="../goOrder?pid="+pid+'&shopCount='+shopCount
+    }
+
+</script>
+</body>
+</html>

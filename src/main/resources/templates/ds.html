@@ -1,0 +1,373 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>信息杯管理员登录</title>
+    <link rel="stylesheet" href="lib/layui/css/layui.css" media="all" />
+    <link rel="stylesheet" href="css/login.css" />
+    <link rel="stylesheet" href="css/tooltips.css" />
+
+
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery.pure.tooltips.js"></script>
+    <script type="text/javascript" src="lib/layui/layui.js"></script>
+    <style>
+
+        .box {background:#000000; position:absolute;margin-left:-14%; z-index:3;opacity: 0.6;left:50%;}
+        .box-login{width:450px; height:295px;margin-top:-10%;top:50%;}
+        .box-register{width:450px; height:385px;margin-top:-8%;top:46%;}
+        .box-reset{width:450px; height:385px;margin-top:-8%;top:46%;}
+        #register {display:none;}
+        #reset{display:none;}
+    </style>
+
+</head>
+<body background="images/11.jpg">
+
+<canvas></canvas>
+
+<div class="beg-login-box box box-login layui-anim-up" id="login">
+    <header>
+        <h1 style="color:#FFFFFF">欢迎登录</h1>
+    </header>
+    <div class="beg-login-main">
+        <form action="" class="layui-form" method="post"><input name="__RequestVerificationToken" type="hidden" value="fkfh8D89BFqTdrE2iiSdG_L781RSRtdWOH411poVUWhxzA5MzI8es07g6KPYQh9Log-xf84pIR2RIAEkOokZL3Ee3UKmX0Jc8bW8jOdhqo81" />
+            <div class="layui-form-item">
+                <label class="beg-login-icon">
+                    <i class="layui-icon">&#xe612;</i>
+                </label>
+                <input id="username" type="text" name="userName" lay-verify="userName" autocomplete="off" placeholder="请输入登录名" class="layui-input">
+            </div>
+            <div class="layui-form-item">
+                <label class="beg-login-icon">
+                    <i class="layui-icon">&#xe642;</i>
+                </label>
+                <input id="password" type="password" name="password" lay-verify="password" autocomplete="off" placeholder="请输入密码" class="layui-input">
+            </div>
+            <div class="layui-form-item">
+
+                <div class="beg-pull-left beg-login-remember" style="color:#FFFFFF;margin-top: 1%;">
+                    <label>记住帐号？</label>
+                    <input type="checkbox" name="close" lay-skin="switch" lay-text="ON|OFF" checked>
+                </div>
+
+                <div class="beg-pull-right" style="margin-top: 4%;">
+                    <a class="btn pull-left btn-link text-muted" onClick="goto_forget()" style="color:#FFFFFF;cursor:pointer;">忘记密码?</a>
+                </div>
+                <div class="beg-clear"></div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="beg-pull-left beg-login-remember" style="color:#FFFFFF;margin-top: -2%;">
+                    <button class="layui-btn layui-btn-radius layui-btn-primary" onclick="goto_register();return false;">
+                        <i class="layui-icon">&#xe650;</i> 注册
+                </div>
+
+                <div class="beg-pull-right">
+                    <button class="layui-btn layui-btn-radius" style="margin-top: 4%;" onClick="login();return false;">
+                        <i class="layui-icon">&#xe650;</i> 登录
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="beg-login-box box box-register layui-anim-rotate" id="register">
+    <header>
+        <h1 style="color:#FFFFFF">欢迎注册</h1>
+    </header>
+    <div class="beg-login-main">
+        <form action="" class="layui-form" method="post"><input name="__RequestVerificationToken" type="hidden" value="fkfh8D89BFqTdrE2iiSdG_L781RSRtdWOH411poVUWhxzA5MzI8es07g6KPYQh9Log-xf84pIR2RIAEkOokZL3Ee3UKmX0Jc8bW8jOdhqo81" />
+            <div class="layui-form-item">
+                <label class="beg-login-icon">
+                    <i class="layui-icon">&#xe612;</i>
+                </label>
+                <input id="username_register" type="text" name="userName" lay-verify="userName" autocomplete="off" placeholder="请输入用户名" class="layui-input">
+            </div>
+            <div class="layui-form-item">
+                <label class="beg-login-icon">
+                    <i class="layui-icon">&#xe642;</i>
+                </label>
+                <input id="password_register" type="password" name="password" lay-verify="password" autocomplete="off" placeholder="请输入密码" class="layui-input">
+            </div>
+            <div class="layui-form-item">
+                <label class="beg-login-icon">
+                    <i class="layui-icon">&#xe642;</i>
+                </label>
+                <input id="determine_password_register" type="password" name="password" lay-verify="password" autocomplete="off" placeholder="确认密码" class="layui-input">
+            </div>
+            <div class="layui-form-item">
+                <label class="beg-login-icon">
+                    <i class="layui-icon">&#xe6b2;</i>
+                </label>
+
+            </div>
+            <div class="layui-form-item">
+                <div class="beg-pull-left beg-login-remember" style="color:#FFFFFF;margin-top: 6%;">
+                    <button class="layui-btn" onclick="register();return false;">
+                        <i class="layui-icon">&#xe650;</i> 注册
+                </div>
+
+                <div class="beg-pull-right">
+                    <button class="layui-btn layui-btn layui-btn-primary" style="margin-top: 18%;" onClick="goto_login();return false;">
+                        <i class="layui-icon">&#xe650;</i> 返回登录
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="beg-login-box box box-reset layui-anim-rotate" id="reset">
+    <header>
+        <h1 style="color:#FFFFFF">重置密码</h1>
+    </header>
+    <div class="beg-login-main">
+        <form action="" class="layui-form" method="post"><input name="__RequestVerificationToken" type="hidden" value="fkfh8D89BFqTdrE2iiSdG_L781RSRtdWOH411poVUWhxzA5MzI8es07g6KPYQh9Log-xf84pIR2RIAEkOokZL3Ee3UKmX0Jc8bW8jOdhqo81" />
+            <div class="layui-form-item">
+                <label class="beg-login-icon">
+                    <i class="layui-icon">&#xe612;</i>
+                </label>
+                <input id="username_reset" type="text" name="userName" lay-verify="userName" autocomplete="off" placeholder="请输入用户名" class="layui-input">
+            </div>
+            <div class="layui-form-item">
+                <label class="beg-login-icon">
+                    <i class="layui-icon">&#xe6b2;</i>
+                </label>
+
+            </div>
+            <div class="layui-form-item">
+                <label class="beg-login-icon">
+                    <i class="layui-icon">&#xe642;</i>
+                </label>
+                <input id="password_reset" type="password" name="password" lay-verify="password" autocomplete="off" placeholder="请输入重置密码" class="layui-input">
+            </div>
+            <div class="layui-form-item">
+                <label class="beg-login-icon">
+                    <i class="layui-icon">&#xe642;</i>
+                </label>
+                <input id="determine_password_reset" type="password" name="password" lay-verify="password" autocomplete="off" placeholder="确认密码" class="layui-input">
+            </div>
+            <div class="layui-form-item">
+                <div class="beg-pull-left beg-login-remember" style="color:#FFFFFF;margin-top: 6%;">
+                    <button class="layui-btn" onclick="reset_pwd();return false;">
+                        <i class="layui-icon">&#xe650;</i> 重置
+                </div>
+
+                <div class="beg-pull-right">
+                    <button class="layui-btn layui-btn layui-btn-primary" style="margin-top: 18%;" onClick="goto_login();return false;">
+                        <i class="layui-icon">&#xe650;</i> 返回登录
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    window.requestAnimFrame = (function(){
+        return  window.requestAnimationFrame ||
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame    ||
+            window.oRequestAnimationFrame      ||
+            window.msRequestAnimationFrame     ||
+            function( callback ){
+                window.setTimeout(callback, 1000 / 60);
+            };
+    })();
+
+    var canvas = document.getElementsByTagName("canvas")[0];
+    var ctx = canvas.getContext("2d");
+    var w = $(document).width();
+    var h = $(document).height();
+    canvas.width = w;
+    canvas.height = h;
+
+    var mols = [];
+
+    function init(){
+        for(var i=0;i<18;i++){
+            var mol = new generate_mol("C8H10N4O2");
+            mols.push(mol);
+            var mol = new generate_mol("C6H6O");
+            mols.push(mol);
+            var mol = new generate_mol("C6H6");
+            mols.push(mol);
+        }
+    }
+
+
+
+    $(function(){
+        layui.use(['layer', 'form'], function() {
+            var layer = layui.layer,
+                $ = layui.jquery,
+                form = layui.form();
+        });
+    })
+
+    function login(){
+        var username = $("#username").val();
+        var password = $("#password").val();
+        if(username.trim().length < 6){
+            $.pt({
+                target: $("#username"),
+                position: 'r',
+                align: 't',
+                width: 'auto',
+                height: 'auto',
+                content:"用户名不能少于6位"
+            });
+            return false;
+        }
+        //密码只能是5-15位
+        var regExp = new RegExp("^.{5,15}$");
+        if(!regExp.test(password)){
+            $.pt({
+                target: $("#password"),
+                position: 'r',
+                align: 't',
+                width: 'auto',
+                height: 'auto',
+                content:"密码只能是5-15位"
+            });
+            return false;
+        }
+        alert("登录成功");
+    }
+
+    function goto_register(){
+        $("#register").show();
+        $("#login").hide();
+        $("#reset").hide();
+    }
+
+    function register(){
+        var regcode_register = $("#regcode_register").val();
+        var username_register = $("#username_register").val();
+        var password_register = $("#password_register").val();
+        var determine_password_register = $("#determine_password_register").val();
+        if(username_register.trim().length < 6){
+            $.pt({
+                target: $("#username_register"),
+                position: 'r',
+                align: 't',
+                width: 'auto',
+                height: 'auto',
+                content:"用户名不能少于6位"
+            });
+            return false;
+        }
+        //密码只能是5-15位
+        var regExp = new RegExp("^.{5,15}$");
+        if(!regExp.test(password_register)){
+            $.pt({
+                target: $("#password_register"),
+                position: 'r',
+                align: 't',
+                width: 'auto',
+                height: 'auto',
+                content:"密码只能是5-15位"
+            });
+            return false;
+        }
+        //两次输入的密码要一致
+        if(password_register != determine_password_register){
+            $.pt({
+                target: $("#determine_password_register"),
+                position: 'r',
+                align: 't',
+                width: 'auto',
+                height: 'auto',
+                content:"两次输入的密码不一致"
+            });
+            return false;
+        }
+        alert("注册成功");
+        /*//
+        if(regcode_register == ""){
+            $.pt({
+                target: $("#regcode_register"),
+                position: 'r',
+                align: 't',
+                width: 'auto',
+                height: 'auto',
+                content:"注册码不能为空"
+            });
+            return false;
+        }
+        */
+    }
+    function goto_login(){
+        $("#register").hide();
+        $("#login").show();
+        $("#reset").hide();
+    }
+    function goto_forget(){
+        $("#register").hide();
+        $("#login").hide();
+        $("#reset").show();
+    }
+
+    function reset_pwd(){
+        var regcode_reset = $("#regcode_reset").val();
+        var username_reset = $("#username_reset").val();
+        var password_reset = $("#password_reset").val();
+        var determine_password_reset = $("#determine_password_reset").val();
+        if(username_reset.trim().length < 6){
+            $.pt({
+                target: $("#username_reset"),
+                position: 'r',
+                align: 't',
+                width: 'auto',
+                height: 'auto',
+                content:"用户名不能少于6位"
+            });
+            return false;
+        }
+
+        /*if(regcode_reset == ""){
+                $.pt({
+                    target: $("#regcode_reset"),
+                    position: 'r',
+                    align: 't',
+                    width: 'auto',
+                    height: 'auto',
+                    content:"注册码不能为空"
+                });
+                return false;
+            }
+            //密码只能是5-15位
+        */
+        var regExp = new RegExp("^.{5,15}$");
+        if(!regExp.test(password_reset)){
+            $.pt({
+                target: $("#password_reset"),
+                position: 'r',
+                align: 't',
+                width: 'auto',
+                height: 'auto',
+                content:"密码只能是5-15位"
+            });
+            return false;
+        }
+        //两次输入的密码要一致
+        if(password_reset != determine_password_reset){
+            $.pt({
+                target: $("#determine_password_reset"),
+                position: 'r',
+                align: 't',
+                width: 'auto',
+                height: 'auto',
+                content:"两次输入的密码不一致"
+            });
+            return false;
+        }
+        alert("密码重置成功");
+    }
+    animloop();
+</script>
+
+</body>
+</html>
+

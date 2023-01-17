@@ -1,0 +1,48 @@
+server:
+  port: 8081
+  tomcat:
+    uri-encoding: utf-8
+    #get方式请求头太大的解决方式
+    max-http-form-post-size: -1
+spring:
+  http:
+    encoding:
+      charset: utf-8
+      force: true
+      enabled: true
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    #新添加
+    suffix: .html
+  mvc:
+    static-path-pattern: /static/**
+    view:
+      prefix: classpath:/static/**
+    # suffix: .html
+  devtools:
+    restart:
+      additional-paths: src/main/resources/static
+      #新添加
+  resources:
+    static-locations: classpath:/static/
+  datasource:
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@localhost:1521:ORCL
+    username: xhl
+    password: qq123
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 15
+      auto-commit: true
+      idle-timeout: 30000
+      pool-name: TutorialsHikariCP
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1 FROM DUAL
+mybatis:
+  type-aliases-package: com.huawei.hw_shopping.model
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+

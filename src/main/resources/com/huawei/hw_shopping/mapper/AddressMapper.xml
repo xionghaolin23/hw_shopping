@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huawei.hw_shopping.mapper.AddressMapper">
+    <resultMap id="baseResultMap" type="com.huawei.hw_shopping.model.Address">
+        <id property="addressId" column="ADDRESS_ID"/>
+        <result property="userId" column="USER_ID"/>
+        <result property="phone" column="PHONE"/>
+        <result property="userName" column="USER_NAME"/>
+        <result property="address" column="ADDRESS"/>
+        <result property="moren" column="MOREN"/>
+        <result property="tag" column="TAG"/>
+        <result property="note" column=""/>
+    </resultMap>
+    <select id="selectAddressListByUserId" parameterType="string" resultMap="baseResultMap">
+        select ADDRESS_ID, USER_NAME,ADDRESS,PHONE,TAG  from HW_SHOPPING_ADDRESS  where USER_ID=#{userId} order by MOREN asc
+    </select>
+
+
+</mapper>
