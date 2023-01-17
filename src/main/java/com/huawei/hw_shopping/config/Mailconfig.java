@@ -25,7 +25,7 @@ public class Mailconfig {
         mailSender.setPort(587);
         //设置用户名
         mailSender.setUsername("xionghl23@foxmail.com");
-        mailSender.setPassword("ktogceawxwxybagd");
+        mailSender.setPassword("1");
         return mailSender;
     }
 
