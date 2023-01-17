@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="/static/css/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/my-order.css"/>
+</head>
+<body>
+<!-- 顶部nav -->
+<div th:include="users/common/header.html"></div>
+<div class="Member_contanier">
+    <!-- 面包屑 -->
+    <div class="breadcrumb-area">
+        <a href="index.html">首页</a>
+        &nbsp;&gt;&nbsp;
+        <a href="Member-Center .html">
+					<span class="personCenter">
+						我的商城
+					</span>
+        </a>
+        &nbsp;&gt;&nbsp;
+        <span class="personCenter">
+					营销消息订阅
+				</span>
+    </div>
+
+    <div class="Member_content clearfix">
+        <!-- 左边菜单 -->
+        <div class="Left_MyShop fl">
+            <div class="menu-area">
+                <div class="head">
+                    <a href="Member-Center .html">
+                        <span>我的商城</span>
+                    </a>
+                </div>
+                <div class="bottom">
+                    <ul>
+                        <!-- 我的消息 -->
+                        <li>
+                            <h3 class="icon-mail">
+                                <span>我的消息</span>
+                            </h3>
+                            <ol>
+                                <li>
+                                    <a href="member-message-center.html">
+												<span class="li-msg">
+													消息中心
+													<em></em>
+												</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="member-news-order.html">
+												<span class="marketIDD" style="color: #cf0a2c;">
+													营销消息订阅
+													<em></em>
+												</span>
+                                    </a>
+                                </li>
+                            </ol>
+                        </li>
+                        <!-- 订单中心 -->
+                        <li>
+                            <h3 class="icon-order">
+                                <span>订单中心</span>
+                            </h3>
+                            <ol>
+                                <li>
+											<span class="li-msg">
+												<a href="member-my-order.html">
+													我的订单<em></em>
+
+												</a>
+											</span>
+                                </li>
+
+                                <li class="li-exchange">
+                                    <a href="member-my-order.html">
+												<span class="">
+													我的退换货
+												</span>
+                                    </a>
+                                </li>
+
+                                <li class="li-refunds">
+                                    <a href="member-my-order.html">
+												<span class="">
+													我的退款
+												</span>
+                                    </a>
+                                </li>
+
+                                <li class="li-recover">
+                                    <a href="member-my-order.html">
+												<span class="">
+													我的回收单
+												</span>
+                                    </a>
+                                </li>
+
+                                <li class="li-remark">
+                                    <a href="member-my-order.html">
+												<span class="">
+													商品评价
+												</span>
+                                    </a>
+                                </li>
+                            </ol>
+                        </li>
+                        <!-- 我的资产 -->
+                        <li>
+                            <h3 class="icon-asset">
+                                <span>我的资产</span>
+                            </h3>
+                            <ol>
+                                <li class="li-newpoint">
+                                    <a href="#">
+												<span class="">
+													我的积分
+												</span>
+                                    </a>
+                                </li>
+
+                                <li class="li-coupon">
+                                    <a href="#">
+												<span class="">
+													我的优惠券
+												</span>
+                                    </a>
+                                </li>
+
+                                <li class="li-balance">
+                                    <a href="#">
+												<span class="">
+													我的代金券
+												</span>
+                                    </a>
+                                </li>
+
+                                <li class="li-petal">
+                                    <a href="#">
+												<span class="">
+													我的花瓣
+												</span>
+                                    </a>
+                                </li>
+
+                                <li class="li-remark">
+                                    <a href="#">
+												<span class="">
+													等级与权力
+												</span>
+                                    </a>
+                                </li>
+                            </ol>
+                        </li>
+                        <!-- 购买支持 -->
+                        <li>
+                            <h3 class="icon-support">
+                                <span>购买支持</span>
+                            </h3>
+                            <ol>
+                                <li class="li-mydress">
+                                    <a href="member-delivery-address.html">
+												<span class="">
+													收货地址管理
+												</span>
+                                    </a>
+                                </li>
+
+                                <li class="li-authentication">
+                                    <a href="#">
+												<span class="">
+													实名认证
+												</span>
+                                    </a>
+                                </li>
+
+                                <li class="li-appointment">
+                                    <a href="#">
+												<span class="">
+													我的预约
+												</span>
+                                    </a>
+                                </li>
+
+                                <li class="li-notification">
+                                    <a href="#">
+												<span class="">
+													到货通知
+												</span>
+                                    </a>
+                                </li>
+
+                                <li class="li-easybuy">
+                                    <a href="#">
+												<span class="">
+													我的优享受购
+												</span>
+                                    </a>
+                                </li>
+                            </ol>
+                        </li>
+                        <!-- 帮助中心 -->
+                        <li>
+                            <h3 class="icon-help">
+                                <a href="#" target="_blank">
+                                    <span>帮助中心</span>
+                                </a>
+                            </h3>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="subscription fl">
+            <div class="center">
+                <span>消息中心</span>
+            </div>
+            <ul class="clearfix">
+                <li class="fl">
+                    <input class="vertical-mid" type="checkbox" checked="" name="" id="" value=""/>
+                    <span class="vertical-mid">PUSH通知</span>
+                </li>
+                <li class="fl">
+                    <input class="vertical-mid" type="checkbox" name="" id="" value=""/>
+                    <span class="vertical-mid">短信消息</span>
+                </li>
+                <li class="fl">
+                    <input class="vertical-mid" type="checkbox" name="" id="" value=""/>
+                    <span class="vertical-mid">邮箱消息</span>
+                </li>
+                <li class="fl">
+                    <input class="vertical-mid" type="checkbox" name="" id="" value=""/>
+                    <span class="vertical-mid">站内信</span>
+                </li>
+            </ul>
+            <p>
+                温馨提示：订阅成功后，我们会为您推荐商城的产品、服务、优惠活动等信息。您可在任何时候退订，订阅/退订后3天内生效。
+                <a href="">查看详情</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- footer -->
+<div th:include="users/common/footer.html"></div>
+</body>
+
+<script src="/static/js/jquery-3.4.1.min.js" type="text/javascript">
+
+</script>
+<script>
+    $('.link span').click(function () {
+        var flag = $(this).hasClass("span1");
+        if (!flag) {
+            $(this).addClass('span1');
+        }
+        $(this).siblings("span").removeClass("span1")
+    })
+
+    // 选项卡
+    $('.link span').click(function () {
+        var num = $(this).index()
+        console.log(num)
+        $('.content1').hide();
+        $('.content1').eq(num).show()
+
+    })
+
+    // $('.l1').click(function () {
+    // 	$('.item').show()
+    // 	$('.item1').hide()
+    // })
+    // $('.l2').click(function () {
+    // 	$('.item1').show()
+    // 	$('.item').hide()
+    // })
+</script>
+</html>

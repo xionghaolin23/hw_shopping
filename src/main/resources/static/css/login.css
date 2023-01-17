@@ -1,0 +1,222 @@
+.relative {
+	position: relative;
+}
+
+.absolute {
+	position: absolute;
+}
+
+a:hover {
+	color: red;
+}
+
+.ver_mid {
+	vertical-align: middle;
+}
+
+.container {
+	width: 1130px;
+	margin: 0 auto;
+}
+
+.header{
+	height: 70px;
+	background: #f7f7f7;
+}
+.header_box{
+	width: 1000px;
+	margin: 0 auto;
+}
+.header_box img{
+	margin-top: 15px;
+}
+.header_box span{
+	font-size: 20px;
+	color: #000000;
+	margin-left: 50px;
+	margin-top: 20px;
+	display: inline-block;
+}
+.law{
+	height: 30px;
+	line-height: 30px;
+	font-size: 13px;
+	text-align: center;
+	background: lightyellow;
+}
+.banner{
+	background: #081638;
+	height: 590px;
+}
+.banner .banner_inner{
+	background: url(../img/login/ia_100000004.png) no-repeat;
+	background-position: center;
+	height: 100%;
+}
+.login_box{
+	width: 380px;
+	height: 530px;
+	background: white;
+	margin: 30px 0;
+}
+.login_title{
+	font-size: 20px;
+	color: #000000;
+	margin: 25px 0;
+	text-align: center;
+	cursor: pointer;
+}
+.login_leftTitle{
+	width: 49%;
+	border-right: 1px solid lightgray;
+	color: red;
+}
+.login_rightTitle{
+	width: 50%;
+}
+#login_form{
+	/* display: none; */
+}
+.tips{
+	font-size: 13px;
+	color: red;
+	margin-left: 40px;
+}
+#userName,
+#passWord{
+	width: 300px;
+	margin: 0 40px;
+	font-size: 15px;
+	height: 60px;
+	line-height: 40px;
+	border: none;
+	border-bottom: 1px solid lightgrey;
+	outline: none;
+}
+.SMS_login{
+	margin: 10px 0 10px 40px;
+	cursor: pointer;
+}
+.login_btn{
+	width: 300px;
+	height: 50px;
+	line-height: 50px;
+	font-size: 17px;
+	background: #b40707;
+	color: white;
+	text-align: center;
+	margin: 0 40px;
+	border-radius: 30px;
+	cursor: pointer;
+	transition:all 0.6s;
+}
+.login_btn:hover{
+	background: red;
+}
+.Remember{
+	margin: 10px 40px;
+}
+#RememberPassWord{
+	width: 15px;
+	height: 15px;
+	
+}
+.Remember_right{
+	cursor: pointer;
+}
+.Remember_left{
+	cursor: pointer;
+}
+.SMS_login,
+.Remember_right{
+	color: #007AFF;
+}
+.login_more{
+	margin: 0 40px;
+}
+.login_more .register{
+	width: 109px;
+	padding: 0 20px;
+	text-align: right;
+	border-right: 1px solid lightgray;
+}
+.login_more .returnPwd{
+	width: 110px;
+	padding: 0 20px;
+	text-align: left;
+}
+.login_more .register a,
+.login_more .returnPwd a{
+	color: #007AFF;
+}
+.otherWays{
+	margin-top: 63px;
+}
+.otherWays p{
+	font-size: 12px;
+	text-align: center;
+	margin-bottom: 5px;
+}
+.icon{
+	background: url(../img/login/ia_100000011.png) no-repeat;
+}
+.icon_qq{
+	width: 42px;
+	height: 42px;
+	background-position: -72px -9px;
+	margin-left: 118px;
+}
+.icon_qq:hover{
+	background-position: -72px -55px;
+}
+.icon_aliPay{
+	width: 42px;
+	height: 42px;
+	background-position: -132px -9px;
+	margin-left: 10px;
+}
+.icon_aliPay:hover{
+	background-position: -132px -55px;
+}
+.icon_weChat{
+	width: 42px;
+	height: 42px;
+	background-position: -12px -9px;
+	margin-left: 10px;
+}
+.icon_weChat:hover{
+	background-position: -12px -55px;
+}
+.footer{
+	padding: 30px 0;
+	font-size: 12px;
+	background: #f7f7f7;
+}
+.footer p{
+	margin: 0 auto;
+	text-align: center;
+}
+.footer p a{
+	padding: 0 10px;
+	border-right: 1px solid black;
+}
+.login_code{
+	display: none;
+}
+.code{
+	top: 80px;
+	left: 115px;
+	/* left: 40px; */
+}
+.code_ways{
+	top: 60px;
+	left: 205px;
+	/* display: none; */
+	opacity: 0;
+}
+.code_msg{
+	top: 300px;
+	left: 40px;
+	text-align: center;
+	
+}

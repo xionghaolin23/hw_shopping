@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huawei.hw_shopping.mapper.OrderItemMapper">
+    <resultMap id="baseResultMap" type="com.huawei.hw_shopping.model.OrderItem">
+        <id property="orderItemId" column="ORDER_ITEM_ID"/>
+        <result property="orderId" column="ORDER_ID"/>
+        <result property="pid" column="PID"/>
+        <result property="productName" column="PRODUCT_NAME"/>
+        <result property="productCoverImg" column="PRODUCT_COVER_IMG"/>
+        <result property="productPrice" column="PRODUCT_PRICE"/>
+        <result property="shopCount" column="SHOP_COUNT"/>
+        <result property="createUpdate" column="CREATE_TIME"/>
+    </resultMap>
+
+    <select id="selectOrderIdList" parameterType="string" resultMap="baseResultMap">
+        select PRODUCT_NAME,PRODUCT_COVER_IMG,PRODUCT_PRICE,SHOP_COUNT from HW_SHOPPING_ORDER_ITEM where ORDER_ID=#{orderId}
+    </select>
+
+</mapper>

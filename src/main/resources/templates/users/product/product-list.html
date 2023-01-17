@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="/static/css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="/static/css/product-list.css" />
+	</head>
+	<body>
+	<div th:replace="/users/common/header::top_adv-fragment"></div>
+	<div th:replace="/users/common/header::top_nav-fragment"></div>
+	<div th:replace="/users/common/header::header-fragment"></div>
+		<!-- Header -->
+		<div class="container">
+			<!-- 面包屑 -->
+			<div class="breadcrumb-area">
+				<a href="index.html" title="首页">首页</a> <span> > </span>
+				<a href="product-list.html">手机</a>
+				
+			</div>
+			<div class="pro-content">
+				<div class="pro-cate">
+					<span class="p-title">分类:</span>
+					<a href="product-list.html" class="all">全部</a>
+					<a href="product-list.html">HUAWEI Mate系列</a>
+					<a href="product-list.html">HUAWEI P系列</a>
+					<a href="product-list.html">HUAWEI nova系列</a>
+					<a href="product-list.html">华为畅享系列</a>
+					<a href="product-list.html">HUAWEI 麦芒系列</a>
+				</div>
+				<div class="pro-order relative">
+					<span class="p-title">排序:</span>
+					<a href="#" class="time">上架时间
+						<i class="icon arrow-updown position"></i></a>
+					<i class="icon arrow-updown-up position"></i></a>
+					<i class="icon arrow-updown-down position"></i></a>
+					<a href="#" class="price">价格
+						<i class="icon arrow-price position"></i>
+						<i class="icon arrow-price-up position"></i>
+						<i class="icon arrow-price-down position"></i></a>
+					<a href="#" class="evaluate relative">评价
+						<i class="icon little-down"></i>
+						<i class="icon red-down"></i></a>
+				</div>
+				<ul th:unless="${#lists.isEmpty(productsList)}">
+					<li class="fl" th:each="product:${productsList}">
+							<div class="pro-panels">
+								<a th:href="@{'/details/'+${product.pid}}" title="HUAWEI Mate 20 Pro" class="p-img">
+									<img src="/static/img/product-list/ia_600000018.png" th:src="${product.pimage}">
+								</a>
+								<a th:href="@{'/details/'+${product.pid}}" title="HUAWEI Mate 20 Pro">
+									<p class="name" th:text="${product.pname}">HUAWEI Mate 20 Pro</p>
+								</a>
+								<p class="red-price" th:text="${product.shopPrice}">￥5099</p>
+								<div>
+									<div class="buy fl" th:text="${product.pMsg}">选购</div>
+									<div class="clear"></div>
+								</div>
+							</div>
+						<div class="clear"></div>
+					</li>
+
+					<div class="clear"></div>
+				</ul>
+
+				<div class="page-content">
+					<ul class="page fr">
+						<li class="pgNext first fl">|<</li> <li class="pgNext pre fl">
+								<</li>
+									<a th:href="@{'/index/serch/'+1}" class="page_1 fl">1</a>
+									<a th:href="@{'/index/serch/'+2}" class="page_2 fl">2</a>
+						<li class="pgNext next fl">>
+						<li class="pgNext last fl">>|</li>
+					</ul>
+					<div class="clear"></div>
+				</div>
+			</div>
+		</div>
+
+
+		<!-- 以下为footer -->
+	<div th:replace="users/common/footer::footer-fragment"></div>
+
+		<script type="text/" th:src="@{/static/js/jquery-3.4.1.min.js}"></script>
+		<script>
+			$(".pro-content .pro-panels").click(function () {
+				window.location.href = "details.html"
+			})
+			$('.pro-cate a').click(function() {
+				$(this).css("color", "#e01d20")
+				$(this).siblings('a').css("color", "#999")
+			})
+
+			$('.pro-order a').click(function() {
+				$(this).css("color", "#e01d20")
+				$(this).siblings('a').css("color", "#999")
+			})
+
+			var flag = true;
+			$('.time').click(function() {
+				$(this).siblings().children('.red-down.arrow-price-up.arrow-price-down').css("display", "none");
+				if (flag) {
+					flag = false;
+					$(this).siblings(".arrow-updown").css("display", "none");
+					$(this).siblings(".arrow-updown-down").css("display", "block");
+					$(this).children(".arrow-price-down").css("display", "none");
+
+				} else {
+					flag = true;
+					$(this).siblings(".arrow-updown-down").css("display", "none");
+					$(this).siblings(".arrow-updown-up").css("display", "block");
+				}
+			})
+
+
+
+			var flag = true;
+			$('.price').click(function() {
+
+				$(this).siblings().children('.arrow-updown-down.arrow-updown-up.red-down').css("display", "none");
+				if (flag) {
+					flag = false;
+					$(this).children(".arrow-price").css("display", "none");
+					$(this).children(".arrow-price-down").css("display", "block");
+
+				} else {
+					flag = true;
+					$(this).children(".arrow-price-down").css("display", "none");
+					$(this).children(".arrow-price-up").css("display", "block");
+				}
+			})
+
+			var f = true;
+			$(".evaluate").click(function() {
+				$(this).siblings().children('.arrow-updown-down.arrow-updown-up.arrow-price-up.arrow-price-down').css("display",
+					"none");
+				if (f) {
+					f = false;
+					$(this).children(".little-down").css("display", "none")
+					$(this).children(".red-down").css("display", "block")
+				} else {
+					f = true;
+					$(this).children(".little-down").css("display", "block")
+					$(this).children(".red-down").css("display", "none")
+				}
+			})
+		</script>
+	</body>
+</html>

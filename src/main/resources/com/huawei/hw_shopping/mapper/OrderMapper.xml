@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huawei.hw_shopping.mapper.OrderMapper">
+    <resultMap id="baseResultMap" type="com.huawei.hw_shopping.model.Order">
+        <id property="orderId" column="ORDER_ID"/>
+        <result property="orderNo" column="ORDER_NO"/>
+        <result property="userId" column="USER_ID"/>
+        <result property="totalPrice" column="TOTAL_PRICE"/>
+        <result property="orderContent" column="ORDER_CONTENT"/>
+        <result property="userName" column="USER_NAME"/>
+        <result property="userPhone" column="USER_PHONE"/>
+        <result property="userAddress" column="USER_ADDRESS"/>
+        <result property="payStatus" column="PAY_STATUS"/>
+        <result property="payType" column="PAY_TYPE"/>
+        <result property="payTime" column="PAY_TIME"/>
+        <result property="orderStatus" column="ORDER_STATUS"/>
+        <result property="isDeleted" column="IS_DELETED"/>
+        <result property="createTime" column="CREATE_TIME"/>
+        <result property="updateTime" column="UPDATE_TIME"/>
+
+    </resultMap>
+    <select id="seletOrder" parameterType="string" resultMap="baseResultMap">
+        select ORDER_ID,ORDER_NO,TOTAL_PRICE,ORDER_STATUS,PAY_STATUS,USER_NAME,USER_PHONE,USER_ADDRESS,LOGISTICS,ORDER_CONTENT,
+               PAY_TIME,ORDER_STATUS,CREATE_TIME from HW_SHOPPING_ORDER where USER_ID=#{userId}
+    </select>
+
+    <select id="selectAllOrder" resultMap="baseResultMap">
+        select * from HW_SHOPPING_ORDER
+    </select>
+
+    <select id="seletAllOrderCount" resultType="integer">
+        select count(ORDER_ID) from HW_SHOPPING_ORDER
+    </select>
+
+    <select id="selectOrder" parameterType="string" resultMap="baseResultMap">
+        select ORDER_ID,PAY_STATUS from HW_SHOPPING_ORDER where ORDER_NO=#{out_trade_no}
+    </select>
+
+    <select id="getOrderStatus" parameterType="string" resultMap="baseResultMap">
+        select ORDER_ID,ORDER_STATUS from HW_SHOPPING_ORDER where ORDER_ID=#{oderid}
+    </select>
+
+    <select id="getAllById" parameterType="string" resultMap="baseResultMap">
+        select * from HW_SHOPPING_ORDER where ORDER_ID=#{oderid}
+    </select>
+
+    <select id="totalOrder" resultType="map">
+        select to_char(CREATE_TIME, 'YYYY-MM') as createTime,
+               sum(TOTAL_PRICE)         as totalPrice
+        from (select TOTAL_PRICE,CREATE_TIME from HW_SHOPPING_ORDER  where PAY_STATUS=1)
+        group by to_char(CREATE_TIME, 'YYYY-MM') order by to_char(CREATE_TIME, 'YYYY-MM')
+    </select>
+
+    <select id="getWaitPayment" parameterType="int" resultMap="baseResultMap">
+        select * from HW_SHOPPING_ORDER where PAY_STATUS=#{payStatus}
+    </select>
+
+    <select id="selectOrderNo" parameterType="string" resultMap="baseResultMap">
+        select * from HW_SHOPPING_ORDER where ORDER_NO=#{orderNo}
+    </select>
+
+</mapper>

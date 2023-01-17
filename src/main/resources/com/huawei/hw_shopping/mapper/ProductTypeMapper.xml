@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huawei.hw_shopping.mapper.ProductTypeMapper">
+    <resultMap id="baseResultMap" type="com.huawei.hw_shopping.model.ProductType">
+        <id property="cid" column="CID"/>
+        <result property="parentTypeId" column="PARENT_TYPE_ID"/>
+        <result property="typeName" column="TYPE_NAME"/>
+        <result property="sort" column="SORT"/>
+        <result property="timage" column="TIMAGE"/>
+     <!--   <collection property="productList"
+                    ofType="com.huawei.hw_shopping.model.Product"
+                    column="CID"
+                    resultMap="com.huawei.hw_shopping.mapper.ProductMapper.baseResultMap">
+        </collection>-->
+    </resultMap>
+    <select id="selectTypesByParentId" parameterType="int" resultMap="baseResultMap">
+        select * from HW_SHOPPING_PRODUCT_TYPE where PARENT_TYPE_ID=#{parentTypeId}
+    </select>
+
+    <select id="selectAll" resultMap="baseResultMap">
+       select p.pid,
+              p.CID,
+              p.PNAME,
+              p.MARKET_PRICE,
+              p.SHOP_PRICE,
+              p.PIMAGE,
+              p.PDESC,
+              p.PSTOCK,
+              p.PDETAILS,
+              t.TYPE_NAME,
+              t.SORT
+        from HW_SHOPPING_PRODUCT p,HW_SHOPPING_PRODUCT_TYPE t where p.CID=t.CID
+    </select>
+
+    <select id="selectNav" resultMap="baseResultMap">
+       select CID,PARENT_TYPE_ID,TYPE_NAME,SORT,TIMAGE
+        from HW_SHOPPING_PRODUCT_TYPE
+    </select>
+
+    <select id="selectDetails" parameterType="integer" resultMap="baseResultMap">
+        select CID,PARENT_TYPE_ID,TYPE_NAME
+        from HW_SHOPPING_PRODUCT_TYPE where CID=#{cid}
+    </select>
+
+</mapper>

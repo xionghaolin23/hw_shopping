@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huawei.hw_shopping.mapper.NoticeMapper">
+    <resultMap id="baseResultMap" type="com.huawei.hw_shopping.model.Notice">
+        <id property="nId" column="N_ID"/>
+        <result property="nContent" column="N_CONTENT"/>
+        <result property="releaseName" column="RELEASE_NAME"/>
+        <result property="createTime" column="CREATE_TIME"/>
+    </resultMap>
+
+    <select id="selectAllNotice" resultMap="baseResultMap">
+        select * from HW_SHOPPING_NOTICE
+    </select>
+</mapper>

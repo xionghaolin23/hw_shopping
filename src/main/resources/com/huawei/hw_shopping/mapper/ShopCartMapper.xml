@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huawei.hw_shopping.mapper.ShopCartMapper">
+    <resultMap id="baseResultMap" type="com.huawei.hw_shopping.model.ShopCart">
+        <id property="shopCartId" column="SHOP_CART_ID"/>
+        <result property="userId" column="USER_ID"/>
+        <result property="pid" column="PID"/>
+        <result property="shopCount" column="SHOP_COUNT"/>
+        <result property="isDeleted" column="IS_DELETED"/>
+        <result property="createTime" column="CREATE_TIME"/>
+        <result property="updateTime" column="UPDATE_TIME"/>
+
+        <!-- association ：配置一对一属性 -->
+        <!-- property:实体类中里面的 TCollege 属性名 -->
+        <!-- javaType:属性类型 -->
+        <association property="product" javaType="com.huawei.hw_shopping.model.Product" >
+            <!-- id:声明主键，表示 college_id 是关联查询对象的唯一标识-->
+            <id property="pid" column="PID"/>
+            <result property="pname" column="PNAME"/>
+            <result property="marketPrice" column="MARKET_PRICE"/>
+            <result property="shopPrice" column="SHOP_PRICE"/>
+            <result property="pimage" column="PIMAGE"/>
+            <result property="pdate" column="PDATE"/>
+            <result property="updateTime" column="UPDATE_TIME"/>
+            <result property="isHot" column="IS_HOT"/>
+            <result property="pSort" column="P_SORT"/>
+            <result property="pdesc" column="PDESC"/>
+            <result property="pflag" column="PFLAG"/>
+            <result property="cid" column="CID"/>
+            <result property="pstock" column="PSTOCK"/>
+            <result property="pdetails" column="PDETAILS"/>
+            <result property="pMsg" column="P_MSG"/>
+            <result property="deleteFlag" column="DELETE_FLAG"/>
+        </association>
+
+    </resultMap>
+    <select id="selectShopPid" parameterType="string" resultMap="baseResultMap">
+        select pid,SHOP_COUNT
+        from HW_SHOPPING_CART where pid=#{pid}
+    </select>
+
+    <select id="selectShopUserId" parameterType="string" resultMap="baseResultMap">
+        select PID,SHOP_COUNT
+        from HW_SHOPPING_CART where USER_ID=#{user_id}
+    </select>
+    <select id="findUserCars" parameterType="string" resultMap="baseResultMap">
+        select *
+        from HW_SHOPPING_CART where USER_ID=#{user_id}
+    </select>
+
+    <delete id="deleteProduct" parameterType="string">
+        delete from HW_SHOPPING_CART where pid=#{pid}
+    </delete>
+
+    <select id="byPidSelectShopList" parameterType="string" resultMap="baseResultMap">
+        select * from HW_SHOPPING_CART where PID=#{pid}
+    </select>
+
+    <select id="byPidSelectShopCount" parameterType="integer" resultMap="baseResultMap">
+        select SHOP_COUNT from HW_SHOPPING_CART where PID=#{pid}
+    </select>
+
+    <select id="selectShopBypid" parameterType="string" resultMap="baseResultMap">
+        select SHOP_COUNT
+        from HW_SHOPPING_CART where PID=#{pid}
+    </select>
+
+    <!--多表连接-->
+    <select id="selectProduct" parameterType="string" resultMap="baseResultMap">
+        select c.SHOP_COUNT,p.* from  HW_SHOPPING_CART c,HW_SHOPPING_PRODUCT p where c.pid=p.pid and c.pid=#{pid}
+    </select>
+</mapper>

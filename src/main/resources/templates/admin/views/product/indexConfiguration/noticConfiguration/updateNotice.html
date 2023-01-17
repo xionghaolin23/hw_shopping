@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>编辑公告配置</title>
+    <link rel="stylesheet" href="/static/js/layuiadmin/layui/css/layui.css" media="all">
+</head>
+<body>
+<div class="layui-form" lay-filter="layuiadmin-form-useradmin" id="layuiadmin-form-useradmin"
+     style="padding: 20px 0 0 0;">
+
+    <div class="layui-form-item" style="margin:15px 0 20px 0">
+        <label class="layui-form-label">ID</label>
+        <div class="layui-input-inline">
+            <input type="text" name="nId" th:value="${noticeById.nId}" autocomplete="off" class="layui-input"
+                   readonly
+                   style="width: 220px;background-color: darkgrey">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">公告内容</label>
+        <div class="layui-input-inline">
+            <input type="text" name="nContent" th:value="${noticeById.nContent}"
+                   class="layui-input" style="width: 220px">
+        </div>
+    </div>
+
+    <div class="layui-form-item layui-hide">
+        <input type="button" lay-submit lay-filter="LAY-user-front-submit" id="LAY-user-front-submit" value="确认">
+    </div>
+</div>
+
+<script src="/static/js/layuiadmin/layui/layui.js"></script>
+<script src="/static/js/jquery-3.4.1.min.js"></script>
+<script>
+    layui.config({
+        base: '/static/js/layuiadmin/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'form', 'upload', 'laydate','table','layer'], function () {
+        var $ = layui.$
+            , form = layui.form
+            , upload = layui.upload
+            , table = layui.table
+            , layer = layui.layer
+            , laydate = layui.laydate;
+
+
+        $('#previewImg').click(function () {
+            layer.msg("选择图片")
+            $('#pim').click();
+            $('#pim').change(function () { //点击改变图片的src 从而实现预览图片的功能
+                layer.msg("改变了时候可以拿到img文件")
+                let file = this.files[0];
+                imgPreview(file, $('#pImg')[0]);
+                layer.msg("改变了")
+            });
+
+        })
+
+
+        //图片上传预览功能，file：指的是文件，img指的是js dom对象q("#id")[0]
+        function imgPreview(file, imgDom) {
+            //判断是否支持FileReader
+            if (window.FileReader) {
+                var reader = new FileReader();
+            } else {
+                layer.msg("您的设备不支持图片预览功能，如需使用该功能请升级您的设别");
+            }
+            var imageType = /^image\//;
+            //是否是图片
+            if (!imageType.test(file.type)) {
+                layer.msg("请选择图片！")
+                return;
+            }
+            //读取完成
+            reader.onload = function (e) {
+                //获得图片dom
+                //图片路径设置为读取的图片
+                imgDom.src = e.target.result;
+            };
+            reader.readAsDataURL(file)
+        }
+
+
+        form.on('submit(hotForm)', function (data) {
+          /*  console.log(data.elem); //得到checkbox原始DOM对象
+            console.log(data.elem.checked); //是否被选中，true或者false
+            console.log(data.value); //复选框value值，也可以通过data.elem.value得到
+            console.log(data.othis); //得到美化后的DOM对象
+            console.log(data.field); //得到当前表单全部字段
+            console.log(data.form); //得到当前表单全部字段*/
+            let formData = new FormData(data.form);
+            $.ajax({
+                url: '/product/hotUpdateById',
+                contentType: false,//传递的东西有很多种数据格式的时候 写false
+                data: formData,
+                processData: false,
+                type: 'post',
+                success: function (data) {
+                    if (data.success) {
+                        layer.alert('更新成功', {icon: 6},function () {
+                                var index=window.parent.location.reload();//刷新父页面
+                                parent.layer.close(index);//关闭弹出层
+                            });
+                    }
+
+                },
+
+            })
+            })
+
+
+
+            laydate.render({
+            elem: "#time"
+            , trigger: 'click'
+        })
+
+    })
+</script>
+</body>
+</html>
+
+
+
+
+
+

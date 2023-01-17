@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="/static/css/my-order.css" />
+		<link rel="stylesheet" type="text/css" href="/static/css/reset.css" />
+		<link rel="stylesheet" type="text/css" th:href="@{/static/js/layui/css/layui.css}"/>
+	</head>
+	<body>
+		<!-- 顶部nav -->
+		<!-- header -->
+		<div th:replace="/users/common/header::top_adv-fragment"></div>
+		<div th:replace="/users/common/header::top_nav-fragment"></div>
+		<div th:replace="/users/common/header::header-fragment"></div>
+		
+		<div class="Member_contanier">
+			<!-- 面包屑 -->
+			<div class="breadcrumb-area">
+				<a href="/index.html">首页</a>
+				&nbsp;&gt;&nbsp;
+				<a href="/Member-Center.html">
+					<span class="personCenter">
+						我的商城
+					</span>
+				</a>
+				&nbsp;&gt;&nbsp;
+				<span class="personCenter">
+					我的订单
+				</span>
+			</div>
+
+			<div class="Member_content">
+				<!-- 左边菜单 -->
+				<div class="Left_MyShop fl">
+					<div class="Left_MyShop fl">
+						<div class="menu-area">
+							<div class="head">
+								<a href="/Member-Center.html">
+									<span>我的商城</span>
+								</a>
+							</div>
+							<div class="bottom">
+								<ul>
+									<!-- 我的消息 -->
+									<li>
+										<h3 class="icon-mail">
+											<span>我的消息</span>
+										</h3>
+										<ol>
+											<li>
+												<a href="/member-message-center.html">
+													<span class="li-msg">
+														消息中心
+														<em></em>
+													</span>
+												</a>
+											</li>
+										</ol>
+									</li>
+									<!-- 订单中心 -->
+									<li>
+										<h3 class="icon-order">
+											<span>订单中心</span>
+										</h3>
+										<ol>
+											<li>
+												<span class="li-msg">
+												<a href="/member-my-order.html" style="color: #cf0a2c;">
+														我的订单<em></em>
+												
+												</a>
+													</span>
+											</li>
+					
+											<li class="li-exchange">
+												<a href="/member-my-order.html">
+													<span class="">
+														我的退换货
+													</span>
+												</a>
+											</li>
+					
+											<li class="li-refunds">
+												<a href="/member-my-order.html">
+													<span class="">
+														我的退款
+													</span>
+												</a>
+											</li>
+					
+											<li class="li-recover">
+												<a href="/member-my-order.html">
+													<span class="">
+														我的回收单
+													</span>
+												</a>
+											</li>
+					
+											<li class="li-remark">
+												<a href="/member-my-order.html">
+													<span class="">
+														商品评价
+													</span>
+												</a>
+											</li>
+										</ol>
+									</li>
+									<!-- 我的资产 -->
+									<li>
+										<h3 class="icon-asset">
+											<span>我的资产</span>
+										</h3>
+										<ol>
+											<li class="li-newpoint">
+												<a href="#">
+													<span class="">
+														我的积分
+													</span>
+												</a>
+											</li>
+					
+											<li class="li-coupon">
+												<a href="#">
+													<span class="">
+														我的优惠券
+													</span>
+												</a>
+											</li>
+					
+
+										</ol>
+									</li>
+									<!-- 购买支持 -->
+									<li>
+										<h3 class="icon-support">
+											<span>购买支持</span>
+										</h3>
+										<ol>
+											<li class="li-mydress">
+												<a href="/member-delivery-address.html">
+													<span class="">
+														收货地址管理
+													</span>
+												</a>
+											</li>
+					
+											<li class="li-authentication">
+												<a href="#">
+													<span class="">
+														实名认证
+													</span>
+												</a>
+											</li>
+					
+											<li class="li-appointment">
+												<a href="#">
+													<span class="">
+														我的预约
+													</span>
+												</a>
+											</li>
+					
+											<li class="li-notification">
+												<a href="#">
+													<span class="">
+														到货通知
+													</span>
+												</a>
+											</li>
+					
+											<li class="li-easybuy">
+												<a href="#">
+													<span class="">
+														我的优享受购
+													</span>
+												</a>
+											</li>
+										</ol>
+									</li>
+									<!-- 帮助中心 -->
+									<li>
+										<h3 class="icon-help">
+											<a href="#" target="_blank">
+												<span>帮助中心</span>
+											</a>
+										</h3>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					
+				
+				</div>
+				
+				
+				<!-- 右边订单内容 -->
+				<div class="my-order-content fr">
+					<div class="section-header">
+						<div class="fl">
+							<h2><span>我的订单</span></h2>
+						</div>
+
+						<div class="fr">
+							<div class="ec-tab" id="ec-tab">
+								<ul>
+									<li class="current fl">
+										<a href="javascript:void(0)">
+											<span>最近六月内订单
+												<!--<em id="count-seltime-0">1</em>-->
+											</span>
+										</a>
+									</li>
+									<li class="fl"><a href="javascript:void(0)"><span>六个月前订单<em id="count-seltime-1"
+												 style="display: none;">0</em></span></a></li>
+									<div class="clear"></div>
+								</ul>
+								<div class="ec-tab-arrow" style="width: 135.792px; left: 0px;"></div>
+							</div>
+						</div>
+						<div class="clear"></div>
+					</div>
+
+					<!-- tab选项卡全部有效订单 -->
+					<div class="myOrder-cate" id="myOrder-cate">
+						<ul>
+							<li>
+								<a href="/userOrder/waitPayment/0">
+									<span>
+										待支付
+									</span>
+								</a>
+							</li>
+							<li >
+								<span id="paySuccess" class="current" >
+									已支付
+								</span>
+							</li>
+						</ul>
+					</div>
+
+
+					<!-- 商品title -->
+
+					<div class="myOrder-record" id="myOrders-list-content">
+					
+						<div class="list-group-title">
+							<table border="0" cellpadding="0" cellspacing="0">
+								<thead>
+									<tr>
+										<th class="col-pro" width="500px">商品</th>
+										<th class="col-price" width="113px">单价/元</th>
+										<th class="col-quty">数量</th>
+										<th class="col-pay">实付款/元</th>
+										<th class="col-operate" width="138px">订单状态及操作</th>
+									</tr>
+								</thead>
+							</table>
+						</div>
+						<div class="list-group" id="list-group" th:unless="${#lists.isEmpty(orderList)}">
+							<div class="list-group-item" th:each="order:${orderList}">
+
+								<form th:action="@{/pay/toPay}" method="post" id="goToPay">
+									<input type="hidden" name="out_trade_no" id="out_trade_no" th:value="${order.orderNo}">
+									<input type="hidden" name="subject" id="orderContent" th:value="${order.orderContent}">
+									<input type="hidden" name="total_amount" id="totol_amount" th:value="${order.totalPrice}">
+								</form>
+
+								<div class="o-info">
+									<div class="col-info">
+										<input type="checkbox" class="checkbox" name="payCheck" value="11450319926" paymentstatus="2" clearorder="false">
+										<!-- 奖品订单 -->
+										<span class="o-date" th:text="${#dates.format(order.createTime,'yyyy-MM-dd')}">2020-04-27&nbsp;&nbsp;17:56</span>
+										<span class="o-no">订单号：<a href="javascript:void(0)" th:text="${order.orderNo}">11450319926</a></span>
+									</div>
+									<div class="col-state">
+										订单已确认&nbsp;|&nbsp;
+										<span th:if="${order.payStatus} eq 0">
+											未支付&nbsp;|&nbsp;
+											<a href="javascript:;">
+												<span   style="color: red" id="confirm_pay">立即支付</span>
+											</a>
+											<a href="javascript:;">
+												<span id="cancelOrder"  th:orderId="${order.orderId}">|&nbsp;取消订单&nbsp;|&nbsp;</span>
+											</a>
+										</span>
+										<span th:if="${order.payStatus} eq 1">
+											已支付&nbsp;|&nbsp;
+											<a href="javascript:;">
+												<span th:if="${order.payStatus} eq 1" id="confirmOrder"  th:orderId="${order.orderId}">
+													确认收货&nbsp;|&nbsp;
+												</span>
+											</a>
+											<a href="javascript:;">
+												<span th:if="${order.payStatus} eq 1" class="refund"  th:orderNo="${order.orderNo}">
+													申请退款&nbsp;|&nbsp;
+												</span>
+											</a>
+										</span>
+										<a href="javascript:;">
+											<span th:if="${order.logistics} ne null">
+												物流单号&nbsp;:&nbsp;
+												<span id="logistics" th:logistics="${order.logistics}" th:text="${order.logistics}"></span>
+											</span>
+										</a>
+									</div>
+
+								</div>
+								<div class="o-pro">
+									<table border="0" cellpadding="0" cellspacing="0">
+										<tbody th:unless="${#lists.isEmpty(order.orderItem)}">
+
+											<tr th:each="orderItems:${order.orderItem}">
+												<td class="col-pro-img">
+													<p class="p-img">
+														<a title="HUAWEI nova 5 8GB+128GB 全网通版（仲夏紫）" href="javascript:;">
+															<img alt="HUAWEI nova 5 8GB+128GB 全网通版（仲夏紫）" th:src="${orderItems.productCoverImg}">
+														</a>
+													</p>
+												</td>
+												<td class="col-pro-info" width="380px">
+													<p class="p-name">
+
+														<a title="HUAWEI nova 5 8GB+128GB 全网通版（仲夏紫）"  href="javascript:;" th:text="${orderItems.productName}">
+															HUAWEI nova 5 8GB+128GB 全网通版（仲夏紫）</a>
+													</p>
+												</td>
+												<td class="col-price">
+													<em>¥</em><span th:text="${orderItems.productPrice}">2799.00</span>
+												</td>
+												<td class="col-quty" width="75px" th:text="${orderItems.shopCount}">
+													1
+												</td>
+												<!--<td class="col-quty" width="75px" rowspan="4">
+													[[${orderItems.productPrice}*${orderItems.shopCount}]]
+												</td>-->
+											</tr>
+
+											<tr class="o-gift">
+												<td class="col-gift" colspan="2">
+													<p class="d-name"><b>赠品</b>【华为】满200元减20元配件叠加券</p>
+												</td>
+												<td class="col-price">--</td>
+												<td class="col-quty">1</td>
+											</tr>
+											<tr class="o-gift">
+												<td class="col-gift" colspan="2">
+													<p class="d-name"><b>赠品</b>【华为】满100元减10元配件叠加券</p>
+												</td>
+												<td class="col-price">--</td>
+												<td class="col-quty">1</td>
+											</tr>
+											<tr class="o-gift">
+												<td class="col-gift" colspan="2">
+													<p class="d-name"><b>赠品</b>【华为】满50元减5元配件叠加券</p>
+												</td>
+												<td class="col-price">--</td>
+												<td class="col-quty">1</td>
+											</tr>
+										</tbody>
+									</table>
+
+								</div>
+
+
+
+							</div>
+						</div>
+						<div class="myOrder-control hide" id="">
+							<label class="inputbox" id="" name="">
+								
+								<input type="checkbox" class="checkbox" id="" name=""><span>全选</span>
+								
+							</label>
+							<a href="nowConfirmCard.html" class="button-operate-merge-pay" id="" ><span>合并支付</span></a>
+						</div>
+						<div class="list-group-page">
+							<div class="pager" id="list-pager"></div>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="clear"></div>
+
+			</div>
+			<div class="bottom-hr"></div>
+		</div>
+		<!-- footer -->
+		<div th:include="users/common/footer.html"></div>
+		<script type="text/javascript" src="/static/js/jquery-3.4.1.min.js" th:src="@{/static/js/jquery-3.4.1.min.js}"></script>
+		<script src="/static/js/layer/layer.js" type="text/javascript" th:src="@{/static/js/layer/layer.js}"></script>
+		<script th:src="@{/static/js/layui/layui.js}" type="text/javascript" charset="utf-8"></script>
+	<script>
+		//取消订单
+		$('.col-state').on("click", "#cancelOrder", function () {
+			var $self = $(this);
+			console.log($self);
+			var oderid = $self.attr('orderid');
+			var flag = true;
+			layer.confirm("您确认要取消订单吗？", function (index) {
+				if (flag) {
+					$.post('/userOrder/delete', {oderid: oderid}, function (data) {
+						if (data.success) {
+							$self.parents('.list-group-item').remove();
+							layer.msg("取消成功");
+						} else {
+							layer.msg("取消失败");
+						}
+						layer.close(index);
+					})
+				}
+			}, function () {
+				//取消
+				layer.msg("取消成功")
+			})
+		})
+
+        /*确认收货*/
+        $('.col-state').on("click", "#confirmOrder", function () {
+            var $self = $(this);
+            console.log($self);
+            var oderid = $self.attr('orderid');
+            var flag = true;
+            layer.confirm("确认收货？", function (index) {
+                if (flag) {
+                    $.post('/userOrder/confirmOrder', {oderid: oderid}, function (data) {
+                        if (data.success) {
+                            layer.msg("确认成功");
+                            $('#confirmOrder').remove();
+							$("#confirmOrder").append("<span th:if='${order.payStatus} eq 3'>已收货</span></a>");
+                        } else {
+                            layer.msg("确认失败");
+                        }
+                        layer.close(index);
+                    })
+                }
+            }, function () {
+                //取消
+                layer.msg("取消成功")
+            })
+        })
+
+		//支付
+		$('#confirm_pay').click(function () {
+			$("#goToPay").submit();
+		})
+
+		//查看物流
+		$("#logistics").click(function () {
+			var logistics = $("#logistics").attr('logistics');
+			$.ajax({
+				url: '/logistics',
+				data:{
+					logistics:logistics,
+					LogCompany:null,
+				},
+				dateType: 'json',
+				success: function (res) {
+					var str = '';
+					if (res.status == 0) {
+						$.each(res.result.list, function (k, v) {
+							str += ' <li class="layui-timeline-item">\n' +
+									'                        <i class="layui-icon layui-timeline-axis">&#xe63f;</i>\n' +
+									'                        <div class="layui-timeline-content layui-text">\n' +
+									'                            <h3 class="layui-timeline-title">' + v.time + '</h3>\n' +
+									'                            <p>' + v.status + '</p>\n' +
+									'                        </div>\n' +
+									'</li>\n';
+						})
+						layer.open({
+							type: 1,
+							shade: false,
+							title: '查看物流', //不显示标题
+							area: ['500px', '450px'], //宽高
+							content: str, //捕获的元素，注意：最好该指定的元素要存放在body最外层，否则可能被其它的相对元素所影响
+							cancel: function(){
+								layer.msg('查询成功', {time: 2000, icon:6});
+							}
+						});
+					}else {
+						layer.msg('查询失败');
+					}
+				}
+			});
+		})
+
+		/*已支付*/
+		$("#paySuccess").click(function () {
+			$("#paySuccess").parent('li').attr("class",'current')
+			window.location.href="/userOrder/waitPayment/1";
+
+			})
+
+		/*申请退款*/
+
+	$(".refund").click(function () {
+		var orderNo=$(".refund").attr('orderNo')
+		window.location.href="/pay/refund/"+orderNo;
+	})
+	</script>
+	</body>
+</html>

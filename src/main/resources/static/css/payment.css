@@ -1,0 +1,163 @@
+.relative {
+	position: relative;
+}
+
+.absolute {
+	position: absolute;
+}
+
+a:hover {
+	color: red;
+}
+
+.ver_mid {
+	vertical-align: middle;
+}
+
+.container {
+	width: 1200px;
+	margin: 0 auto;
+}
+
+.header {
+	padding: 30px 0;
+	border-bottom: 4px solid green;
+}
+
+.header .logo {
+	width: 205px;
+	height: 40px;
+	background: url(../img/index/logo.png) no-repeat;
+	background-size: contain;
+}
+
+.header .confirmCard {
+	font-size: 20px;
+	color: #000000;
+	line-height: 40px;
+	margin-left: 30px;
+}
+
+.payment_logo {
+	width: 120px;
+}
+
+.payment_logo img {
+	width: 64px;
+	height: 64px;
+	margin: 30px 21px 0 24px;
+}
+
+.payment_msg {
+	width: 1058px;
+	padding: 28px 22px 20px 0;
+}
+
+.main1 {
+	font-size: 18px;
+	color: #008000;
+}
+
+.main2 {
+	margin-left: 20px;
+	font-size: 14px;
+	color: #000000;
+}
+
+.main3 {
+	font-size: 14px;
+	color: red;
+}
+
+.msg_time {
+	margin-top: 20px;
+	font-size: 14px;
+	color: #000000;
+}
+
+.time2 {
+	font-size: 15px;
+	color: red;
+	font-weight: 600;
+}
+
+.time5 {
+	color: red;
+}
+
+.pay_ways {
+	margin-top: 50px;
+}
+
+.pay_ways .hd li {
+	width: 170px;
+	height: 40px;
+	line-height: 40px;
+	font-size: 16px;
+	color: #000000;
+	float: left;
+	background: whitesmoke;
+	text-align: center;
+	border: 1px solid lightgray;
+	border-bottom: 0;
+	cursor: pointer;
+}
+
+.pay_ways .bd {
+	padding: 40px;
+	border: 1px solid lightgray;
+}
+
+.bd li {
+	min-height: 200px;
+	display: none;
+}
+
+.bd li div {
+	width: 257px;
+	height: 51px;
+	text-align: center;
+	line-height: 51px;
+	font-size: 18px;
+	border: 1px solid lightgray;
+	margin-left: 20px;
+	margin-top: 30px;
+	float: left;
+	cursor: pointer;
+}
+
+.bd li div .aliPay {
+	height: 30px;
+	margin-top: 10px;
+}
+.bd li div .select_icon{
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	display: none;
+}
+.confirm_pay {
+	margin-top: 20px;
+}
+
+.confirm_pay div {
+	float: right;
+	text-align: center;
+	line-height: 50px;
+	color: white;
+	font-size: 20px;
+	cursor: pointer;
+	width: 150px;
+	height: 50px;
+	background: orangered;
+}
+
+.footer {
+	background: whitesmoke;
+	padding: 40px 0 30px 0;
+	margin-top: 50px;
+}
+
+.footer_main img {
+	margin-right: 20px;
+}

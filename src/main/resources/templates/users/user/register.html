@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+    <link href="/static/js/layui/css/layui.css" rel="stylesheet" type="text/css">
+</head>
+<body style="height: 300px">
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px">
+    <legend>用户注册</legend>
+</fieldset>
+<form class="layui-form" th:action="@{/user/register}" style="text-align: center">
+    <div class="layui-form-item" style="margin-bottom: 5px">
+        <label class="layui-form-label">用户名</label>
+        <div class="layui-input-inline">
+            <input type="text" name="userName" lay-verify="userName" placeholder="请输入用户名" autocomplete="off"
+                   class="layui-input"
+                   style="width: 280px" required>
+        </div>
+    </div>
+    <div class="layui-form-item" style="margin-bottom: 5px">
+        <label class="layui-form-label">密码</label>
+        <div class="layui-input-inline">
+            <input type="password" name="password" lay-verify="password" required placeholder="请输入密码" autocomplete="off"
+                   class="layui-input"
+                   style="width: 280px">
+        </div>
+    </div>
+    <div class="layui-form-item" style="margin-bottom: 5px">
+        <label class="layui-form-label">请输入邮箱</label>
+        <div class="layui-input-inline">
+            <input type="email" name="email" required placeholder="邮箱" autocomplete="off" class="layui-input"
+                   style="width: 280px">
+        </div>
+    </div>
+    <div class="layui-form-item" style="margin-bottom: 5px">
+        <label class="layui-form-label">手机</label>
+        <div class="layui-input-inline">
+            <input type="text" name="mobile" lay-verify="required|phone" placeholder="请输入手机号" autocomplete="off" class="layui-input"
+                   style="width: 280px">
+        </div>
+    </div>
+    <div class="layui-form-item" style="margin-bottom: 5px">
+        <label class="layui-form-label">真实姓名</label>
+        <div class="layui-input-inline">
+            <input type="text" name="name" required placeholder="请输入用户名" autocomplete="off" class="layui-input"
+                   style="width: 280px">
+        </div>
+    </div>
+    <div class="layui-form-item" style="margin-bottom: 5px">
+            <label class="layui-form-label">出生日期</label>
+            <div class="layui-input-inline">
+                <input type="text" name="birthday" class="layui-input" id="time" placeholder="yyyy-MM-dd"
+                       style="width: 280px" autocomplete="off">
+            </div>
+    </div>
+    <div class="layui-form-item" style="margin-bottom: 5px;text-align: left">
+        <label class="layui-form-label">性别</label>
+        <div class="layui-input-inline">
+            <input type="radio" name="gender" value="男" title="男" checked>
+            <input type="radio" name="gender" value="女" title="女">
+        </div>
+    </div>
+    <!--通过隐藏域把value="0"传到后台-->
+    <input  name="isSys" value="0" type="hidden"/>
+    <div class="layui-form-item" style="margin-top: 15px;text-align: center">
+        <button class="layui-btn layui-btn-normal layui-btn-radius" lay-submit="" lay-filter="checkForm"
+                style="width: 300px">注册
+        </button>
+    </div>
+</form>
+
+<script src="/static/js/layui/layui.js"></script>
+<script src="/static/js/jquery-3.4.1.min.js"></script>
+<script>
+
+    /*日期选择框js*/
+    layui.use(['laydate','form'], function () {
+        var laydate = layui.laydate;
+        var form = layui.form;
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#time' //指定元素
+            ,trigger: 'click'  //谷歌浏览器可以正确显示日期插件
+        });
+
+        /*表单验证*/
+        layui.form.verify({
+            userName: [
+                /^[\S]{4,12}$/
+                , "用户名必须4-12位，且不能有空格"
+            ],
+            password: [
+                /^[\S]{6,12}$/
+                , "密码必须6-12位，且不能有空格"
+            ]
+        });
+    });
+
+
+    /*js提交部分*/
+    layui.use('form', function () {
+        var form = layui.form;
+        //监听提交
+        form.on('submit(checkForm)', function (data) { //传form进去 表单内容
+            var data = $("form").serializeArray();//序列化成数组
+            //用ajax提交
+            $.ajax({
+                type: "POST",
+                url: "/user/register",
+                data: data,
+                //成功执行函数  res回调
+                success: function (res) {
+                    console.log(data)
+                    console.log(res)
+                    if (res.success) {
+                        layer.msg("注册成功！", {
+                            icon: 1,
+                            time: 1000 ,//显示时间
+                    }, function () {
+                            //window.location.href="/login.html";
+                            //先得到当前ifame层得索引
+                            var index = parent.layer.getFrameIndex(window.name);
+                            //更新父级页面
+                            parent.location.reload();
+                            //关闭弹出层
+                            parent.layer.close(index);
+                            //跳转  目前问题 加上这个日期空间选择不了
+                           // parent.location.hre=/login.html；
+                        });
+                    } else {
+                        //后台传来得错误信息
+                        layer.msg("注册失败");
+                    }
+                },
+                error: function (data) {
+                    layer.msg("网络错误");
+                }
+            });
+            return false;
+        });
+    });
+
+    /*form.verify({
+        /!*用户名作为验证条件  表单提交时触发*!/
+        username: function (value) {
+            var datas = {username: value};
+            var message = '';
+            $.ajax({
+                type: "post",
+                url: user / register,
+                async: false,//改为同步方法
+                contentType: 'application/json0;charset=UTF-8',
+                data: JSON.stringify(datas),
+                dataType: 'json',
+                success: function (data) {
+                    if (data) {
+
+                    } else {
+                        message = "用户名已经存在，请重新输入！"
+                    }
+                }
+
+            });
+            if (message !== '')
+                return message;
+        }
+    });*/
+
+
+</script>
+</body>
+</html>

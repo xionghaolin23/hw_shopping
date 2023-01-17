@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huawei.hw_shopping.mapper.SpuMapper">
+    <resultMap id="baseResultMap" type="com.huawei.hw_shopping.model.Spu">
+        <id property="spuId" column="SPU_ID"/>
+        <result property="spuName" column="SPU_NAME"/>
+        <result property="spuDesc" column="SPU_DESC"/>
+        <result property="defaultSkuId" column="DEFAULT_SKU_ID"/>
+        <result property="spuPrice" column="SPU_PRICE"/>
+        <result property="spuMsg" column="SPU_MSG"/>
+        <result property="spuImage" column="SPU_IMAGE"/>
+        <result property="deleteFlag" column="DeleTEFLAG"/>
+    </resultMap>
+
+    <select id="selectAllSpuList" resultMap="baseResultMap">
+        select SPU_ID,SPU_NAME,SPU_DESC,DEFAULT_SKU_ID,SPU_PRICE,SPU_MSG,SPU_IMAGE from HW_SHOPPING_SPU where DELETE_FLAG=0
+    </select>
+
+    <select id="selectAllCount" resultType="integer">
+        select count(SPU_ID) from HW_SHOPPING_SPU where DELETE_FLAG=0
+    </select>
+
+    <select id="selectAllSpu" resultMap="baseResultMap">
+        select SPU_NAME from HW_SHOPPING_SPU where DELETE_FLAG=0
+    </select>
+
+</mapper>

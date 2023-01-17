@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huawei.hw_shopping.mapper.UserMapper">
+    <resultMap id="baseResultMap" type="com.huawei.hw_shopping.model.User">
+        <id property="userId" column="USER_ID"/>
+        <result property="userName" column="USER_NAME"/>
+        <result property="password" column="PASSWORD"/>
+        <result property="name" column="NAME"/>
+        <result property="email" column="EMAIL"/>
+        <result property="gender" column="GENDER"/>
+        <result property="birthday" column="BIRTHDAY"/>
+        <result property="isSys" column="IS_SYS"/>
+        <result property="mobile" column="MOBILE"/>
+        <result property="registerTime" column="REGISTER_TIME"/>
+        <result property="loginCount" column="LOGIN_COUNT"/>
+        <result property="loginIp" column="LOGIN_IP"/>
+        <result property="loginLastTime" column="LOGIN_LAST_TIME"/>
+    </resultMap>
+
+    <!--查询普通用户-->
+
+    <select id="selectUserPage" resultMap="baseResultMap">
+        select *
+        from VIEWS_HW_SHOPPING_USER_ORDIN
+    </select>
+    <!--查询管理员-->
+    <select id="selectAdminerPage" resultMap="baseResultMap">
+        select *
+        from VIEWS_HW_SHOPPING_USER_ADMIN
+    </select>
+
+    <!--登录-->
+    <select id="login" parameterType="com.huawei.hw_shopping.model.User" resultMap="baseResultMap">
+        SELECT USER_ID,
+               USER_NAME,
+               PASSWORD,
+               NAME,
+               EMAIL,
+               GENDER,
+               BIRTHDAY,
+               IS_SYS,
+               MOBILE,
+               HEAD,
+               LOGIN_COUNT,
+               LOGIN_LAST_TIME,
+               LOGIN_IP
+        FROM HW_SHOPPING_USER
+        WHERE USER_NAME = #{userName}
+          AND PASSWORD = #{password}
+    </select>
+    <!--后台查询总访问量-->
+    <select id="loginNum" resultType="integer">
+        select sum(LOGIN_COUNT)
+        from HW_SHOPPING_USER
+    </select>
+    <!--注册-->
+    <!--<insert id="register" parameterType="com.huawei.hw_shopping.model.User">
+        &lt;!&ndash;
+                    keyProperty: 表示将从序列获得的值赋予实体的哪个属性
+                    order: 表示主键值生成的方式,可取值：BEFORE ｜ AFTER
+                         由于不同的数据库对插入的数据时主键生成方式是不同，例如：
+                         mysql and ms server: 主键生成方式为后生成方式。
+                         oracle: 主键生成方式预生成.
+                &ndash;&gt;
+        <selectKey keyProperty="userId" resultType="string" order="BEFORE">
+            select hw_shopping_user_seq.nextval from dual
+        </selectKey>
+        &lt;!&ndash;
+            如果使用这种整表插入的方式，那当数据库表的某些列可以为空值时，我将要告诉底层的JDBC驱动如何处理空值的情况，这不是mybatis所需要的，
+            而是底层有些JDBC驱动所需的特性，实际上就是让JDBC驱动去调用PrepareStatement.setNull()来设置空值.
+         &ndash;&gt;
+        insert into HW_SHOPPING_USER
+        values
+        (#{userId},#{userName},#{password},#{name,jdbcType=VARCHAR},#{email,jdbcType=VARCHAR},#{gender},#{birthday,jdbcType=DATE},#{isSys,jdbcType=VARCHAR},#{mobile,jdbcType=INTEGER},#{registerTime,jdbcType=TIMESTAMP})
+    </insert>
+-->
+    <!--忘记密码中判断邮件-->
+    <select id="findByEmail" parameterType="String" resultMap="baseResultMap">
+        SELECT USER_ID, EMAIL
+        FROM HW_SHOPPING_USER
+        WHERE EMAIL = #{email}
+    </select>
+
+    <!--后台搜索-->
+    <!-- <select id="serch" parameterType="com.huawei.hw_shopping.model.User" resultMap="baseResultMap">
+         select * from HW_SHOPPING_USER where USER_ID=#{userId} or USER_NAME like '${userName}%'  or EMAIL=#{email} or gender=#{gender}
+     </select>-->
+    <!--mybatis动态sql  搜索用户  公告部分提取出来-->
+    <sql id="serch">
+        <if test="userId!=null">
+            or USER_ID=#{userId}
+        </if>
+        <if test="userName!=null and userName!='' ">
+            or USER_NAME like '%${userName}%'
+        </if>
+        <if test="mobile!=null and mobile!=''">
+            or MOBILE like '%${mobile}%'
+        </if>
+        <if test="gender!=null and gender!='' ">
+            or GENDER=#{gender}
+        </if>
+    </sql>
+
+    <select id="serchUser" parameterType="com.huawei.hw_shopping.model.User" resultMap="baseResultMap">
+        select * from VIEWS_HW_SHOPPING_USER_ORDIN
+        <where>
+            <include refid="serch"/>
+        </where>
+    </select>
+    <!--搜索管理员-->
+    <select id="serchAdmin" parameterType="com.huawei.hw_shopping.model.User" resultMap="baseResultMap">
+        select * from VIEWS_HW_SHOPPING_USER_ADMIN
+        <where>
+            <include refid="serch"/>
+        </where>
+    </select>
+
+    <select id="userAccount" resultType="map">
+        select to_char(REGISTER_TIME, 'YYYY-MM') as registerTime,
+               count(distinct USER_ID)           as userId
+
+        from (select USER_ID,REGISTER_TIME from HW_SHOPPING_USER  where IS_SYS=0)
+        group by to_char(REGISTER_TIME, 'YYYY-MM')
+    </select>
+
+    <select id="AdminUSerAccount" resultType="map">
+        select to_char(REGISTER_TIME, 'YYYY-MM') as registerTime,
+               count(distinct USER_ID)           as userId
+
+        from (select USER_ID,REGISTER_TIME from HW_SHOPPING_USER  where IS_SYS=1)
+        group by to_char(REGISTER_TIME, 'YYYY-MM')
+    </select>
+
+    <update id="updatePwd" parameterType="string">
+        update HW_SHOPPING_USER set PASSWORD=#{password} where  MOBILE =#{mobile}
+    </update>
+</mapper>

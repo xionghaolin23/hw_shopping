@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huawei.hw_shopping.mapper.ProductMapper">
+    <resultMap id="baseResultMap" type="com.huawei.hw_shopping.model.Product">
+        <id property="pid" column="PID"/>
+        <result property="pname" column="PNAME"/>
+        <result property="marketPrice" column="MARKET_PRICE"/>
+        <result property="shopPrice" column="SHOP_PRICE"/>
+        <result property="pimage" column="PIMAGE"/>
+        <result property="pdate" column="PDATE"/>
+        <result property="updateTime" column="UPDATE_TIME"/>
+        <result property="isHot" column="IS_HOT"/>
+        <result property="pSort" column="P_SORT"/>
+        <result property="pdesc" column="PDESC"/>
+        <result property="pflag" column="PFLAG"/>
+        <result property="cid" column="CID"/>
+        <result property="pstock" column="PSTOCK"/>
+        <result property="pdetails" column="PDETAILS"/>
+        <result property="pMsg" column="P_MSG"/>
+        <result property="pSolgan" column="P_SOLGAN"/>
+        <result property="pBelong" column="P_BELONG"/>
+        <result property="deleteFlag" column="DELETE_FLAG"/>
+    </resultMap>
+    <select id="selectAll"  resultMap="baseResultMap">
+        select PID,PNAME,MARKET_PRICE,SHOP_PRICE,PIMAGE,PDATE,IS_HOT,PDESC,P_SOLGAN,PFLAG,PSTOCK,DELETE_FLAG,CID,P_VERSION from HW_SHOPPING_PRODUCT
+    </select>
+    <select id="selectAllCount"  resultType="integer">
+        select count(PID) from HW_SHOPPING_PRODUCT
+    </select>
+    <!--热销单品-->
+    <select id="indexHotList"  resultMap="baseResultMap">
+        /*select PID,PNAME,MARKET_PRICE,SHOP_PRICE,PIMAGE,PDATE,IS_HOT,PDESC,PFLAG,CID,PSTOCK from HW_SHOPPING_PRODUCT*/
+        /*限制取8条数据 */
+        select PID,PNAME,MARKET_PRICE,SHOP_PRICE,PIMAGE,PDATE,IS_HOT,PDESC,
+                    PFLAG,CID,PSTOCK,P_SORT,P_MSG,UPDATE_TIME,DELETE_FLAG,P_VERSION
+                        from (select PID,PNAME,MARKET_PRICE,SHOP_PRICE,PIMAGE,PDATE,IS_HOT,
+                                        PDESC,PFLAG,CID,PSTOCK,P_SORT,P_MSG,UPDATE_TIME,DELETE_FLAG,P_VERSION
+                                            from HW_SHOPPING_PRODUCT where DELETE_FLAG=0 AND P_BELONG=0 and PFLAG='上架' order by P_SORT desc)
+                                                    where ROWNUM <![CDATA[<=]]> 8
+</select>
+    <!--精品推荐-->
+    <select id="boutiqueList"  resultMap="baseResultMap">
+        /*select PID,PNAME,MARKET_PRICE,SHOP_PRICE,PIMAGE,PDATE,IS_HOT,PDESC,PFLAG,CID,PSTOCK from HW_SHOPPING_PRODUCT*/
+        /*限制取8条数据*/
+        select PID,PNAME,MARKET_PRICE,SHOP_PRICE,PIMAGE,PDATE,IS_HOT,PDESC,
+               PFLAG,CID,PSTOCK,P_SORT,P_MSG,UPDATE_TIME,DELETE_FLAG,P_VERSION
+        from (select PID,PNAME,MARKET_PRICE,SHOP_PRICE,PIMAGE,PDATE,IS_HOT,
+                     PDESC,PFLAG,CID,PSTOCK,P_SORT,P_MSG,UPDATE_TIME,DELETE_FLAG,P_VERSION
+              from HW_SHOPPING_PRODUCT where DELETE_FLAG=0 and P_BELONG=1 and PFLAG='上架' order by P_SORT desc)
+        where ROWNUM <![CDATA[<=]]> 5
+    </select>
+
+    <select id="selectProductId" resultMap="baseResultMap">
+        select PID from HW_SHOPPING_PRODUCT;
+    </select>
+
+    <select id="phoneList" resultMap="baseResultMap">
+        select PID,PNAME,MARKET_PRICE,SHOP_PRICE,PIMAGE,PDATE,IS_HOT,PDESC,
+               PFLAG,CID,PSTOCK,P_SORT,P_MSG,UPDATE_TIME,DELETE_FLAG,P_VERSION
+        from (select PID,PNAME,MARKET_PRICE,SHOP_PRICE,PIMAGE,PDATE,IS_HOT,
+                     PDESC,PFLAG,CID,PSTOCK,P_SORT,P_MSG,UPDATE_TIME,DELETE_FLAG,P_VERSION
+              from HW_SHOPPING_PRODUCT where DELETE_FLAG=0 and P_BELONG=2  and PFLAG='上架' order by P_SORT desc)
+        where ROWNUM <![CDATA[<=]]> 15
+    </select>
+
+    <select id="notebooNkList" resultMap="baseResultMap">
+        select PID,PNAME,MARKET_PRICE,SHOP_PRICE,PIMAGE,PDATE,IS_HOT,PDESC,
+               PFLAG,CID,PSTOCK,P_SORT,P_MSG,UPDATE_TIME,DELETE_FLAG,P_VERSION
+            from (select PID,PNAME,MARKET_PRICE,SHOP_PRICE,PIMAGE,PDATE,IS_HOT,
+                         PDESC,PFLAG,CID,PSTOCK,P_SORT,P_MSG,UPDATE_TIME,DELETE_FLAG,P_VERSION
+                      from HW_SHOPPING_PRODUCT where DELETE_FLAG=0 and P_BELONG=3  and PFLAG='上架' order by P_SORT desc)
+            where ROWNUM <![CDATA[<=]]> 15
+    </select>
+
+    <select id="tabletList" resultMap="baseResultMap">
+        select PID,PNAME,MARKET_PRICE,SHOP_PRICE,PIMAGE,PDATE,IS_HOT,PDESC,
+               PFLAG,CID,PSTOCK,P_SORT,P_MSG,UPDATE_TIME,DELETE_FLAG,P_VERSION
+            from (select PID,PNAME,MARKET_PRICE,SHOP_PRICE,PIMAGE,PDATE,IS_HOT,
+                         PDESC,PFLAG,CID,PSTOCK,P_SORT,P_MSG,UPDATE_TIME,DELETE_FLAG,P_VERSION
+                      from HW_SHOPPING_PRODUCT where DELETE_FLAG=0 and P_BELONG=4 and PFLAG='上架' order by P_SORT desc)
+            where ROWNUM <![CDATA[<=]]> 15
+    </select>
+
+    <select id="indexSmartWearList" resultMap="baseResultMap">
+        select PID,PNAME,MARKET_PRICE,SHOP_PRICE,PIMAGE,PDATE,IS_HOT,PDESC,
+               PFLAG,CID,PSTOCK,P_SORT,P_MSG,UPDATE_TIME,DELETE_FLAG,P_VERSION
+        from (select PID,PNAME,MARKET_PRICE,SHOP_PRICE,PIMAGE,PDATE,IS_HOT,
+                     PDESC,PFLAG,CID,PSTOCK,P_SORT,P_MSG,UPDATE_TIME,DELETE_FLAG,P_VERSION
+              from HW_SHOPPING_PRODUCT where DELETE_FLAG=0 and P_BELONG=5 and PFLAG='上架' order by P_SORT desc)
+        where ROWNUM <![CDATA[<=]]> 15
+    </select>
+
+    <select id="indexSmartHomeList" resultMap="baseResultMap">
+        select PID,PNAME,MARKET_PRICE,SHOP_PRICE,PIMAGE,PDATE,IS_HOT,PDESC,
+               PFLAG,CID,PSTOCK,P_SORT,P_MSG,UPDATE_TIME,DELETE_FLAG,P_VERSION
+        from (select PID,PNAME,MARKET_PRICE,SHOP_PRICE,PIMAGE,PDATE,IS_HOT,
+                     PDESC,PFLAG,CID,PSTOCK,P_SORT,P_MSG,UPDATE_TIME,DELETE_FLAG,P_VERSION
+              from HW_SHOPPING_PRODUCT where DELETE_FLAG=0 and P_BELONG=6 and PFLAG='上架' order by P_SORT desc)
+        where ROWNUM <![CDATA[<=]]> 15
+    </select>
+    <select id="byPidSelectShop" parameterType="string"  resultMap="baseResultMap">
+        select *
+              from HW_SHOPPING_PRODUCT where PID=#{pid}
+    </select>
+    <select id="selectAllByID" parameterType="string"  resultMap="baseResultMap">
+        select PID,PNAME,SHOP_PRICE,PIMAGE,PDESC,PFLAG,CID,PSTOCK,PDETAILS,P_SORT,P_MSG,P_SOLGAN,DELETE_FLAG,P_VERSION,P_COLOR
+        from HW_SHOPPING_PRODUCT where PID=#{pid}
+    </select>
+    <select id="byPidSelectPnameImg" parameterType="string" resultMap="baseResultMap">
+        select PNAME,PIMAGE from HW_SHOPPING_PRODUCT where PID=#{pid}
+    </select>
+
+    <select id="serch" parameterType="string" resultMap="baseResultMap">
+
+        select PID,PNAME,SHOP_PRICE,PIMAGE,P_MSG from HW_SHOPPING_PRODUCT
+        <where>
+            <if test="keyword!=null">
+                <bind name="mohu" value="'%'+keyword+'%'"/>
+                and PNAME like #{mohu}  and DELETE_FLAG=0
+            </if>
+        </where>
+    </select>
+
+    <select id="serchType" parameterType="string" resultMap="baseResultMap">
+
+        select PID,PNAME,SHOP_PRICE,PIMAGE,P_MSG from HW_SHOPPING_PRODUCT
+        <where>
+            <if test="keyword!=null">
+                <bind name="mohu" value="'%'+keyword+'%'"/>
+                and PNAME like #{mohu}  and DELETE_FLAG=0
+            </if>
+        </where>
+    </select>
+
+    <select id="cidSerch" parameterType="string" resultMap="baseResultMap">
+
+        select PID,PNAME,SHOP_PRICE,PIMAGE,P_MSG from HW_SHOPPING_PRODUCT
+            where CID=#{cid}
+    </select>
+
+    <!--搜索-->
+    <select id="serchProduct" parameterType="string" resultMap="baseResultMap">
+        select * from HW_SHOPPING_PRODUCT
+        <where>
+            <if test="pname!=null">
+                 PNAME like '%${pname}%'
+            </if>
+        </where>
+    </select>
+
+    <select id="totalProduct" resultType="com.huawei.hw_shopping.model.vo.ProductVO">
+        SELECT CID parentType ,count(*) total FROM HW_SHOPPING_PRODUCT group by CID
+    </select>
+</mapper>

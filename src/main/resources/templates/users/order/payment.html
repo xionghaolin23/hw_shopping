@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="/static/css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="/static/css/payment.css" />
+		<title></title>
+	</head>
+	<body>
+		<div class="header container clearfix">
+			<a href="http://127.0.0.1:8848/vmall.com/index.html">
+				<div class="logo fl ver_mid"></div>
+			</a>
+			<p class="confirmCard ver_mid fl">收银台</p>
+		</div>
+		<div class="payment container clearfix">
+			<div class="payment_logo fl">
+				<img src="/static/img/payment/success_icon.png">
+			</div>
+			<div class="payment_msg fl">
+				<div class="msg_main clearfix">
+					<span class="main1">订单提交成功，只差付款了~</span>
+					<span class="main2">订单号:</span>
+					<span class="main3" id="orderNo">[[${order.orderNo}]]</span>
+					<div class="main4 fr">
+						<span style="color: #000000; font-size: 14px;">订单金额:</span>
+						<span style="color: red; font-size: 25px; font-weight: 500;" id="totalPrice">￥[[${order.totalPrice}]]</span>
+					</div>
+				</div>
+				<form th:action="@{/pay/toPay}" method="post" id="goToPay">
+					<input type="hidden" name="out_trade_no" id="out_trade_no" th:value="${order.orderNo}">
+					<input type="hidden" name="subject" id="orderContent" th:value="${order.orderContent}">
+					<input type="hidden" name="total_amount" id="totol_amount" th:value="${order.totalPrice}">
+				</form>
+				<div class="msg_time clearfix">
+					<span class="time1">请您在</span>
+					<span class="time2">24:00</span>
+					<span class="time3">完成支付，否则订单自动取消</span>
+					<div class="time4 fr">
+						<a th:href="@{userOrder/myOrder}"><span>订单详情 ∨</span></a>
+					</div>
+					<div class="time5">
+						今天19:00前付款，预计[[${#dates.format(order.createTime,'yyyy-MM-dd')}]]送达（受付款完成时间等因素可能发生变化）
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="pay_ways container">
+			<div class="hd">
+				<ul class="clearfix">
+					<li style="border-right: none;">常用</li>
+					<li style="border-right: none;">平台支付</li>
+					<li style="border-right: none;">分期支付</li>
+					<li>网银支付</li>
+				</ul>
+			</div>
+			<div class="bd">
+				<ul class="clearfix">
+					<li>
+						<div class="relative"><img class="aliPay" src="/static/img/payment/ALIPAY.png"><img class="select_icon" src="/static/img/payment/select_icon.png"></div>
+						<div class="relative"><img class="aliPay" src="/static/img/payment/WXPAY.png"><img class="select_icon" src="/static/img/payment/select_icon.png"></div>
+						<div class="relative"><img class="aliPay" src="/static/img/payment/HUAWEIPAY.png"><img class="select_icon" src="/static/img/payment/select_icon.png"></div>
+						<div class="relative"><img class="aliPay" src="/static/img/payment/HUABEI.png"><img class="select_icon" src="/static/img/payment/select_icon.png"></div>
+						<div class="relative"><img class="aliPay" src="/static/img/payment/CMBLIFE.png"><img class="select_icon" src="/static/img/payment/select_icon.png"></div>
+					</li>
+					<li>
+						<div class="relative"><img class="aliPay" src="/static/img/payment/ALIPAY.png"><img class="select_icon" src="/static/img/payment/select_icon.png"></div>
+						<div class="relative"><img class="aliPay" src="/static/img/payment/WXPAY.png"><img class="select_icon" src="/static/img/payment/select_icon.png"></div>
+						<div class="relative"><img class="aliPay" src="/static/img/payment/HUAWEIPAY.png"><img class="select_icon" src="/static/img/payment/select_icon.png"></div>
+						<div class="relative"><img class="aliPay" src="/static/img/payment/UNIONPAY.png"><img class="select_icon" src="/static/img/payment/select_icon.png"></div>
+					</li>
+					<li>
+						<div class="relative"><img class="aliPay" src="/static/img/payment/CMBLIFE.png"><img class="select_icon" src="/static/img/payment/select_icon.png"></div>
+						<div class="relative"><img class="aliPay" src="/static/img/payment/HUABEI.png"><img class="select_icon" src="/static/img/payment/select_icon.png"></div>
+						<div class="relative"><img class="aliPay" src="/static/img/payment/ICBC.png"><img class="select_icon" src="/static/img/payment/select_icon.png"></div>
+					</li>
+					<li>
+						<div class="relative"><img class="aliPay" src="/static/img/payment/ICBC.png"><img class="select_icon" src="/static/img/payment/select_icon.png"></div>
+						<div class="relative"><img class="aliPay" src="/static/img/payment/ABC.png"><img class="select_icon" src="/static/img/payment/select_icon.png"></div>
+						<div class="relative"><img class="aliPay" src="/static/img/payment/BCM.png"><img class="select_icon" src="/static/img/payment/select_icon.png"></div>
+						<div class="relative"><img class="aliPay" src="/static/img/payment/BOB.png"><img class="select_icon" src="/static/img/payment/select_icon.png"></div>
+						<div class="relative"><img class="aliPay" src="/static/img/payment/BOS.png"><img class="select_icon" src="/static/img/payment/select_icon.png"></div>
+						<div class="relative"><img class="aliPay" src="/static/img/payment/CCB.png"><img class="select_icon" src="/static/img/payment/select_icon.png"></div>
+						<div class="relative"><img class="aliPay" src="/static/img/payment/CEB.png"><img class="select_icon" src="/static/img/payment/select_icon.png"></div>
+						<div class="relative"><img class="aliPay" src="/static/img/payment/CIB.png"><img class="select_icon" src="/static/img/payment/select_icon.png"></div>
+						<div class="relative"><img class="aliPay" src="/static/img/payment/CITIC.png"><img class="select_icon" src="/static/img/payment/select_icon.png"></div>
+						<div class="relative"><img class="aliPay" src="/static/img/payment/CMB.png"><img class="select_icon" src="/static/img/payment/select_icon.png"></div>
+						<div class="relative"><img class="aliPay" src="/static/img/payment/CMBC.png"><img class="select_icon" src="/static/img/payment/select_icon.png"></div>
+						
+					</li>
+				</ul>
+
+			</div>
+		</div>
+		<div class="confirm_pay container clearfix" id="confirm_pay">
+			<div>确认支付</div>
+		</div>
+		<div class="footer">
+			<div class="footer_main container">
+				<img src="/static/img/index/logo.png" style="width: 200px;height: 40px">
+				<a href="">隐私声明</a>
+				<a href="">服务协议</a>
+				<span>Copyright © 2012-2019 Xmall终端有限公司 粤ICP备19015064号-4 版权所有 保留一切权利</span>
+			</div>
+		</div>
+		<script src="/static/js/jquery-3.4.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+
+			//支付
+			$('#confirm_pay').click(function () {
+				$("#goToPay").submit();
+			})
+
+
+			$(".hd li:first-child").css({
+				"background-color": "red",
+				"color": "white"
+			})
+			$(".bd li:first-child").css({
+				"display": "block"
+			})
+			$(".bd li div:first-child").children(".select_icon").css({"display":"block"})
+			$(".bd li div:first-child").css("border-color","red")
+			$(".hd li").mousedown(function() {
+				$(this).css({
+					"background-color": "red",
+					"color": "white"
+				})
+				$(this).siblings().css("background-color", "whitesmoke")
+				$(this).siblings().css("color", "black")
+				var index = $(this).index()
+				// console.log(index)
+				$(".bd li").eq(index).css("display", "block")
+				$(".bd li").eq(index).siblings().css("display", "none")
+			})
+			$(".bd li div").click(function() {
+				$(this).css("border-color", "red")
+				$(this).siblings().css("border-color", "lightgray")
+				$(this).children(".select_icon").css("display", "block")
+				$(this).siblings().children(".select_icon").css("display", "none")
+			})
+		</script>
+	</body>
+</html>

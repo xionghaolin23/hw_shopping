@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/reset.css}" href="/static/css/reset.css"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/nowConfirmCard.css}"
+          href="/static/css/nowConfirmCard.css"/>
+    <link rel="stylesheet" th:href="@{/static/js/layui/css/layui.css}" type="text/css"/>
+    <link rel="stylesheet"  th:href="@{/static/js/sweetalert/sweetalert.css}" type="text/css"/>
+    <title>立即下单</title>
+    <style>
+        .addressImg{
+            background: url("/static/img/nowConfirmCard/btn-address.png") no-repeat;
+        }
+    </style>
+</head>
+<body>
+<!-- 顶部nav -->
+<div th:replace="users/common/header::top_nav-fragment"></div>
+
+<div class="outHeader">
+    <div class="header container clearfix">
+        <a href="index.html">
+            <div class="logo fl ver_mid"></div>
+        </a>
+        <p class="confirmCard ver_mid fl">确认订单</p>
+        <div class="progressArea fr">
+            <img src="/static/img/nowConfirmCard/progress_08.png">
+        </div>
+
+    </div>
+</div>
+<div class="address container clearfix ">
+    <p class="address_title" >收货地址</p>
+    <div th:unless="${#lists.isEmpty(addressList)}">
+        <div class="address1 fl relative" id="addressRemove"
+             th:each="address:${addressList}">
+            <p class="address1_name clearfix">
+            <span class="address1_name_name fl"
+                  style="text-align: left; margin-left: 20px;">[[${address.userName}]]</span>
+                <span class="address1_name_tel fr"
+                      style="text-align: right; margin-right: 20px;">[[${address.phone}]]</span>
+            </p>
+            <p class="address1_msg">
+                [[${address.address}]]
+            </p>
+            <span class="first_address absolute">
+					[[${address.tag}]]
+				</span>
+            <span class="edit_address absolute">
+					💻编辑
+				</span>
+            <span class="del_address absolute" th:addressId="${address.addressId}">
+					🗑删除
+				</span>
+        </div>
+    </div>
+    <div class="add_address fl">
+        ➕ 新增收货地址
+    </div>
+
+</div>
+<div class="goods container clearfix">
+    <div class="goods_msg fl">
+        <div class="goods_list clearfix" th:unless="${#lists.isEmpty(ShopCarPidList)}">
+            <div th:each="ShopList:${ShopCarPidList}">
+                <div class="mate20rs clearfix">
+                    <img class="mate20rs_img fl" th:src="${ShopList.product.pimage}">
+                    <ul class="fl clearfix">
+                        <li class="mate20rs_msg fl">
+                            <span id="pdesc">&nbsp;[[${ShopList.product.pdesc}]]</span>
+                        </li>
+                        <li class="mate20rs_num fl">
+                            <span id="pidList" hidden>×[[${ShopList.product.pid}]]</span>
+                            <span id="shopCount">×[[${ShopList.shopCount}]]</span>
+                        </li>
+                        <li class="mate20rs_price fl">
+                            <span id="shopPrice">￥[[${ShopList.product.shopPrice}]]</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="mate20rs_extra">
+                    <span class="extra_title fl">配</span>
+                    <ul class="fl clearfix">
+                        <li class="extra_msg fl">
+                            <img src="/static/img/nowConfirmCard/erji.png">
+                            <span>HUAWEI FreeBuds 2 Pro无线耳机（碳晶黑）</span>
+                        </li>
+                        <li class="extra_num fl">
+                            <span>×1</span>
+                        </li>
+                        <li class="extra_price fl">
+                            <span></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mate20rs_more">
+                <div class="mate20rs_invoice clearfix">
+                    <div class="invoice1 fl">发票信息</div>
+                    <div class="invoice2 fl">如果商品由第三方卖家销售，发票内容由其卖家决定，发票由卖家开票并寄出</div>
+                    <div class="invoice3 fl">电子普通发票 个人<a href="">修改</a></div>
+                </div>
+                <div class="mate20rs_discounts clearfix">
+                    <div class="discounts1 fl">优惠与抵用</div>
+                    <div class="discounts2">仅适用于自营实物商品</div>
+                    <div class="discounts3"><img class="ver_mid" src="/static/img/nowConfirmCard/discount_02.png"><a
+                            href="" class="ver_mid"
+                            style="margin-left: 20px;">使用优惠券</a></div>
+                    <div class="discounts4">
+                        <input type="checkbox" style="width: 15px;height: 15px;" name="" id="" value=""/>
+                        <span>共<span>0</span>积分，不足100不可使用</span>
+                        <a href="">积分规则</a>
+                    </div>
+                    <div class="discounts5">
+                        <input type="checkbox" name="" id="" value=""/>
+                        <span>花瓣余额<span>0</span>，不足100不可使用</span>
+                        <a href="">花瓣使用规则</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="goods_settlement fr relative">
+        <p class="settlement_title">商品由<span style="color: red;">Xmall商城</span>选择合作快递</p>
+        <div class="settlement">
+            <div class="totalPrice clearfix">
+                <span class="totalPrice_title">商品总金额:</span>
+                <div class="totalPrice_price fr" id="price">￥12999</div>
+            </div>
+            <div class="totalPrice clearfix">
+                <span class="totalPrice_title">运费:</span>
+                <div class="totalPrice_price fr">￥0.00</div>
+            </div>
+            <div class="totalPrice clearfix">
+                <span class="totalPrice_title">优惠金额:</span>
+                <div class="totalPrice_price fr">-￥0.00</div>
+            </div>
+            <div class="totalPrice  clearfix">
+                <span class="totalPrice_title">结算金额:</span>
+                <div class="totalPrice_price fr" style="font-size: 22px; color: red;" id="price1">￥12999</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="submit clearfix container">
+
+    <div class="submit_price">
+        应付金额:
+        <span style="font-size: 22px; color: red;" id="price2">￥12999.00</span>
+    </div>
+    <div class="available">
+        可获得积分:1300
+    </div>
+    <div class="submit_address clearfix">
+        <div class="address_none fr">
+            无收货地址，不可下单<a href="" style="margin-left: 10px;">点击填充</a>
+        </div>
+        <div class="confirm_address fr">
+            配送至:<span id="peisong"></span>
+            <span id="shr"></span>
+            <span id="dianhua"></span>
+        </div>
+    </div>
+    <div class="submit_btn clearfix">
+            <div class="fr" id="goSumbitOrder">
+                提交订单
+            </div>
+    </div>
+</div>
+<div class="footer">
+    <div class="footer_top container clearfix">
+        <div class="top_item fl">
+            <a href="">
+                <span class="ver_mid">百强企业 品质保证</span>
+            </a>
+        </div>
+        <div class="top_item fl">
+            <a href="">
+                <span class="ver_mid">7天退货 15天换货</span>
+            </a>
+        </div>
+        <div class="top_item fl">
+            <a href="">
+                <span class="ver_mid">48元起免运费</span>
+            </a>
+        </div>
+        <div class="top_item fl">
+            <a href="">
+                <span class="ver_mid">1000家维修网点 全国联保</span>
+            </a>
+        </div>
+    </div>
+    <div th:replace="users/common/footer::footer-fragment"></div>
+</div>
+<!-- 添加地址 -->
+<div class="bg_address1">
+    <div class="address_box clearfix">
+        <form class="clearfix" method="">
+            <p class="address_box_title">--添加地址--</p>
+            <label class="fl"><span>收货人：</span><input type="text" name="userName" id="userName"/></label>
+            <label class="fl"><span>手机号码：</span><input type="text" name="phone" id="phone"
+                                                       placeholder="请输入11位手机号码"/></label>
+            <label class="fl"><span>收货地址：</span><input type="text" name="address" id="address"
+                                                       placeholder="请输入省/市/区/街道"/></label>
+            <label>
+                <span>选择：</span>
+                <select name="moren" id="moren" style="display: inline-block;width: 160px;height: 40px">
+                    <option value="0" selected>默认</option>
+                    <option value="1">家</option>
+                    <option value="2">学校</option>
+                    <option value="3">公司</option>
+                </select>
+            </label>
+            <label>
+                <textarea name="note" id="note" class="info" rows="3" cols="30" placeholder="如选择不到您的地区,请在此处详细说明"></textarea>
+                <small></small>
+            </label>
+        </form>
+        <div class="address_box_return fl">
+            取消
+        </div>
+        <div class="address_box_enter fl">
+            保存并使用
+        </div>
+        <div class="address_box_del">
+            X
+        </div>
+    </div>
+</div>
+
+<!--隐藏域表单-->
+<form action="/sumbitOrder" method="post" id="sumbitAllOrder">
+    <input type="hidden" name="allProduct" id="allProduct">
+    <input type="hidden" name="totalPrice" id="totalPrice">
+    <input type="hidden" name="userName" id="goodsName">
+    <input type="hidden" name="userPhone" id="goodsPhone">
+    <input type="hidden" name="userAddress" id="goodsAddress">
+    <input type="hidden" name="orderContent" id="orderContent">
+</form>
+
+<!-- 修改地址 -->
+<div class="bg_address2">
+    <div class="address_box clearfix">
+        <form class="clearfix" method="">
+            <p class="address_box_title">--修改地址--</p>
+            <label class="fl"><span>收货人：</span><input type="text" name="userName" class="address_name"
+                                                      value=""/></label>
+            <label class="fl"><span>手机号码：</span><input type="text" name="phone" class="address_tel"
+                                                       value=""/></label>
+            <label class="fl"><span>收货地址：</span><input type="text" name="address" class="address_msg"
+                                                       value=""/></label>
+            <label>
+                <span>选择：</span>
+                <select name="moren" class="address_moren" style="display: inline-block;width: 160px;height: 40px">
+                    <option value="0" selected>默认</option>
+                    <option value="1">家</option>
+                    <option value="2">学校</option>
+                    <option value="3">公司</option>
+                </select>
+            </label>
+        </form>
+        <div class="address_box_return fl">
+            取消
+        </div>
+        <div class="address_box_enter fl">
+            保存并使用
+        </div>
+        <div class="address_box_del">
+            X
+        </div>
+    </div>
+</div>
+<script src="/static/js/jquery-3.4.1.min.js" th:src="@{/static/js/jquery-3.4.1.min.js}" type="text/javascript"
+        charset="utf-8"></script>
+<script src="/static/js/layer/layer.js" th:src="@{/static/js/layer/layer.js}" type="text/javascript"
+        charset="utf-8"></script>
+<script th:src="@{/static/js/layui/layui.js}" type="text/javascript" charset="utf-8"></script>
+<script th:src="@{/static/js/sweetalert/sweetalert.min.js}"></script>
+<script type="text/javascript">
+
+    //提交订单
+    $("#goSumbitOrder").click(function () {
+        //判断是否选择了地址
+        var address = $('#peisong').html();
+        if(address==''||address==null){
+            swal({
+                icon: 'error',
+                text: "请选择地址",
+
+            })
+            return;
+        }
+        //给控制器传递 价格 商品pid（list）
+        var totalPrice= $("#price").text();
+        console.log(totalPrice);
+        var pidList;
+        var shopCountArry;
+        var shopPriceArry;
+        var productNameArry=[];
+        $(".goods").each(function () {
+            //获得所有选中的shopCount 数组
+            shopCountArry = $(this).find(".goods_list").find(".mate20rs").find('#shopCount').text().slice(1).split('×')
+            console.log(shopCountArry);
+            //获得所有选中的pid 数组
+            pidList = $(this).find(".goods_list").find(".mate20rs").find('#pidList').text().slice(1).split('×')
+            console.log(pidList);
+            //获得所有选中的价格数组
+             shopPriceArry = $(this).find(".goods_list").find(".mate20rs").find('#shopPrice').text().slice(1).split('￥')
+            //获得第一个手机描述  支付需要
+            //console.log($('#pdesc').text());
+            // productNameArry.push()p
+        });
+        shopCar = pidList.map((pid, i) => ({pid, shopCount: shopCountArry[i],productPrice:shopPriceArry[i]}))
+        console.log(pidList);
+        console.log(shopCar);
+        $('#allProduct').val(JSON.stringify(shopCar));
+        $('#totalPrice').val(totalPrice)
+        $('#goodsName').val($('#shr').text());
+        $('#goodsPhone').val($('#dianhua').text());
+        $('#goodsAddress').val($('#peisong').text().trim());
+        //获得第一个手机描述  支付需要
+        $('#orderContent').val($('#pdesc').text().substring(1,40)+"......");
+        //提交表单
+        console.log(JSON.stringify(shopCar));
+        //提交表单
+        $("#sumbitAllOrder").submit();
+       //window.location.href='/sumbitOrder?ids='+pidList+'&shopCountArry='+shopCountArry
+    })
+
+
+    $(".goods").each(function () {
+
+        //获得所有选中的shopCoun 数组
+        var shopCountArry = $(this).find(".goods_list").find(".mate20rs").find('#shopCount').text().slice(1).split('×')
+        console.log(shopCountArry);
+        //获得所有价格
+        var shopPriceArry = $(this).find(".goods_list").find(".mate20rs").find('#shopPrice').text().slice(1).split('￥')
+        console.log(shopPriceArry);
+        var sumprice = 0;
+        for (var i = 0; i < shopCountArry.length; i++) {
+            for (var i = 0; i < shopPriceArry.length; i++) {
+                //string 转 float 成为number才可以相乘
+                var sum = parseFloat(shopPriceArry[i]) * parseFloat(shopCountArry[i])
+                sumprice += sum;
+            }
+            //总价格
+            console.log(sumprice);
+        }
+        //回显
+        $("#price").html(sumprice)
+        $("#price1").html(sumprice)
+        $("#price2").html(sumprice)
+    })
+
+
+    $(".address").on("click", ".del_address", function () {
+        //$(this).parent().css("display", "none")
+         var addressId = $(this).attr('addressId');
+         console.log(addressId);
+         var flag = true;
+         layer.confirm("确认删除？", function (index) {
+             if (flag) {
+                 $.post('/deleteAddress', {addressId: addressId}, function (data) {
+                     if (data.success) {
+                        $('#addressRemove').remove();
+                         layer.msg("已删除");
+                     } else {
+                         layer.msg("删除失败");
+                     }
+                     layer.close(index);
+                 })
+             }
+         }, function () {
+             //取消
+             layer.msg("取消成功")
+         });
+    })
+
+    $(".add_address").click(function () {
+        console.log(1)
+        $(".bg_address1").css("display", "block")
+    })
+    $(".address_box_return").click(function () {
+        $(this).parent().parent().css("display", "none")
+    })
+    $(".address_box_del").click(function () {
+        $(this).parent().parent().css("display", "none")
+    })
+    $(".bg_address1 .address_box_enter").click(function () {
+        var userName = $('#userName').val();
+        var phone = $('#phone').val();
+        var address = $('#address').val();
+        var note = $('#note').val();
+        var moren = $('#moren').val();
+        var order = {
+            userName: userName,
+            phone: phone,
+            address: address,
+            note: note,
+            moren:moren
+        };
+        $.ajax({
+            url: '/savaAddress',
+            data: order,
+            type: 'post',
+            success: function (data) {
+                   var $newAddress = $(
+                       '<div class="address1 fl relative">' +
+                       '<p class="address1_name clearfix">' +
+                       '<span class="address1_name_name fl" style="text-align: left; margin-left: 20px;">' + data.userName + '</span>' +
+                       '<span class="address1_name_tel fr" style="text-align: right; margin-right: 20px;">' + data.phone + '</span>' +
+                       '</p><p class="address1_msg">' + data.address + '</p>' +
+                       '<span class="edit_address absolute">💻编辑</span>' +
+                       '<span class="del_address absolute">🗑删除</span>' +
+                       '</div>'
+                   )
+                   $($newAddress).insertBefore(".add_address")
+            }
+        })
+        $(".bg_address1").css("display", "none")
+    })
+    $(".address").on("click", ".address1", function () {
+        //添加属性cheakAddress  作用：判断是否选中
+        console.log($(this).attr('cheakAddress','cheakAddress'));
+        //添加样式边框 图片
+        $(this).addClass("addressImg");
+        //其他子类去除掉样式
+        $(this).siblings().removeClass(("addressImg"));
+        //其他子类添加边框
+        $(this).siblings().css("border-color", "lightgray");
+        //选中后回显地址在最下面
+        if($(this).attr('cheakAddress')=='cheakAddress'){
+            //选择地址后才给提交订单
+           // $('.submit_btn').css("pointer-events","auto")
+            $('.submit_btn').find('.fr').attr('id','sumbitOrder');
+            let name = $(this).find('.address1_name_name').text();
+            console.log(name);
+            let phone = $(this).find('.address1_name_tel').text();
+            console.log(phone);
+            let address = $(this).find('.address1_msg').text();
+            console.log(address);
+            $('#shr').html(name)
+            $('#dianhua').html(phone)
+            $('#peisong').html(address)
+        }
+    })
+
+    $(".address").on("click", ".edit_address", function () {
+        $(".bg_address2").css("display", "block")
+        var name = $(this).siblings(".address1_name").children(".address1_name_name").text()
+        var tel = $(this).siblings(".address1_name").children(".address1_name_tel").text()
+        var address = $(this).siblings(".address1_msg").text()
+       // var moren = $(this).find('.first_address').text()
+      //  console.log(moren);
+        $(".bg_address2 .address_name").val(name)
+        $(".bg_address2 .address_tel").val(tel)
+        $(".bg_address2 .address_msg").val(address)
+      //  $(".bg_address2 .address_moren").val(moren)
+        var index = $(this).parents(".address1").index()
+        // console.log(index)
+        // 输出
+        $(".bg_address2 .address_box_enter").click(function () {
+            if ($(".bg_address2 .address_box label input") == "") {
+                alert("输入不能为空")
+            } else {
+                var newName = $(".bg_address2 .address_name").val()
+                var newTel = $(".bg_address2 .address_tel").val()
+                var newAddress = $(".bg_address2 .address_msg").val()
+                $(".address").eq(index - 1).find(".address1_name_name").text(newName)
+                $(".address").eq(index - 1).find(".address1_name_tel").text(newTel)
+                $(".address").eq(index - 1).find(".address1_msg").text(newAddress)
+            }
+            $(".bg_address2").css("display", "none")
+        })
+    })
+
+
+</script>
+</body>
+</html>

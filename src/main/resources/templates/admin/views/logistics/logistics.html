@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>快递查询</title>
+    <link rel="stylesheet" href="/static/js/layui/css/layui.css">
+    <script src="/static/js/layui/layui.js"></script>
+
+</head>
+<body>
+<div class="layui-container">
+
+    <div class="layui-row" style="margin-top: 100px;">
+        <form class="layui-form" action="">
+            <div class="layui-form-item">
+                <label class="layui-form-label">快递单号</label>
+                <div class="layui-input-block">
+                    <input type="text" name="logistics" required lay-verify="required" placeholder="请输入快递单号"
+                            class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">快递公司</label>
+                <div class="layui-input-block">
+                    <select name="LogCompany">
+                        <option value=""></option>
+                        <option value="SFEXPRESS">顺丰</option>
+                        <option value="YUNDA">韵达</option>
+                        <option value="ZTO">中通</option>
+                        <option value="STO">申通</option>
+                        <option value="TTKDEX">天天</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="formDemo">查询</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </form>
+        <div id="resultbox">
+            <ul class="layui-timeline">
+
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+
+    //Demo
+    layui.use('form', function () {
+        var form = layui.form;
+        var $ = layui.jquery;
+        //监听提交
+        form.on('submit(formDemo)', function (data) {
+            $.ajax({
+                url: '/logistics?logistics='+data.field.logistics+'&LogCompany='+data.field.LogCompany,
+                //url: '/logistics',
+               /* data:{
+                    logistics:data.field.logistics,
+                    LogCompany:data.field.LogCompany,
+                },*/
+                type:'get',
+                dataType:'json',
+                success: function (res) {
+                    var str = '';
+                    if (res.status == 0) {
+                        $.each(res.result.list, function (k, v) {
+                            str += ' <li class="layui-timeline-item">\n' +
+                                '                        <i class="layui-icon layui-timeline-axis">&#xe63f;</i>\n' +
+                                '                        <div class="layui-timeline-content layui-text">\n' +
+                                '                            <h3 class="layui-timeline-title">' + v.time + '</h3>\n' +
+                                '                            <p>' + v.status + '</p>\n' +
+                                '                        </div>\n' +
+                                '</li>\n';
+                        });
+                        $('#resultbox ul').html(str);
+                        //layer.alert(123,{icon:2});
+                    } else {
+                        str += ' <li class="layui-timeline-item">\n' +
+                            '                        <i class="layui-icon layui-timeline-axis">&#xe63f;</i>\n' +
+                            '                            <div class="layui-timeline-content layui-text">\n' +
+                            '                            <h3 class="layui-timeline-title">错误信息:</h3>\n' +
+                            '                            <p>msg:' + res.status + '</p>\n' +
+                            '                            <p>msg:' + res.msg + '</p>\n' +
+                            '                        </div>\n' +
+                            '</li>\n';
+                        $('#resultbox ul').html(str);
+                    }
+
+                }
+            });
+            return false;
+        });
+    });
+</script>
+</html>

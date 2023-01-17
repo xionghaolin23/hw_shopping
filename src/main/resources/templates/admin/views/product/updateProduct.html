@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>编辑用户</title>
+    <link rel="stylesheet" href="/static/js/layuiadmin/layui/css/layui.css" media="all">
+    <link href="/static/css/wangEditor.css" rel="stylesheet">
+    <style>
+        .toolbar {
+            border: 1px solid #ccc;/*设置下拉棒*/
+        }
+        .w-e-text-container{
+            height: 550px !important;/*!important是重点，因为原div是行内样式设置的高度300px*/
+        }
+    </style>
+</head>
+<body>
+<div class="layui-form" lay-filter="layuiadmin-form-useradmin" id="layuiadmin-form-useradmin"
+     style="padding: 20px 0 0 0;">
+    <div style="display: flex">
+        <div>
+            <form class="layui-form" style="text-align: center">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">ID</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="pid" th:value="${product.pid}" autocomplete="off"
+                               class="layui-input"
+                               readonly
+                               style="width: 280px;background-color: darkgrey">
+                    </div>
+                </div>
+                <div class="layui-form-item" style="margin-bottom: 10px">
+                    <label class="layui-form-label">商品名</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="pname" th:value="${product.pname}"
+                               autocomplete="off"
+                               class="layui-input" style="width: 280px">
+                    </div>
+                </div>
+                <div class="layui-form-item" style="margin-bottom: 10px">
+                    <label class="layui-form-label">市场价</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="marketPrice" th:value="${product.marketPrice}"
+                               autocomplete="off"
+                               class="layui-input" style="width: 280px">
+                    </div>
+                </div>
+                <div class="layui-form-item" style="margin-bottom: 10px">
+                    <label class="layui-form-label">商城价</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="shopPrice" th:value="${product.shopPrice}"
+                               autocomplete="off"
+                               class="layui-input" style="width: 280px">
+                    </div>
+                </div>
+                <div class="layui-form-item" style="margin-bottom: 10px">
+                    <label class="layui-form-label">商品内存</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="pVersion" th:value="${product.pVersion}"
+                               class="layui-input" style="width: 280px">
+                    </div>
+                </div>
+                <div class="layui-form-item" style="margin-bottom: 10px">
+                    <label class="layui-form-label">商品颜色</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="pColor" th:value="${product.pColor}"
+                               autocomplete="off"
+                               class="layui-input" style="width: 280px">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">图片</label>
+                    <div class="layui-input-inline">
+                        <div class="layui-upload-drag" id="previewImg">
+                            <img th:src="${product.pimage}" alt="" id="pImg"
+                                 style="border: 1px solid darkgrey;border-radius: 5px;width: 100%;height: 100%">
+                        </div>
+                        <input type="file" name="pim" id="pim" style="display: none" accept="image/*">
+                    </div>
+                </div>
+                <div class="layui-form-item" style="margin-bottom: 10px">
+                    <label class="layui-form-label">排序值</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="pSort" th:value="${product.pSort}"
+                               lay-verify="number"
+                               class="layui-input" style="width: 280px">
+                    </div>
+                </div>
+                <div class="layui-form-item" style="margin-bottom: 10px">
+                    <label class="layui-form-label">描述</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="pdesc" th:value="${product.pdesc}"
+                               autocomplete="off"
+                               class="layui-input" style="width: 280px">
+                    </div>
+                </div>
+                <div class="layui-form-item" style="margin-bottom: 10px">
+                    <label class="layui-form-label">消息</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="pMsg" th:value="${product.pMsg}"
+                               autocomplete="off"
+                               class="layui-input" style="width: 280px">
+                    </div>
+                </div>
+                <div class="layui-form-item" style="margin-bottom: 10px">
+                    <label class="layui-form-label">标语</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="pSolgan" th:value="${product.pSolgan}"
+                               autocomplete="off"
+                               class="layui-input" style="width: 280px">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">所属分类</label>
+                    <div class="layui-input-block" style="width: 280px">
+                        <select name="pBelong" lay-verify="required">
+                            <option value=""></option>
+                            <option value="0">热销商品</option>
+                            <option value="1">精品推荐</option>
+                            <option value="2">手机</option>
+                            <option value="3">笔记本</option>
+                            <option value="4">平板</option>
+                            <option value="5">智能穿戴</option>
+                            <option value="6">智能家居</option>
+                            <option value="7">热销配件</option>
+                            <option value="8">生态精品</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">库存</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="pstock" th:value="${product.pstock}"
+                               autocomplete="off"
+                               class="layui-input" style="width: 280px">
+                    </div>
+                </div>
+
+                <input type="hidden" name="pdetails" id="pdetails">
+                <div style="width: 500px">
+                    <button type="button" class="layui-btn layui-btn-normal layui-btn-radius" style="width: 280px"
+                            lay-submit lay-filter="productForm">提交
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div style="flex-grow: 1">
+            <div id="wangEdit" name="wangEdit" style="width: 50%"  class="toolbar" th:utext="${product.pdetails}"></div>
+        </div>
+    </div>
+
+    <div class="layui-form-item layui-hide">
+        <input type="button" lay-submit lay-filter="LAY-user-front-submit" id="LAY-user-front-submit" value="确认">
+    </div>
+</div>
+
+<script src="/static/js/layuiadmin/layui/layui.js"></script>
+<script src="/static/js/jquery-3.4.1.min.js"></script>
+<script src="/static/js/wangEditor.js"></script>
+<script>
+    layui.config({
+        base: '/static/js/layuiadmin/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'form', 'upload', 'laydate','table','layer'], function () {
+        var $ = layui.$
+            , form = layui.form
+            , upload = layui.upload
+            , table = layui.table
+            , layer = layui.layer
+            , laydate = layui.laydate;
+
+        laydate.render({
+            elem: "#time"
+            , trigger: 'click'
+        })
+
+        $('#previewImg').click(function () {
+            layer.msg("选择图片")
+            $('#pim').click();
+            $('#pim').change(function () { //点击改变图片的src 从而实现预览图片的功能
+                layer.msg("改变了时候可以拿到img文件")
+                let file = this.files[0];
+                imgPreview(file, $('#pImg')[0]);
+                layer.msg("改变了")
+            });
+
+        })
+
+
+        //图片上传预览功能，file：指的是文件，img指的是js dom对象q("#id")[0]
+        function imgPreview(file, imgDom) {
+            //判断是否支持FileReader
+            if (window.FileReader) {
+                var reader = new FileReader();
+            } else {
+                layer.msg("您的设备不支持图片预览功能，如需使用该功能请升级您的设别");
+            }
+            var imageType = /^image\//;
+            //是否是图片
+            if (!imageType.test(file.type)) {
+                layer.msg("请选择图片！")
+                return;
+            }
+            //读取完成
+            reader.onload = function (e) {
+                //获得图片dom
+                //图片路径设置为读取的图片
+                imgDom.src = e.target.result;
+            };
+            reader.readAsDataURL(file)
+        }
+
+
+        $(function () {
+            //富文本
+            var E = window.wangEditor;
+            var editor = new E('#wangEdit');
+            //使用base64保存图片
+            editor.customConfig.uploadImgShowBase64 = true;
+            //使用路径传参
+            editor.customConfig.uploadImgParamsWithUrl = true;
+            editor.create();
+
+            form.on('submit(productForm)', function (data) {
+                //获得富文本输入框的内容
+                let text = editor.txt.html();
+                console.log(text);
+                //赋值
+                $('#pdetails').val(text);
+                /*console.log(data.elem); //得到checkbox原始DOM对象
+                console.log(data.elem.checked); //是否被选中，true或者false
+                console.log(data.value); //复选框value值，也可以通过data.elem.value得到
+                console.log(data.othis); //得到美化后的DOM对象
+                console.log(data.field); //得到当前表单全部字段
+                console.log(data.form); //得到当前表单全部字段*/
+                let formData = new FormData(data.form);
+                $.ajax({
+                    url: "/product/updateProduct",
+                    contentType: false,//传递的东西有很多种数据格式的时候 写false
+                    data: formData,
+                    processData: false,
+                    success: function (data) {
+                        if (data.success) {
+                            layer.msg("更新成功")
+                        }else {
+                            layer.msg("更新失败")
+                        }
+                    },
+                    type: 'post',
+                })
+            })
+
+        })
+
+
+
+    })
+</script>
+</body>
+</html>
+
+
+
+
+
+

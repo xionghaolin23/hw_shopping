@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/reset.css}" href="/static/css/reset.css"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/shopping-trolley.css}"
+          href="/static/css/shopping-trolley.css"/>
+    <link rel="stylesheet" th:href="@{/static/js/sweetalert/sweetalert.css}" type="text/css"/>
+</head>
+<body style="background-color: #F5F5F5">
+<!-- 顶部nav -->
+<!-- header -->
+<div th:replace="users/common/header::top_nav-fragment"></div>
+
+<div class="trollery-outbox">
+    <div class="trolley-header container">
+        <div class="left fl">
+            <a href="details.html"><img class="logo fl" src="/static/img/index/logo.png"></a>
+            <span class="title fl">我的购物车</span>
+            <div class="clear"></div>
+        </div>
+        <div class="right fr">
+            <i class="progress-cart area"></i>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+<div class="trolley-container">
+
+    <div class="trolley-content">
+        <div class="pro-title">
+            <input class="icon cheack" id="checkAll" type="checkbox" name="checkAll"/>
+            <label>全选</label>
+            <span class="pro">商品</span>
+            <span class="lit-price">单价</span>
+            <span class="lit-number">数量</span>
+            <span class="lit-sub">小计</span>
+            <span class="lit-oper">操作</span>
+        </div>
+        <!--购物车不为空-->
+        <div th:unless="${#lists.isEmpty(ShopCarPidList)}">
+            <div class="one" th:each="shop:${ShopCarPidList}">
+                <!-- 第一件商品+赠品 -->
+                <div class="trolley-list">
+                    <div class="list-content">
+                        <div class="trolley-main">
+                            <input class="icon cheack fl" name="product" id="product" type="checkbox"/>
+                            <label class="fl"><a th:href="@{'/details/'+${shop.product.pid}}"><img
+                                    th:src="${shop.product.pimage}"></a></label>
+                            <span class="pro fl"><a th:href="@{'/details/'+${shop.product.pid}}">[[${shop.product.pdesc}]]</a></span>
+                            <span class="lit-price fl">¥ [[${shop.product.shopPrice}]]</span>
+                            <span class="lit-number fl">
+
+									<input type="number" class="p-text" th:value="${shop.shopCount}">
+									<p class="btn">
+										<a href="javascript:;" class="del disabled">-</a>
+										<a href="javascript:;" class="add absolute">+</a>
+									</p>
+								</span>
+
+                            <span class="lit-sub">￥ [[${shop.shopCount}*${shop.product.shopPrice}]]</span>
+                            <a href="javascript:;"><span class="delte" th:pid="${shop.product.pid}">删除</span></a>
+                            <div class="clear"></div>
+                        </div>
+
+                        <ul class="pro-parts">
+                            <li class="service ">
+                                <h2 class="fl">服务</h2>
+                                <div class="ser-chosen fl relative">
+                                    <ul class="infos fl relative">
+                                        <li>
+                                            <span class="border  fl">无忧服务</span>
+                                            <span class="black fl">可选购无忧服务</span>
+                                        </li>
+                                        <li>
+                                            <span class="border fl">碎屏服务宝</span>
+                                            <span class="black fl">可选购碎屏服务宝</span>
+                                        </li>
+                                        <li>
+                                            <span class="border fl">延长服务宝</span>
+                                            <span class="black fl">可选购延长服务宝</span>
+                                        </li>
+                                        <div class="clear"></div>
+
+                                    </ul>
+                                    <a href="#" class="service-btn fl ">
+
+                                    </a>
+                                    <!-- 遮罩 -->
+                                    <div class="mouseover absolute">
+                                        <div class="mouse-left fl">
+                                            <ul>
+                                                <li class="fl">
+                                                    <span class="point">·</span>
+                                                    <span class="des">无忧服务&#8195;</span>
+                                                    <label>
+                                                        <input class="icon cheack-service" type="" name=""
+                                                               id="service" value=""/>
+                                                        <span class="des-price" title='2199'>华为无忧服务￥2199</span>
+                                                    </label>
+                                                </li>
+
+                                                <li class="fl">
+                                                    <span class="point">·</span>
+                                                    <span class="des">碎屏服务宝</span>
+                                                    <label>
+                                                        <input class="icon cheack-service" type="" name=""
+                                                               id="service" value=""/>
+                                                        <span class="des-price" title='599'>碎屏服务宝1年￥599</span>
+                                                    </label>
+                                                </li>
+
+                                                <li class="fl">
+                                                    <span class="point">·</span>
+                                                    <span class="des">延长服务宝</span>
+                                                    <label>
+                                                        <input class="icon cheack-service" type="" name=""
+                                                               id="service" value=""/>
+                                                        <span class="des-price" title='568'>延长服务宝￥568</span>
+                                                    </label>
+                                                </li>
+
+                                                <div class="clear"></div>
+                                            </ul>
+                                        </div>
+                                        <div class="mouse-right fl">
+                                            <ul>
+                                                <li class="fl">
+                                                    <span class="point">·</span>
+                                                    <span class="des">延长服务宝</span>
+                                                    <label>
+                                                        <input class="icon cheack-service" type="" name=""
+                                                               id="service" value=""/>
+                                                        <span class="des-price">延长服务宝半年￥438</span>
+                                                    </label>
+                                                </li>
+                                            </ul>
+
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>
+                                </div>
+                                <span class="lit-price fl" title='12999.00'></span>
+                                <span class="number fl">
+										x1
+									</span>
+                                <span class="lit-sub" title="12999.00"></span>
+                                <div class="clear"></div>
+                            </li>
+                            <div class="hr "></div>
+                            <li class="match">
+                                <h2 class="fl">配</h2>
+                                <a href="details.html" class="fl"><img
+                                        src="/static/img/shopping-trolley/ia_100000119.png"></a>
+                                <span class="pro fl"><a
+                                        href="details.html">HUAWEI FreeBuds 2 Pro无线耳机（碳晶黑） 高配版</a></span>
+                                <span class="lit-price fl"></span>
+                                <span class="number">x1</span>
+                                <span class="lit-sub"></span>
+                                <div class="clear"></div>
+                            </li>
+                            <div class="hr "></div>
+                            <div class="clear"></div>
+                        </ul>
+                        <div class="hr-30"></div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <!-- 购物车为空 -->
+
+        <div class="trolleyIsEmpty">
+            <div class="sc-empty">
+                <span class="minicart"></span>
+                <p>您的购物车里什么都没有哦~</p>
+                <a href="/index.html">去逛逛</a>
+            </div>
+        </div>
+
+        <!--隐藏域表单-->
+        <form action="/nowOrder" method="post" id="orderSumbit">
+            <input type="hidden" name="orderInfo" id="orderInfo">
+        </form>
+
+        <!-- 结算 -->
+        <div class="sc-total-fixed">
+            <div class="total-tool">
+                <div class="operate fl">
+                    <label class="checkbottom fl">
+                        <input class="icon cheack" id="checkAll" name="checkAllone" type="checkbox">全选
+                    </label>
+                    <a href="javascript:;" class="fl" id="deleteAll">清空购物车</a>
+                    <div class="clear"></div>
+                </div>
+                <!--<a th:href="@{/nowOrder}" class="calculate fr" id="nowOrder">立即结算</a>-->
+                <div class="calculate fr" id="nowOrder">立即结算</div>
+                <div class="total-price fr">
+                    <p>
+                        <label>总计</label>
+                        <span id="priceTotal"></span>
+                        <em>
+                            <b>不含运费</b>
+                        </em>
+                    </p>
+                    <div class="total-choose" id="selected">已选择
+                        <span id="selectedTotal"></span>件商品
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- 以下为footer -->
+<div th:include="users/common/footer.html"></div>
+
+<script type="text/javascript" src="/static/js/jquery-3.4.1.min.js" th:src="@{/static/js/jquery-3.4.1.min.js}"></script>
+<script src="/static/js/layer/layer.js" type="text/javascript" th:src="@{/static/js/layer/layer.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/sweetalert/sweetalert.min.js}"></script>
+
+<script type="text/javascript">
+
+    //判断购物车是否为空
+    var i = $(".one").length
+    console.log(i);
+    if (i == 0) {
+        //购物车中没有商品
+        $(".trolley-content .trolleyIsEmpty").show();
+    }
+
+
+    var selectedTotal = document.getElementById('selectedTotal'); //已选商品数目容器
+    console.log(selectedTotal + "已选商品数目");
+    var priceTotal = document.getElementById('priceTotal'); //显示
+    console.log(priceTotal + "总价格");
+    var servicePrice = ($(".service .lit-sub").text()) //服务费总计
+    console.log(servicePrice + "服务费总计");
+    var proPrice = ($(".trolley-main .lit-sub").text()); //商品总计
+    console.log(proPrice + "商品总计");
+
+    /*let arr = [1000,1001,10002,1003]
+    console.log(arr);
+    let arr1 = ['zs','ls','ww','zl']
+    console.log(arr1);*/
+
+    $('#nowOrder').click(function () {
+        console.log(selectedTotal);
+        //计算出选择的数量 ==0不能提交
+        var selectTotal = $('#selectedTotal').text();
+        console.log($('#selectedTotal').text());
+        if (selectTotal < 1) {
+            swal({
+                icon: 'error',
+                text: "你还没有选中商品哦",
+            })
+        } else {
+            var shopCar;
+            var pidList = [];
+            var shopCountArray = [];
+            $(".one").each(function () {
+                if ($(this).find("#product").prop('checked')) {
+                    //获得单个商品数量
+                    var oneNum = parseInt($(this).find(".trolley-main").find(".p-text").val());
+                    //console.log(oneNum+"获得单个商品数量");
+                    //添加进数组
+                    shopCountArray.push(oneNum);
+                    console.log(shopCountArray);
+                    //获得所有被选中的pid
+                    let pid = $(this).find(".trolley-main").find(".delte").attr('pid');
+                    //console.log($(this).find(".trolley-main").find(".delte").attr('pid'));
+                    //添加
+                    pidList.push(pid)
+                    //debug
+                    console.log(pidList);
+
+                    /*console.log(shopCar);
+                    for (var i = 0; i < shopCountArray.length; i++) {
+                        console.log(shopCountArray[i] + "获得所有选中的数量")
+                    }*/
+                }
+            });
+            //两个集合 转对象数组
+            shopCar = pidList.map((pid, i) => ({pid, shopCount: shopCountArray[i]}))
+            console.log("===================");
+            console.log(shopCar);
+            console.log("===================");
+            //赋值给表达隐藏域属性
+            $('#orderInfo').val(JSON.stringify(shopCar));
+            //提交表单
+            console.log(JSON.stringify(shopCar));
+            //提交表单
+            $("#orderSumbit").submit();
+            /*$.ajax({
+                url:'/nowOrder',
+                data:{shopCar:JSON.stringify(shopCar)},
+                type:'post',
+                sync:false,
+            })*/
+            //window.location.href='/nowOrder?shopCar='+JSON.stringify(shopCar)
+            //window.location.href='/nowOrder?pidArray='+pidArray+'&shopCountArray='+shopCountArray
+        }
+    })
+
+    /*清空购物车*/
+    $('#deleteAll').click(function () {
+        var pidList = [];
+        $(".one").each(function () {
+            if ($(this).find("#product").prop('checked')) {
+                //获得所有被选中的pid
+                let pid = $(this).find(".trolley-main").find(".delte").attr('pid');
+                //添加
+                pidList.push(pid)
+                //debug
+                console.log(pidList);
+
+            }
+        });
+        if(pidList.length==0){
+            swal({
+                icon: 'error',
+                text: "请选择商品",
+            })
+            return;
+        }
+        $.ajax({
+            url: '/shopCar/deleteAllShopCar',
+            data: {"pidList": pidList},
+            type: 'post',
+            dataType: 'json',
+            success: function (res) {
+                if (res.success) {
+                    swal({
+                        icon: 'success',
+                        text: "清空购物车成功",
+                    })
+                    var $self = $(this);
+                    console.log($self);
+                    //有 bug
+                    $('.one').remove();
+                    //购物车中没有商品
+                    $(".trolley-content .trolleyIsEmpty").show();
+                } else {
+                    swal({
+                        icon: 'error',
+                        text: "操作失败",
+                    })
+                }
+            }
+        });
+
+    })
+
+
+    //计算总价
+    function sumPrice() {
+        var allprice = 0;
+        var allnum = 0;
+        $(".one").each(function () {
+            if ($(this).find("#product").prop('checked')) {
+                //获得所有选中的pid
+                var pid = $(this).find(".trolley-main").find(".delte").attr('pid');
+                //console.log($(this).find(".trolley-main").find(".delte").attr('pid'));
+                var pidArray = [];
+                pidArray.push(pid)
+                for (var i = 0; i < pidArray.length; i++) {
+                    console.log(pidArray[i] + "获得所有选中的pid")
+                }
+                //获得单个商品数量
+                var oneNum = parseInt($(this).find(".trolley-main").find(".p-text").val());
+                //console.log(oneNum+"获得单个商品数量");
+                /*shopCountArray.push(oneNum);
+                for (var i = 0; i < shopCountArray.length; i++) {
+                    console.log(shopCountArray[i]+"获得所有选中的数量")
+                }*/
+                allprice += parseFloat($(this).find(".trolley-main").find(".lit-sub").html().slice(2));
+                allnum += parseInt($(this).find(".trolley-main").find(".p-text").val());
+                //console.log(allnum+"获得所有商品数量");
+
+            } else {
+                allprice += 0;
+                allnum += 0;
+            }
+        });
+        $("#priceTotal").html("￥" + allprice.toFixed(2));
+        $("#selectedTotal").html(allnum);
+    }
+
+    sumPrice();
+
+
+    //服务费和新增加的搭配的费用有bug
+    // function sumPrice() {
+    // 	var allprice = 0; //总价
+    // 	var allnum = 0; //总数量
+    // 	var proPrice = 0; //原来产品价格
+    // 	var pronum = 0 //原来产品数量
+    // 	var servicePrice = 0; //服务费
+    // 	var matchPrice = 0; //搭配产品价格
+    // 	var matchnum = 0; //搭配产品数量
+    // 	$(".one").each(function() {
+    // 		if ($(this).find("#product").prop('checked')) {
+    // 			proPrice += parseFloat($(this).find(".trolley-main").find(".lit-sub").html().slice(2));
+    // 			pronum += parseInt($(this).find(".trolley-main").find(".p-text").val());
+    //
+    // 			servicePrice += parseFloat($(this).find(".service").find(".lit-sub").html().slice(2));
+    //
+    // 			matchnum += parseInt($(this).find(".match").find(".p-text").val());
+    // 			// matchPrice += parseFloat($(this).find(".match").find(".lit-sub").html().slice(2));
+    //
+    // 			allprice = proPrice + servicePrice;
+    // 			allnum = pronum + matchnum;
+    // 		} else {
+    // 			allprice += 0;
+    // 			allnum += 0;
+    // 		}
+    // 	});
+    // 	$("#priceTotal").html("￥" + allprice.toFixed(2));
+    // 	$("#selectedTotal").html(allnum);
+    // }
+
+    //购物车中原本的东西数量加1
+    $(".add").click(function () {
+        //购买的数量
+        var number = $(this).parent('.btn').siblings(".p-text").val();
+        console.log(number)
+        var $litSub = $(this).parents(".trolley-main").children('.lit-sub');
+        number++;
+        var nuitPrice = $(this).parents('.lit-number').siblings('.lit-price').text();
+        console.log(nuitPrice);
+        nuitPrice = parseFloat(nuitPrice.slice(2))
+        console.log(nuitPrice);
+        //计算小计
+        price = number * nuitPrice;
+        console.log(price);
+        $(this).parents(".lit-number").siblings(".lit-sub").text(price);
+        // //保留小数点后两位
+        $litSub.text("￥ " + price.toFixed(2));
+        $(this).parents('.lit-number').children('.p-text').val(number);
+
+        if (number > 1) {
+            $(this).siblings(".del").css("color", "#717171")
+            $(this).siblings(".del").css("cursor", "pointer")
+        } else {
+            $(this).siblings(".del").prop("readonly", "readonly")
+            $(this).siblings(".del").css("cursor", "not-allowed");
+        }
+        sumPrice();
+    })
+    //购物车中原本的东西数量减1
+    $(".trolley-main .btn .del").click(function () {
+        var number = $(this).parent('.btn').siblings(".p-text").val();
+        console.log(number);
+        //小计
+        var $litSub = $(this).parents(".trolley-main").children('.lit-sub');
+        console.log($litSub);
+        //单价
+        var nuitPrice = $(this).parents('.lit-number').siblings('.lit-price').text();
+        console.log(nuitPrice);
+        nuitPrice = parseFloat(nuitPrice.slice(2))
+        console.log(nuitPrice);
+        //计算小计
+        price = (number - 1) * nuitPrice;
+        console.log(price);
+        $(this).parents(".lit-number").siblings(".lit-sub").text(price);
+        // //保留小数点后两位
+        $litSub.text("￥ " + price.toFixed(2));
+        if (number > 1) {
+            number--;
+            $(this).parents('.lit-number').children('.p-text').val(number);
+            console.log($(this).parents('.lit-number').children('.p-text').val(number));
+        } else {
+            $(this).prop("readonly", "readonly")
+            $(this).parents(".lit-number").siblings(".lit-sub").text("￥ " + nuitPrice + ".00");
+            $(this).css("color", "#d6d6d6")
+            $(this).css("cursor", "not-allowed");
+        }
+        sumPrice()
+    })
+
+
+    // 选中按钮之后变色
+    $(".cheack-service").click(function () {
+        var flag = $(this).prop('checked');
+        if (flag) {
+            flag = false;
+            $(this).prop('checked', flag);
+            $(this).css("background-position", "-18px -129px") //白色的没选中
+        } else {
+            flag = true;
+            $(this).prop('checked', flag);
+            $(this).css("background-position", "0 -129px") //红色 选中
+        }
+
+    })
+
+    // 第一个全选按钮
+    $("input[name=checkAll]").click(function () {
+        //prop() 方法设置或返回被选元素的属性和值。
+        var status = $(this).prop('checked');
+        $("input[name=product]").prop('checked', status);
+        sumPrice();
+    })
+    $("input[name=product]").click(function () {
+        var total = $("input[name=product]").length;
+        console.log(total);
+        //已选中的数量
+        var chkNum = $("input[name=product]:checked").length
+        //如果选中的==全部总数  全选按钮自动选择
+        if (chkNum == total) {
+            $("#checkAll").prop('checked', true);
+            selectedTotal.innerText = " " + total;
+        } else {
+            $("#checkAll").prop('checked', false);
+            selectedTotal.innerText = " " + chkNum;
+        }
+        sumPrice();
+    })
+    // 第二个全选按钮
+    $("input[name=checkAllone]").click(function () {
+        var status = $(this).prop('checked');
+        $("input[name=product]").prop('checked', status);
+
+    })
+    $("input[name=product]").click(function () {
+        var total = $("input[name=product]").length;
+        //已选中的数量
+        var chkNum = $("input[name=product]:checked").length
+        if (chkNum == total) {
+            $("#checkAll").prop('checked', true);
+            selectedTotal.innerText = " " + total;
+        } else {
+            $("#checkAll").prop('checked', false);
+            selectedTotal.innerText = " " + chkNum;
+        }
+    })
+
+
+    //点击一个 全选按钮 另外一个 也有同样的作用
+    $("input[name=checkAllone]").click(function () {
+        var status = $(this).prop('checked');
+        $("input[name=checkAll]").prop('checked', status);
+        sumPrice();
+    })
+
+    $("input[name=checkAll]").click(function () {
+        var status = $(this).prop('checked');
+        $("input[name=checkAllone]").prop('checked', status);
+    })
+
+
+    //计算总价Fixed
+    //元素滚动条内的内容高度
+    var scrollheight = document.documentElement.scrollHeight;
+    $(window).scroll(function () {
+        // 判定元素是否滚动合适位置：
+        var innerHeight = $(window).innerHeight(); //706
+        //测试用的 后期要改
+        var footerheight = 300;
+        var index = innerHeight + footerheight; //1022
+        // console.log(index);
+        var scrollTop = parseInt($(this).scrollTop());
+        // console.log(scrollheight-index+"哈哈哈");
+        if (scrollTop < scrollheight - index) {
+            $(".sc-total-fixed").css({
+                "position": "fixed"
+            })
+        } else {
+            $(".sc-total-fixed").css({
+                "position": "static"
+            })
+        }
+    })
+
+    //tab选项卡
+    $(".nav .titleTab:first-child").css({
+        "border-bottom": "2px solid #ca141d",
+        color: "#ca141d"
+    })
+
+
+    //获取索引值 边框定位
+    $(".nav").on("click", ".titleTab", function () {
+        var indexTab = $(this).index();
+        $(this).css({
+            color: "#ca141d",
+            "border-bottom": "2px solid #ca141d"
+        })
+        $(this).siblings().css({
+            color: "#3a3a3a",
+            "border-bottom": "2px solid transparent"
+        })
+
+
+        var item = $(this).parents('.hd').siblings('.bd').find('.content').find('.itemmatch').eq(indexTab);
+        // console.log(item);
+        // $(".bd .content li:first-child").css({
+        // 	display: 'block'
+        // })
+        item.css({
+            display: 'block'
+        })
+        item.siblings().css({
+            top: '353px'
+        })
+        item.stop(true).animate({
+            top: '-10px'
+        }, 200)
+
+    })
+
+
+    //删除搭配的内容
+    $('.pro-parts').on("click", ".lit-oper", function () {
+        var $self = $(this);
+        //弹出confirm
+        layer.confirm("您确认要删除该商品吗？", function (index) {
+            $self.parents(".match").remove();
+            layer.close(index);
+            layer.msg("删除成功。")
+        }, function () {
+            //取消
+            layer.msg("取消成功。")
+        })
+
+    })
+
+    //删除商品及其搭配内容和推荐搭配 的全部内容
+    $('.trolley-content').on("click", ".delte", function () {
+        var $self = $(this);
+        console.log($self);
+        var pid = $(this).attr('pid');
+        var flag = true;
+        layer.confirm("您确认要删除该商品吗？", function (index) {
+            if (flag) {
+                $.post('../shopCar/delete', {pid: pid}, function (data) {
+                    if (data.success) {
+                        $self.parents('.one').remove();
+                        layer.msg("已删除");
+                    } else {
+                        layer.msg("删除失败");
+                    }
+                    layer.close(index);
+                    sumPrice();
+                    var i = $(".one").length;
+                    console.log(i)
+                    if (i < 1) {
+                        //购物车中没有商品
+                        $(".trolley-content .trolleyIsEmpty").show();
+                    }
+                })
+            }
+        }, function () {
+            //取消
+            layer.msg("取消成功")
+        })
+    })
+
+
+    //添加的搭配内容 增加或者减少
+    $('.pro-parts').on("click", ".add", function () {
+        var matchNum = $(this).parent('.btn').siblings(".p-text").val();
+        // console.log(matchNum);
+        var $litSub = $(this).parents(".match").children('.lit-sub');
+        //新添加物品的单价
+        var nuitPrice = $(this).parents('.match').find('.lit-price').text();
+        nuitPrice = parseFloat(nuitPrice.slice(2))
+        matchNum++;
+        price = matchNum * nuitPrice;
+        $(this).parent(".btn").siblings(".p-text").val(matchNum);
+        //保留小数点后两位
+        $litSub.text("￥ " + price.toFixed(2));
+        if (matchNum > 1) {
+            $(this).siblings(".del").css("color", "#717171")
+            $(this).siblings(".del").css("cursor", "pointer")
+        } else {
+            $(this).siblings(".del").prop("readonly", "readonly")
+            $(this).siblings(".del").css("cursor", "not-allowed");
+        }
+    })
+    $('.pro-parts').on("click", ".del", function () {
+        var matchNum = $(this).parent('.btn').siblings(".p-text").val();
+        var $litSub = $(this).parents(".match").children('.lit-sub');
+        var nuitPrice = $(this).parents('.match').find('.lit-price').text();
+        nuitPrice = parseFloat(nuitPrice.slice(2));
+        price = (matchNum - 1) * nuitPrice;
+        $(this).parents(".match").children('.lit-sub').text(price);
+        //保留小数点后两位
+        $litSub.text("￥ " + price.toFixed(2));
+        if (matchNum > 1) {
+            matchNum--;
+            $(this).parent(".btn").siblings(".p-text").val(matchNum);
+        } else {
+            $(this).parents(".match").children('.lit-sub').text("￥ " + nuitPrice + ".00");
+            $(this).css("color", "#d6d6d6")
+            $(this).prop("readonly", "readonly")
+            $(this).css("cursor", "not-allowed");
+        }
+    })
+
+    //服务价格
+    var $check = $(".mouseover").find(".cheack-service");
+    $check.click(function () {
+        var flag = $(this).prop('checked');
+        var locat = $(this).parents('li').index();
+        var $border = $(this).parents(".ser-chosen").find("li").eq(locat).children(".border");
+        var $des = $(this).parents(".ser-chosen").find("li").eq(locat).children(".black");
+        //服务费
+        var service_price = parseFloat($(this).siblings(".des-price").attr('title'));
+        //单价
+        var $unit_price = $(this).parents(".ser-chosen").siblings('.lit-price');
+        // 红色字体的小计
+        var $litSub = $(this).parents(".ser-chosen").siblings('.lit-sub');
+        //显示在网页上的保留两位小数
+        $unit_price.text("￥ " + service_price.toFixed(2));
+        $litSub.text("￥ " + service_price.toFixed(2));
+
+        if (flag) {
+            flag = true;
+            $(this).prop('checked', flag);
+            $(this).siblings().prop('checked', false);
+            $(this).css("background-position", "0 -129px") //红色选中
+
+            $border.css({
+                color: "#CA141D",
+                border: "1px solid #CA141D"
+            })
+            $des.css("color", "black")
+
+            var $borderOthers = $border.parent('li').siblings('li').children('.border');
+            var $desOthers = $border.parent('li').siblings('li').children('.black');
+            var $mouseOthers = $(this).parents('li').siblings().find(".cheack-service");
+
+            if (locat == 0) {
+                // 样式
+                $des.text("华为无忧服务");
+                $mouseOthers.css("background-position", "-18px -129px")
+                $borderOthers.css({
+                    color: "black",
+                    border: "1px solid black"
+                })
+                $desOthers.css("color", "#a4a4a4");
+                //获取价格
+
+            } else if (locat == 1) {
+                $des.text("碎屏服务宝一年");
+                $mouseOthers.css("background-position", "-18px -129px")
+                $borderOthers.css({
+                    color: "black",
+                    border: "1px solid black"
+                })
+                $desOthers.css("color", "#a4a4a4");
+            } else if (locat == 2) {
+                $des.text("延长服务宝一年");
+                $mouseOthers.css("background-position", "-18px -129px")
+                $borderOthers.css({
+                    color: "black",
+                    border: "1px solid black"
+                })
+                $desOthers.css("color", "#a4a4a4");
+            }
+
+        } else {
+            flag = false;
+            $(this).prop('checked', flag);
+        }
+    })
+
+    //经典搭配
+    var index = 0;
+    $(".matchs .little-imgs .little").click(function () {
+        $(this).css("border", "1px solid #ca141d");
+        $(this).siblings().css("border-color", "#a4a4a4");
+        index = $(this).index();
+        // console.log(index);
+        // return index;
+    })
+    //添加搭配
+    $(".matchs .item .discount-btn").click(function () {
+        // console.log(index);
+        var local = $(this).parents('li').index();
+        var $addlocal = $(this).parents('.recommend-match').siblings('.trolley-list').find('.match');
+        // console.log(local);
+        // 获取元素
+        var title = "搭配";
+        // var txt = $(".matchs").children("li").eq(local).find('.discount-name').text();
+        var txt = $(this).parent('.dis-price').siblings('.dis-name').children('.discount-name').text();
+        var img = $(this).parent('.dis-price').siblings('.little-imgs').children('.little').eq(index).attr("src");
+        var price = $(this).siblings('span').text();
+        price = parseFloat(price.slice(1));
+        price = price.toFixed(2)
+        var del = $(".matchs").children("li").eq(local).find('.dis-price').children('del').text();
+        del = del.slice(1);
+
+        var $li = $('<li class="match"><h2 class="fl">' + title +
+            '</h2><a href="#"><label class="fl"><img src="' + img +
+            '"></label></a><a href="#" class="pro fl">' + txt +
+            '</a><span class="lit-price fl" title="12999.00">¥ ' + price +
+            '</span><span class="lit-number fl"><input type="number" class="p-text" value="1"><p class="btn"><a href="javascript:;" class="del disabled">-</a><a href="javascript:;" class="add absolute">+</a></p></span><span class="lit-sub">¥ ' +
+            price +
+            '</span><a href="javascript:;"><span class="lit-oper">删除</span></a>' +
+            '<div class="clear"></div></li>');
+        $(this).parents('.one').children(".trolley-list").find(".pro-parts").append($li)
+
+    })
+</script>
+</body>
+</html>

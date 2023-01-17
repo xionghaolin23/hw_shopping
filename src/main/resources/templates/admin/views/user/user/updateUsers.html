@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>编辑用户</title>
+    <link rel="stylesheet" href="/static/js/layuiadmin/layui/css/layui.css" media="all">
+</head>
+<body>
+<div class="layui-form" lay-filter="layuiadmin-form-useradmin" id="layuiadmin-form-useradmin"
+     style="padding: 20px 0 0 0;">
+    <div class="layui-form-item">
+        <label class="layui-form-label">ID</label>
+        <div class="layui-input-inline">
+            <input type="text" name="userId" th:value="${user.userId}" autocomplete="off" class="layui-input"
+                   readonly
+                   style="width: 280px;background-color: darkgrey">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">用户名</label>
+        <div class="layui-input-inline">
+            <input type="text" name="userName" th:value="${user.userName}" lay-verify="required" autocomplete="off"
+                   class="layui-input" style="width: 280px">
+        </div>
+    </div>
+    <div class="layui-form-item" style="margin-bottom: 10px">
+        <label class="layui-form-label">密码</label>
+        <div class="layui-input-inline">
+            <input type="password" name="password" th:value="${user.password}" lay-verify="password" required
+                   autocomplete="off"
+                   class="layui-input" style="width: 280px">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">手机号码</label>
+        <div class="layui-input-inline">
+            <input type="text" name="mobile" th:value="${user.mobile}" lay-verify="phone" autocomplete="off"
+                   class="layui-input" style="width: 280px">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">邮箱</label>
+        <div class="layui-input-inline">
+            <input type="text" name="email" th:value="${user.email}" lay-verify="email" autocomplete="off"
+                   class="layui-input" style="width: 280px">
+        </div>
+    </div>
+    <div class="layui-form-item" style="margin-bottom: 10px">
+        <label class="layui-form-label">真实姓名</label>
+        <div class="layui-input-inline">
+            <input type="text" name="name" th:value="${user.name}" required autocomplete="off" class="layui-input"
+                   style="width: 280px">
+        </div>
+    </div>
+    <div class="layui-form-item" style="margin-bottom: 10px">
+        <label class="layui-form-label">出生日期</label>
+        <div class="layui-input-inline">
+            <input type="text" name="birthday" th:value="${user.birthday}" required autocomplete="off"
+                   class="layui-input"
+                   id="time" style="width: 280px">
+        </div>
+    </div>
+    <!--<div class="layui-form-item">
+         <label class="layui-form-label">头像</label>
+         <div class="layui-input-inline">
+             <input type="text" name="avatar" lay-verify="required" placeholder="请上传图片" autocomplete="off" class="layui-input" >
+         </div>
+         <button style="float: left;" type="button" class="layui-btn" id="layuiadmin-upload-useradmin">上传图片</button>
+     </div>-->
+    <div class="layui-form-item">
+        <label class="layui-form-label">角色</label>
+        <div class="layui-input-block" style="width: 280px">
+            <select name="isSys" lay-filter="aihao">
+                <option value="0" th:attr="selected=${user.isSys==0?true:false}" th:text="普通用户"></option>
+                <option value="1" th:attr="selected=${user.isSys==1?true:false}" th:text="管理员"></option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item" lay-filter="sex">
+        <label class="layui-form-label">性别</label>
+        <div class="layui-input-block">
+            <input type="radio" name="gender" th:attr="checked=${user.gender=='男'?true:false}" value="男" title="男">
+            <input type="radio" name="gender" th:attr="checked=${user.gender=='女'?true:false}" value="女" title="女">
+        </div>
+    </div>
+    <!--<div class="layui-form-item" lay-filter="isSys">
+        <label class="layui-form-label">角色</label>
+        <div class="layui-input-block">
+            <input type="radio" name="isSys" th:attr="checked=${user.isSys==0?true:false}" value="0" title="user">
+            <input type="radio" name="isSys" th:attr="checked=${user.isSys==1?true:false}" value="1" title="admin">
+        </div>
+    </div>-->
+    <div class="layui-form-item layui-hide">
+        <input type="button" lay-submit lay-filter="LAY-user-front-submit" id="LAY-user-front-submit" value="确认">
+    </div>
+</div>
+
+<script src="/static/js/layuiadmin/layui/layui.js"></script>
+<script>
+    layui.config({
+        base: '/static/js/layuiadmin/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'form', 'upload', 'laydate'], function () {
+        var $ = layui.$
+            , form = layui.form
+            , upload = layui.upload
+            , laydate = layui.laydate;
+        laydate.render({
+            elem: "#time"
+            ,trigger: 'click'
+        })
+        upload.render({
+            elem: '#layuiadmin-upload-useradmin'
+            , url: layui.setter.base + 'json/upload/demo.js'
+            , accept: 'images'
+            , method: 'get'
+            , acceptMime: 'image/*'
+            , done: function (res) {
+                $(this.item).prev("div").children("input").val(res.data.src)
+            }
+        });
+    })
+</script>
+</body>
+</html>
+
+
+
+
+
+

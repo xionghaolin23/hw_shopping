@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/users/common/header::head-fragment('电子商城-首页','index')">
+</head>
+<body>
+<!-- header -->
+<div th:replace="/users/common/header::top_adv-fragment"></div>
+<div th:replace="/users/common/header::top_nav-fragment"></div>
+<div th:replace="/users/common/header::header-fragment"></div>
+<!-- banner -->
+<div id="slideBox" class="slideBox">
+    <div class="hd">
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <!--轮播图-->
+    <div class="bd">
+        <ul>
+            <div th:each="c:${iCarouseList}">
+                <li><a href="zone.html">
+                    <img th:src="${c.carouselUrl}"  alt=""></a>
+                </li>
+            </div>
+        </ul>
+    </div>
+
+    <a class="prev" href="javascript:void(0)"
+       style="color: lightgray;line-height: 46px;text-align: center;opacity: 0.6;">
+        <img style="width: 30px;" src="/static/img/index/fanhui1.png">
+    </a>
+    <a class="next" href="javascript:void(0)"
+       style="color: lightgray;line-height: 46px;text-align: center;opacity: 0.6;">
+        <img style="width: 30px;" src="/static/img/index/fanhui2.png"> </a>
+    <!--轮播图上的动态菜单-->
+    <div class="category" >
+        <ul class="category_list">
+            <li class="category_item" th:each="p:${productTypes}">
+                <div class="item_innerBox"  style="margin-bottom: 10px">
+                    <div class="item_title">
+                        <a th:href="@{'/index/cidSerch/?cid='+${p.cid}}"   th:text="${p.typeName}">手机</a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <div class="">
+            <dd class="innerBox clearfix" th:each="p:${productTypes}" >
+                <div class="shop_item" th:each="cp:${p.childrenTypes}">
+                    <a th:href="@{'/index/serchType/?keyword='+${cp.typeName}}">
+                            <img class="ver_mid"
+                                th:src="${cp.timage}">
+                        <span class="ver_mid" th:text="${cp.typeName}">荣耀</span>
+                    </a>
+                </div>
+            </dd>
+        </div>
+    </div>
+</div>
+<!-- 以下是menu -->
+<div class="home_menu relative">
+    <div class="menu_floor">
+        <ul class="floor_top container clearfix">
+            <li class="menu_user fl clearfix">
+                <div class="menu_userHead fl"></div>
+                <div class="menu_userTitle fl" th:if="${session.loginUser ne null}">
+                    <span >您好!</span>
+                    <a href="login.html" style="font-weight: 600;" th:text="${#strings.substring(session.loginUser.userName,0,3)}+'**'">登录</a>
+                    <span style="color: #000000;">/</span>
+                    <a href="javascript:register()" style="font-weight: 600;">注册</a>
+                </div>
+                <div class="menu_userMore fl">
+                    <a class="menu_userGift" href="">新人福利</a>
+                    <a class="menu_userVIP" href="">会员频道</a>
+                </div>
+            </li>
+                <a href="javascript:void(0)" class="menu_serve_item fl">
+                    <img class="img0" src="/static/img/index/ia_100000069_02.png" alt="富强">
+                    <span>富强</span>
+                </a>
+                <a href="javascript:void(0)" class="menu_serve_item fl">
+                    <img class="img0" src="/static/img/index/ia_100000069_03.png" alt="民主">
+                    <span>民主</span>
+                </a>
+                <a href="javascript:void(0)" class="menu_serve_item fl">
+                    <img class="img0" src="/static/img/index/ia_100000069_05.png" alt="文明">
+                    <span>文明</span>
+                </a>
+                <a href="javascript:void(0)" class="menu_serve_item fl">
+                    <img class="img0" src="/static/img/index/ia_100000069_12.png" alt="和谐">
+                    <span>和谐</span>
+                </a>
+                <a href="javascript:void(0)" class="menu_serve_item fl">
+                    <img class="img0" src="/static/img/index/ia_100000069_07.png" alt="自由">
+                    <span>自由</span>
+                </a>
+                <a href="javascript:void(0)" class="menu_serve_item fl">
+                    <img class="img0" src="/static/img/index/ia_100000069_09.png" alt="平等">
+                    <span>平等</span>
+                </a>
+            </li>
+            <!--公告-->
+            <li class="menu_announcement fl c">
+                <span class="fl">公告</span>
+                <div class="txtScroll-top fl">
+                    <div class="bd">
+                        <ul class="infoList" th:unless="${#lists.isEmpty(noticesList)}">
+                            <li th:each="notices:${noticesList}">
+                                <a href="details.html" target="_blank" th:text="${notices.nContent}">荣耀狂欢节活动公告</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+            <li class="menu_More fl clearfix">
+                <a href="details.html" class="more_item fl">
+                    <img class="ver_mid" src="/static/img/index/ia_100000069_031.png">
+                    <span class="ver_mid">优购码</span>
+                </a>
+                <a href="details.html" class="more_item fl">
+                    <img class="ver_mid" src="/static/img/index/ia_100000069_051.png">
+                    <span class="ver_mid">实名认证</span>
+                </a>
+                <a href="details.html" class="more_item fl">
+                    <img class="ver_mid" src="/static/img/index/ia_100000069_071.png">
+                    <span class="ver_mid">补购保障</span>
+                </a>
+            </li>
+
+        </ul>
+    </div>
+    <!--第一排手机-->
+    <div class="menu_phones container clearfix">
+        <a href="/details/110"><img src="/static/img/index/ia_100000070.jpg"></a>
+        <a href="details.html"><img src="/static/img/index/ia_100000071.jpg"></a>
+        <a href="/details/86"><img src="/static/img/index/ia_100000072.jpg"></a>
+        <a href="details.html"><img style="margin-right: 0;" src="/static/img/index/ia_100000073.jpg"></a>
+    </div>
+</div>
+<div class="hot container clearfix">
+    <div class="hot_title">
+        热销单品
+    </div>
+    <div class="hot_left fl">
+        <a href="/details/110">
+            <img src="/static/img/index/ia_100000077.jpg">
+        </a>
+    </div>
+    <ul class="hot_right fl clearfix">
+        <li class="fl relative" th:each="h:${indexHotList}">
+            <a th:href="@{'/details/'+${h.pid}}">
+                <img th:src="${h.pimage}">
+                <p class="phones_title" th:text="${h.pname}">荣耀9X PRO</p>
+                <p class="phones_msg" th:text="${h.pMsg}" >6期免息 享多重好礼</p>
+                <p class="phones_price" th:text="${h.shopPrice}">￥2199</p>
+            </a>
+            <p class="mark sklBlue">新品</p>
+        </li>
+    </ul>
+</div>
+<div class="swiper_TopTitle container">
+    精品推荐
+</div>
+<div class="swiper-container" >
+    <div class="swiper-wrapper" th:unless="${#lists.isEmpty(indexBoutiqueList)}">
+        <div class="swiper-slide" th:each="boutique:${indexBoutiqueList}">
+            <a th:href="@{'/details/'+${boutique.pid}}">
+                <img class="slide_img" src="/static/img/index/ia_100000086.png" th:src="${boutique.pimage}">
+                <p class="slide_msg" th:text="${boutique.PMsg}">薄款新品第三轮预定</p>
+                <p class="slide_title" th:text="${boutique.pname}">荣耀智慧屏系列</p>
+                <p class="slide_price" th:text="${boutique.shopPrice}">￥3799</p>
+            </a>
+        </div>
+    </div>
+    <!-- Add Arrows -->
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+</div>
+<!--华为-->
+<div class="mid_banner container">
+    <a href="details.html">
+        <img src="/static/img/index/ia_100000156.jpg">
+    </a>
+</div>
+<!-- 手机 -->
+<div class="tel container">
+    <div class="tel_title clearfix">
+        <span class="tel_text fl">手机</span>
+        <div class="tel_series fl">
+            <a href="product-list.html">荣耀</a>
+            <a href="product-list.html">HUAWEI P系列</a>
+            <a href="product-list.html">HUAWEI Mate系列</a>
+            <a href="product-list.html">荣耀畅玩系列</a>
+            <a href="product-list.html">HUAWEI nova系列</a>
+            <a href="product-list.html">华为畅享系列</a>
+            <a href="product-list.html">HUAWEI 麦芒系列</a>
+            <a href="product-list.html">移动4G+系列</a>
+        </div>
+        <a href="" class="tel_more fr">查看更多 ></a>
+    </div>
+
+    <ul class="tel_list clearfix" th:unless="${#lists.isEmpty(indexPhoneList)}">
+        <li class="fl" th:each="phone:${indexPhoneList}">
+            <a th:href="@{'/details/'+${phone.pid}}">
+                <img src="/static/img/index/ia_100004349.png" th:src="${phone.pimage}">
+                <p class="phones_title" th:text="${phone.pname}">荣耀10青春版</p>
+                <p class="phones_msg" th:text="${phone.pMsg}">最高优惠500</p>
+                <p class="phones_price" th:text="${phone.shopPrice}">￥1399</p>
+            </a>
+        </li>
+    </ul>
+</div>
+<!-- 笔记本电脑-->
+<div class="laptop container">
+    <div class="tel_title clearfix">
+        <span class="tel_text fl">笔记本电脑</span>
+        <div class="tel_series fl">
+            <a href="product-list.html">平板电脑</a>
+            <a href="product-list.html">笔记本电脑</a>
+            <a href="product-list.html">笔记本配件</a>
+        </div>
+        <a href="" class="tel_more fr">查看更多 ></a>
+    </div>
+    <ul class="tel_list clearfix">
+        <li class="fl" th:each="phone:${indexNotebookList}">
+            <a th:href="@{'/details/'+${phone.pid}}">
+                <img src="/static/img/index/ia_100004349.png" th:src="${phone.pimage}">
+                <p class="phones_title" th:text="${phone.pname}">荣耀10青春版</p>
+                <p class="phones_msg" th:text="${phone.pMsg}">最高优惠500</p>
+                <p class="phones_price" th:text="${phone.shopPrice}">￥1399</p>
+            </a>
+        </li>
+    </ul>
+</div>
+<!-- 精品平板 -->
+<div class="book container">
+    <div class="tel_title clearfix">
+        <span class="tel_text fl">精品平板</span>
+        <div class="tel_series fl">
+            <a href="product-list.html">平板电脑</a>
+            <a href="product-list.html">笔记本电脑</a>
+            <a href="product-list.html">笔记本配件</a>
+        </div>
+        <a href="product-list.html" class="tel_more fr">查看更多 ></a>
+    </div>
+    <ul class="tel_list clearfix">
+        <li class="fl" th:each="phone:${indexTabletList}">
+            <a th:href="@{'/details/'+${phone.pid}}">
+                <img src="/static/img/index/ia_100004349.png" th:src="${phone.pimage}">
+                <p class="phones_title" th:text="${phone.pname}">荣耀10青春版</p>
+                <p class="phones_msg" th:text="${phone.pMsg}">最高优惠500</p>
+                <p class="phones_price" th:text="${phone.shopPrice}">￥1399</p>
+            </a>
+        </li>
+    </ul>
+</div>
+<!-- 智能穿戴 -->
+<div class="wear container">
+    <div class="tel_title clearfix">
+        <span class="tel_text fl">智能穿戴</span>
+        <div class="tel_series fl">
+            <a href="product-list.html">手表</a>
+            <a href="product-list.html">手环</a>
+            <a href="product-list.html">VR</a>
+        </div>
+        <a href="product-list.html" class="tel_more fr">查看更多 ></a>
+    </div>
+    <ul class="tel_list clearfix">
+
+        <li class="fl" th:each="phone:${indexSmartWearList}">
+            <a th:href="@{'/details/'+${phone.pid}}">
+                <img src="/static/img/index/ia_100004349.png" th:src="${phone.pimage}">
+                <p class="phones_title" th:text="${phone.pname}">荣耀10青春版</p>
+                <p class="phones_msg" th:text="${phone.pMsg}">最高优惠500</p>
+                <p class="phones_price" th:text="${phone.shopPrice}">￥1399</p>
+            </a>
+        </li>
+        <li class="fl">
+            <a href="details.html">
+                <img src="/static/img/index/ia_100004398.png">
+                <p class="phones_title">荣耀9X PRO</p>
+                <p class="phones_msg">6期免息 享多重好礼</p>
+                <p class="phones_price">￥2199</p>
+            </a>
+        </li>
+        <li class="fl">
+            <a href="details.html">
+                <img src="/static/img/index/ia_100004399.png">
+                <p class="phones_title">荣耀9X PRO</p>
+                <p class="phones_msg">6期免息 享多重好礼</p>
+                <p class="phones_price">￥2199</p>
+            </a>
+        </li>
+        <li class="fl">
+            <a href="details.html">
+                <img src="/static/img/index/ia_100004400.png">
+                <p class="phones_title">荣耀9X PRO</p>
+                <p class="phones_msg">6期免息 享多重好礼</p>
+                <p class="phones_price">￥2199</p>
+            </a>
+        </li>
+        <li class="fl relative">
+            <a href="details.html">
+                <img src="/static/img/index/ia_100004401.png">
+                <p class="phones_title">荣耀9X PRO</p>
+                <p class="phones_msg">6期免息 享多重好礼</p>
+                <p class="phones_price">￥2199</p>
+            </a>
+            <p class="mark sklBlue">新品</p>
+        </li>
+        <li class="fl">
+            <a href="details.html">
+                <img src="/static/img/index/ia_100004402.png">
+                <p class="phones_title">荣耀9X PRO</p>
+                <p class="phones_msg">6期免息 享多重好礼</p>
+                <p class="phones_price">￥2199</p>
+            </a>
+        </li>
+        <li class="fl">
+            <a href="details.html">
+                <img src="/static/img/index/ia_100004403.png">
+                <p class="phones_title">荣耀9X PRO</p>
+                <p class="phones_msg">6期免息 享多重好礼</p>
+                <p class="phones_price">￥2199</p>
+            </a>
+        </li>
+        <li class="fl">
+            <a href="details.html">
+                <img src="/static/img/index/ia_100004404.png">
+                <p class="phones_title">荣耀9X PRO</p>
+                <p class="phones_msg">6期免息 享多重好礼</p>
+                <p class="phones_price">￥2199</p>
+            </a>
+        </li>
+        <li class="fl">
+            <a href="details.html">
+                <img src="/static/img/index/ia_100004404.png">
+                <p class="phones_title">荣耀9X PRO</p>
+                <p class="phones_msg">6期免息 享多重好礼</p>
+                <p class="phones_price">￥2199</p>
+            </a>
+        </li>
+        <li class="fl">
+            <a href="details.html">
+                <img src="/static/img/index/ia_100004404.png">
+                <p class="phones_title">荣耀9X PRO</p>
+                <p class="phones_msg">6期免息 享多重好礼</p>
+                <p class="phones_price">￥2199</p>
+            </a>
+        </li>
+    </ul>
+</div>
+<!-- 智能家居 -->
+<div class="wear container">
+    <div class="tel_title clearfix">
+        <span class="tel_text fl">智能家居</span>
+        <div class="tel_series fl">
+            <a href="product-list.html">智慧屏</a>
+            <a href="product-list.html">路由器</a>
+            <a href="product-list.html">子母</a>
+            <a href="product-list.html">电力猫</a>
+            <a href="product-list.html">移动路由</a>
+            <a href="product-list.html">电视盒子</a>
+            <a href="product-list.html">照明</a>
+            <a href="product-list.html">清洁</a>
+            <a href="product-list.html">节能</a>
+            <a href="product-list.html">环境</a>
+            <a href="product-list.html">安防</a>
+            <a href="product-list.html">健康</a>
+            <a href="product-list.html">厨电</a>
+
+        </div>
+        <a href="" class="tel_more fr">查看更多 ></a>
+    </div>
+    <ul class="tel_list clearfix">
+        <li class="fl" th:each="phone:${indexSmartHomeList}">
+            <a th:href="@{'/details/'+${phone.pid}}">
+                <img src="/static/img/index/ia_100004349.png" th:src="${phone.pimage}">
+                <p class="phones_title" th:text="${phone.pname}">荣耀10青春版</p>
+                <p class="phones_msg" th:text="${phone.pMsg}">最高优惠500</p>
+                <p class="phones_price" th:text="${phone.shopPrice}">￥1399</p>
+            </a>
+        </li>
+
+        <li class="fl">
+            <a href="details.html">
+                <img src="/static/img/index/ia_100004415.png">
+                <p class="phones_title">荣耀9X PRO</p>
+                <p class="phones_msg">6期免息 享多重好礼</p>
+                <p class="phones_price">￥2199</p>
+            </a>
+        </li>
+        <li class="fl relative">
+            <a href="details.html">
+                <img src="/static/img/index/ia_100004417.png">
+                <p class="phones_title">荣耀9X PRO</p>
+                <p class="phones_msg">6期免息 享多重好礼</p>
+                <p class="phones_price">￥2199</p>
+            </a>
+            <p class="mark sklBlue">新品</p>
+        </li>
+        <li class="fl">
+            <a href="details.html">
+                <img src="/static/img/index/ia_100004418.png">
+                <p class="phones_title">荣耀9X PRO</p>
+                <p class="phones_msg">6期免息 享多重好礼</p>
+                <p class="phones_price">￥2199</p>
+            </a>
+        </li>
+        <li class="fl">
+            <a href="details.html">
+                <img src="/static/img/index/ia_100004419.png">
+                <p class="phones_title">荣耀9X PRO</p>
+                <p class="phones_msg">6期免息 享多重好礼</p>
+                <p class="phones_price">￥2199</p>
+            </a>
+        </li>
+        <li class="fl relative">
+            <a href="details.html">
+                <img src="/static/img/index/ia_100004420.png">
+                <p class="phones_title">荣耀9X PRO</p>
+                <p class="phones_msg">6期免息 享多重好礼</p>
+                <p class="phones_price">￥2199</p>
+            </a>
+            <p class="mark sklBlue">新品</p>
+        </li>
+        <li class="fl">
+            <a href="details.html">
+                <img src="/static/img/index/ia_100004421.png">
+                <p class="phones_title">荣耀9X PRO</p>
+                <p class="phones_msg">6期免息 享多重好礼</p>
+                <p class="phones_price">￥2199</p>
+            </a>
+        </li>
+        <li class="fl relative">
+            <a href="details.html">
+                <img src="/static/img/index/ia_100004422.png">
+                <p class="phones_title">荣耀9X PRO</p>
+                <p class="phones_msg">6期免息 享多重好礼</p>
+                <p class="phones_price">￥2199</p>
+            </a>
+            <p class="mark pink">优惠</p>
+        </li>
+        <li class="fl relative">
+            <a href="details.html">
+                <img src="/static/img/index/ia_100004423.png">
+                <p class="phones_title">荣耀9X PRO</p>
+                <p class="phones_msg">6期免息 享多重好礼</p>
+                <p class="phones_price">￥2199</p>
+            </a>
+            <p class="mark sklBlue">新品</p>
+        </li>
+        <li class="fl relative">
+            <a href="details.html">
+                <img src="/static/img/index/ia_100004423.png">
+                <p class="phones_title">荣耀9X PRO</p>
+                <p class="phones_msg">6期免息 享多重好礼</p>
+                <p class="phones_price">￥2199</p>
+            </a>
+            <p class="mark sklBlue">新品</p>
+        </li>
+    </ul>
+</div>
+<!-- 热销配件 -->
+<div class="wear container">
+    <div class="tel_title clearfix">
+        <span class="tel_text fl">热销配件</span>
+        <div class="tel_series fl">
+            <a href="product-list.html">保护壳</a>
+            <a href="product-list.html">保护套</a>
+            <a href="product-list.html">贴膜</a>
+            <a href="product-list.html">移动电源</a>
+            <a href="product-list.html">耳机</a>
+            <a href="product-list.html">充电器</a>
+            <a href="product-list.html">自拍杆</a>
+            <a href="product-list.html">音箱</a>
+            <a href="product-list.html">U盘</a>
+            <a href="product-list.html">摄像头</a>
+            <a href="product-list.html">智能眼镜</a>
+            <a href="product-list.html">智能硬件</a>
+
+        </div>
+        <a href="product-list.html" class="tel_more fr">查看更多 ></a>
+    </div>
+    <ul class="tel_list clearfix">
+        <div class="wear_extra fl">
+            <a href="details.html">
+                <img src="/static/img/index/ia_100004441.jpg">
+            </a>
+        </div>
+        <li class="fl relative">
+            <a href="details.html">
+                <img src="/static/img/index/ia_100004445.png">
+                <p class="phones_title">荣耀9X PRO</p>
+                <p class="phones_msg">6期免息 享多重好礼</p>
+                <p class="phones_price">￥2199</p>
+            </a>
+            <p class="mark pink">优惠</p>
+        </li>
+        <li class="fl">
+            <a href="details.html">
+                <img src="/static/img/index/ia_100004446.png">
+                <p class="phones_title">荣耀9X PRO</p>
+                <p class="phones_msg">6期免息 享多重好礼</p>
+                <p class="phones_price">￥2199</p>
+            </a>
+        </li>
+        <li class="fl">
+            <a href="details.html">
+                <img src="/static/img/index/ia_100004447.png">
+                <p class="phones_title">荣耀9X PRO</p>
+                <p class="phones_msg">6期免息 享多重好礼</p>
+                <p class="phones_price">￥2199</p>
+            </a>
+        </li>
+        <li class="fl relative">
+            <a href="details.html">
+                <img src="/static/img/index/ia_100004448.png">
+                <p class="phones_title">荣耀9X PRO</p>
+                <p class="phones_msg">6期免息 享多重好礼</p>
+                <p class="phones_price">￥2199</p>
+            </a>
+            <p class="mark sklBlue">首发</p>
+        </li>
+        <li class="fl">
+            <a href="details.html">
+                <img src="/static/img/index/ia_100004449.png">
+                <p class="phones_title">荣耀9X PRO</p>
+                <p class="phones_msg">6期免息 享多重好礼</p>
+                <p class="phones_price">￥2199</p>
+            </a>
+        </li>
+        <li class="fl">
+            <a href="details.html">
+                <img src="/static/img/index/ia_100004450.png">
+                <p class="phones_title">荣耀9X PRO</p>
+                <p class="phones_msg">6期免息 享多重好礼</p>
+                <p class="phones_price">￥2199</p>
+            </a>
+        </li>
+        <li class="fl relative">
+            <a href="details.html">
+                <img src="/static/img/index/ia_100004451.png">
+                <p class="phones_title">荣耀9X PRO</p>
+                <p class="phones_msg">6期免息 享多重好礼</p>
+                <p class="phones_price">￥2199</p>
+            </a>
+            <p class="mark sklBlue">免息</p>
+        </li>
+        <li class="fl">
+            <a href="details.html">
+                <img src="/static/img/index/ia_100004455.png">
+                <p class="phones_title">荣耀9X PRO</p>
+                <p class="phones_msg">6期免息 享多重好礼</p>
+                <p class="phones_price">￥2199</p>
+            </a>
+        </li>
+    </ul>
+</div>
+<!-- 生态精品 -->
+<div class="wear container">
+    <div class="tel_title clearfix">
+        <span class="tel_text fl">生态精品</span>
+        <div class="tel_series fl">
+            <a href="product-list.html">智慧屏</a>
+            <a href="product-list.html">路由器</a>
+            <a href="product-list.html">子母</a>
+            <a href="product-list.html">电力猫</a>
+            <a href="product-list.html">移动路由</a>
+            <a href="product-list.html">电视盒子</a>
+            <a href="product-list.html">照明</a>
+            <a href="product-list.html">清洁</a>
+            <a href="product-list.html">节能</a>
+            <a href="product-list.html">环境</a>
+            <a href="product-list.html">安防</a>
+            <a href="product-list.html">健康</a>
+            <a href="product-list.html">厨电</a>
+
+        </div>
+        <a href="product-list.html" class="tel_more fr">查看更多 ></a>
+    </div>
+    <ul class="tel_list clearfix">
+        <div class="wear_extra fl">
+            <a href="details.html">
+                <img src="/static/img/index/ia_100004481.jpg">
+            </a>
+        </div>
+        <li class="fl">
+            <a href="details.html">
+                <img src="/static/img/index/ia_100004493.png">
+                <p class="phones_title">荣耀9X PRO</p>
+                <p class="phones_msg">6期免息 享多重好礼</p>
+                <p class="phones_price">￥2199</p>
+            </a>
+        </li>
+        <li class="fl relative">
+            <a href="details.html">
+                <img src="/static/img/index/ia_100004494.png">
+                <p class="phones_title">荣耀9X PRO</p>
+                <p class="phones_msg">6期免息 享多重好礼</p>
+                <p class="phones_price">￥2199</p>
+            </a>
+            <p class="mark pink">优惠</p>
+        </li>
+        <li class="fl">
+            <a href="details.html">
+                <img src="/static/img/index/ia_100004497.png">
+                <p class="phones_title">荣耀9X PRO</p>
+                <p class="phones_msg">6期免息 享多重好礼</p>
+                <p class="phones_price">￥2199</p>
+            </a>
+        </li>
+        <li class="fl">
+            <a href="details.html">
+                <img src="/static/img/index/ia_100004498.png">
+                <p class="phones_title">荣耀9X PRO</p>
+                <p class="phones_msg">6期免息 享多重好礼</p>
+                <p class="phones_price">￥2199</p>
+            </a>
+        </li>
+        <li class="fl">
+            <a href="details.html">
+                <img src="/static/img/index/ia_100004499.png">
+                <p class="phones_title">荣耀9X PRO</p>
+                <p class="phones_msg">6期免息 享多重好礼</p>
+                <p class="phones_price">￥2199</p>
+            </a>
+        </li>
+        <li class="fl">
+            <a href="details.html">
+                <img src="/static/img/index/ia_100004495.png">
+                <p class="phones_title">荣耀9X PRO</p>
+                <p class="phones_msg">6期免息 享多重好礼</p>
+                <p class="phones_price">￥2199</p>
+            </a>
+        </li>
+        <li class="fl relative">
+            <a href="details.html">
+                <img src="/static/img/index/ia_100004445.png">
+                <p class="phones_title">荣耀9X PRO</p>
+                <p class="phones_msg">6期免息 享多重好礼</p>
+                <p class="phones_price">￥2199</p>
+            </a>
+            <p class="mark sklBlue">新品</p>
+        </li>
+        <li class="fl">
+            <a href="details.html">
+                <img src="/static/img/index/ia_100004503.png">
+                <p class="phones_title">荣耀9X PRO</p>
+                <p class="phones_msg">6期免息 享多重好礼</p>
+                <p class="phones_price">￥2199</p>
+            </a>
+        </li>
+    </ul>
+</div>
+<!-- 倒数第二个banner -->
+<div class="end_banner container">
+    <a href="details.html">
+        <img src="/static/img/index/end_bannerD.jpg">
+    </a>
+
+</div>
+<!-- 精选配件 -->
+<div class="wear container">
+    <div class="tel_title clearfix">
+        <span class="tel_text fl">精选配件</span>
+        <div class="tel_series fl">
+            <a href="product-list.html">保护壳</a>
+            <a href="product-list.html">保护套</a>
+            <a href="product-list.html">贴膜</a>
+            <a href="product-list.html">移动电源</a>
+            <a href="product-list.html">耳机</a>
+            <a href="product-list.html">充电器</a>
+            <a href="product-list.html">自拍杆</a>
+            <a href="product-list.html">音箱</a>
+            <a href="product-list.html">U盘</a>
+            <a href="product-list.html">摄像头</a>
+            <a href="product-list.html">智能眼镜</a>
+            <a href="product-list.html">智能硬件</a>
+
+        </div>
+        <a href="" class="tel_more fr">查看更多 ></a>
+    </div>
+    <ul class="tel_list clearfix">
+        <div class="wear_extra fl">
+            <a href="details.html">
+                <img src="/static/img/index/ia_100004527.png">
+            </a>
+        </div>
+        <li class="fl">
+            <a href="details.html">
+                <img src="/static/img/index/ia_100004493.png">
+                <p class="phones_title">荣耀9X PRO</p>
+                <p class="phones_msg">6期免息 享多重好礼</p>
+                <p class="phones_price">￥2199</p>
+            </a>
+        </li>
+        <li class="fl relative">
+            <a href="details.html">
+                <img src="/static/img/index/ia_100004494.png">
+                <p class="phones_title">荣耀9X PRO</p>
+                <p class="phones_msg">6期免息 享多重好礼</p>
+                <p class="phones_price">￥2199</p>
+            </a>
+            <p class="mark sklBlue">火爆</p>
+        </li>
+        <li class="fl">
+            <a href="details.html">
+                <img src="/static/img/index/ia_100004497.png">
+                <p class="phones_title">荣耀9X PRO</p>
+                <p class="phones_msg">6期免息 享多重好礼</p>
+                <p class="phones_price">￥2199</p>
+            </a>
+        </li>
+        <li class="fl">
+            <a href="details.html">
+                <img src="/static/img/index/ia_100004498.png">
+                <p class="phones_title">荣耀9X PRO</p>
+                <p class="phones_msg">6期免息 享多重好礼</p>
+                <p class="phones_price">￥2199</p>
+            </a>
+        </li>
+        <li class="fl relative">
+            <a href="details.html">
+                <img src="/static/img/index/ia_100004499.png">
+                <p class="phones_title">荣耀9X PRO</p>
+                <p class="phones_msg">6期免息 享多重好礼</p>
+                <p class="phones_price">￥2199</p>
+            </a>
+            <p class="mark pink">优惠</p>
+        </li>
+        <li class="fl">
+            <a href="details.html">
+                <img src="/static/img/index/ia_100004495.png">
+                <p class="phones_title">荣耀9X PRO</p>
+                <p class="phones_msg">6期免息 享多重好礼</p>
+                <p class="phones_price">￥2199</p>
+            </a>
+        </li>
+        <li class="fl">
+            <a href="details.html">
+                <img src="/static/img/index/ia_100004445.png">
+                <p class="phones_title">荣耀9X PRO</p>
+                <p class="phones_msg">6期免息 享多重好礼</p>
+                <p class="phones_price">￥2199</p>
+            </a>
+        </li>
+        <li class="fl">
+            <a href="details.html">
+                <img src="/static/img/index/ia_100004503.png">
+                <p class="phones_title">荣耀9X PRO</p>
+                <p class="phones_msg">6期免息 享多重好礼</p>
+                <p class="phones_price">￥2199</p>
+            </a>
+        </li>
+    </ul>
+</div>
+<!-- 最后的banner -->
+<div class="food_banner container">
+    <a href="details.html">
+        <img src="/static/img/index/food_banneruQ.jpg">
+    </a>
+</div>
+<!-- 返回顶部 -->
+<div class="returnTop">
+    <div class="shopLink" title="购物车"><a href="/shopCar/goShoppingCar"><i class="layui-icon layui-icon-cart-simple"
+                                                                         style="font-size: 20px"></i></a></div>
+    <div class="serveLink" title="客服"><i class="layui-icon layui-icon-headset" style="font-size: 20px"></i></div>
+    <div class="idea" title="意见反馈"><i class="layui-icon layui-icon-tabs" style="font-size: 20px"></i></div>
+    <div class="return" title="返回顶部"><i class="layui-icon layui-icon-up" style="font-size: 20px"></i></div>
+</div>
+<!-- 右侧跳转菜单 -->
+<div class="floorBox">
+    <div class="item" title="前往手机板块">手机</div>
+    <div class="item" title="前往笔记本电脑">笔记本电脑</div>
+    <div class="item" title="前往精品平板">精品平板</div>
+    <div class="item" title="前往智能穿戴">智能穿戴</div>
+    <div class="item" title="前往智能家居">智能家居</div>
+    <div class="item" title="前往热销配件">热销配件</div>
+    <div class="item" title="前往生态精品">生态精品</div>
+    <div class="item" title="前往精品配件">精品配件</div>
+</div>
+<div th:replace="users/common/footer::footer-fragment"></div>
+</body>
+
+<script>
+    $("#top_adv_del").click(function () {
+        $(this).parents(".top_adv").stop(true).animate({
+            height: 0,
+        })
+        $(this).css("display", "none")
+    });
+    jQuery(".slideBox").slide({
+        mainCell: ".bd ul",
+        effect: "fold",
+        autoPlay: true
+    });
+    $(".category_item").mouseenter(function () {
+        $(this).css({
+            "background-color": "white",
+        })
+        $(this).siblings().css("background-color", "whitesmoke")
+        var index = $(this).index()
+        // console.log(index)
+        $(".slideBox dd").eq(index).children().css("background", "white")
+        $(".slideBox dd").eq(index).css("display", "block")
+        $(".slideBox dd").eq(index).siblings().css("display", "none")
+    })
+    // 事件解绑
+    $(".category").mouseleave(function () {
+        // $(".category_item").off("mouseover")
+        $(".slideBox dd").css("display", "none")
+        $(".category_item").css("background", "whitesmoke")
+    })
+    $(".shop_item").mouseenter(function () {
+        $(this).css("background-color", "whitesmoke")
+        $(this).siblings().css("background", "white")
+    })
+    // jQuery(".txtScroll-top").slide({titCell:".hd ul",mainCell:".bd ul",autoPage:true,effect:"top",autoPlay:true,scroll:1});
+    jQuery(".txtScroll-top").slide({
+        titCell: ".hd ul",
+        mainCell: ".bd ul",
+        autoPage: true,
+        effect: "top",
+        autoPlay: true,
+        delayTime: 700
+    });
+    var swiper = new Swiper('.swiper-container', {
+        slidesPerView: 5,
+        spaceBetween: 10,
+        slidesPerGroup: 1,
+        loop: true,
+        loopFillGroupWithBlank: true,
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
+    //  监听网页滚动
+    $(window).scroll(function () {
+        var top = $(this).scrollTop();
+
+         console.log(top)
+        if (top > 400) {
+            $(".return").stop(true).animate({
+                opacity: 1
+            });
+
+        } else {
+            $(".return").stop(true).animate({
+                opacity: 0
+            });
+        }
+        if (top > 2100) {
+            $(".floorBox").stop(true).animate({
+                right: "20px"
+            });
+
+        } else {
+            $(".floorBox").stop(true).animate({
+                right: "-200px"
+            });
+
+
+        }
+
+    })
+    //回到顶部
+    $(".return").click(function () {
+        $("html,body").animate({
+            scrollTop: 0
+        });
+    });
+    var returnNav = [2180, 3148, 3830, 4492, 5164, 5845, 6484, 7315]
+    $(".floorBox .item").click(function () {
+        var i = $(this).index()
+        var top = returnNav[i];
+        $("html,body").animate({
+            scrollTop: top
+        })
+    })
+    $(".tel_list li").click(function () {
+        window.location.href = "details.html"
+    })
+    $(".hot_right li").click(function () {
+        window.location.href = "details.html"
+    })
+
+
+
+    layui.use('element', function () {
+        var element = layui.element;
+    });
+
+    //注册弹窗
+    function register() {
+        layui.use('layer', function () {
+            var layer = layui.layer;
+            layer.open({
+                type: 2,
+                title: false,
+                area: ['450px', '480px'],//宽高
+                closeBtn: 0,//不显示关闭按钮
+                scrollbar: false,//在浏览器出现滚动条
+                resize: false,//禁止拉伸
+                move: false,//禁止拖拽
+                shade: 0.8,//遮罩
+                shadeClose: true,//开启遮罩关闭
+                //content:'views/Users/register.html',
+                content: 'register.html',//路径  访问首页  注册  相对于index.html而言 然后在找到register.html
+            })
+        })
+    }
+
+    $("#search_btn").click(function () {
+        window.location.href="/index/serch/"+1
+    })
+
+
+    /*懒加载*/
+    var viewHeight =document.documentElement.clientHeight//获取可视区高度
+    function lazyload(){
+        var eles=document.querySelectorAll('img[data-original][lazyload]')
+        Array.prototype.forEach.call(eles,function(item,index){
+            var rect
+            if(item.dataset.original==="")
+                return
+            rect=item.getBoundingClientRect()// 用于获得页面中某个元素的左，上，右和下分别相对浏览器视窗的位置
+            if(rect.bottom>=0 && rect.top < viewHeight){
+                !function(){
+                    var img=new Image()
+                    img.src=item.dataset.url
+                    img.onload=function(){
+                        item.src=img.src
+                    }
+                    item.removeAttribute("data-original")//移除属性，下次不再遍历
+                    item.removeAttribute("lazyload")
+                }()
+            }
+        })
+    }
+    lazyload()//刚开始还没滚动屏幕时，要先触发一次函数，初始化首页的页面图片
+    document.addEventListener("scroll",lazyload)
+
+</script>
+</html>
